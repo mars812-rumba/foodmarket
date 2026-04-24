@@ -66,6 +66,7 @@ type Restaurant = {
   description?: string;
   info_text?: string;
   payment_qr_url?: string;
+  manager_username?: string;
 };
 
 /* ============================================================
@@ -619,6 +620,7 @@ export default function Home() {
       {/* ============ МОДАЛКА СТАТУСА ЗАКАЗА ============ */}
       <ClientOrderModal
         paymentQrUrl={restaurants.find(r => r.id === selectedRestaurant)?.payment_qr_url}
+        managerUsername={restaurants.find(r => r.id === selectedRestaurant)?.manager_username}
       />
 
       {/* ============ МОДАЛКА О РЕСТОРАНЕ ============ */}

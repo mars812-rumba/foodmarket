@@ -87,6 +87,7 @@ interface Restaurant {
   logo?: string;
   payment_qr_url?: string;
   admin_ids?: string[];
+  manager_username?: string;
   created_at?: string;
 }
 
@@ -549,6 +550,8 @@ export default function MenuManager() {
                         phone: config.phone || '',
                         logo: config.logo || '',
                         payment_qr_url: config.payment_qr_url || '',
+                        admin_ids: config.admin_ids || [],
+                        manager_username: config.manager_username || '',
                         created_at: config.created_at || '',
                       };
                       setEditingRestaurant(restaurant);
@@ -1026,6 +1029,17 @@ export default function MenuManager() {
                   const ids = val.split(',').map(s => s.trim()).filter(Boolean);
                   setRestaurantFormData(prev => ({ ...prev, admin_ids: ids }));
                 }}
+              />
+            </div>
+
+            {/* Менеджер (Telegram username) */}
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-slate-500 ml-1">МЕНЕДЖЕР (Telegram @username для связи клиентов)</Label>
+              <Input
+                value={restaurantFormData.manager_username || ''}
+                placeholder="LoftFireBot"
+                className="h-12 rounded-xl bg-slate-50 border-none text-lg font-bold focus-visible:ring-orange-500"
+                onChange={(e) => setRestaurantFormData(prev => ({ ...prev, manager_username: e.target.value }))}
               />
             </div>
 

@@ -33,6 +33,8 @@ type OrderContextValue = {
   clearOrder: () => void;
   /** Cancel the active order (calls backend CANCELLED) and clear locally */
   cancelOrder: () => void;
+  /** Mark order as DONE (user confirms receipt) and clear locally */
+  completeOrder: () => void;
   /** True when order is in Work or Pbook — needs user action */
   needsAttention: boolean;
   /** Open/close state for ClientOrderModal */
@@ -152,6 +154,25 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     setModalOpen(false);
   }, [activeOrder]);
 
+  const completeOrder = useCallback(async () => {
+    if (!activeOrder) return;
+    try {
+      await fetch(
+        `${API_URL}/api/${activeOrder.restaurantId}/orders/${activeOrder.orderId}/status`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "DONE" }),
+        }
+      );
+    } catch {
+      // Even if backend fails, clear locally
+    }
+    setActiveOrderRaw(null);
+    saveToStorage(null);
+    setModalOpen(false);
+  }, [activeOrder]);
+
   const openModal = useCallback(() => setModalOpen(true), []);
   const closeModal = useCallback(() => setModalOpen(false), []);
 
@@ -165,14 +186,15 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // If order is already in a terminal state (Book/Done), no need to poll
-    if (activeOrder.status === "Book" || activeOrder.status === "Done") {
+    // If order is already Done, no need to poll
+    if (activeOrder.status === "Done") {
       if (pollRef.current) {
         clearInterval(pollRef.current);
         pollRef.current = null;
       }
       return;
     }
+    // Book status still polls — restaurant may mark as DONE when ready
 
     const poll = async () => {
       try {
@@ -230,6 +252,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       setActiveOrder,
       clearOrder,
       cancelOrder,
+      completeOrder,
       needsAttention,
       modalOpen,
       openModal,
@@ -240,6 +263,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       setActiveOrder,
       clearOrder,
       cancelOrder,
+      completeOrder,
       needsAttention,
       modalOpen,
       openModal,

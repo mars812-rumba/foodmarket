@@ -1,23 +1,12 @@
 import { useEffect, useState, useCallback, type CSSProperties } from "react";
 import { useSearchParams } from "react-router-dom";
 import OrderCard, { type DashboardOrder } from "@/components/OrderCard";
-import {
-  RefreshCw,
-  Utensils,
-  Clock,
-  CheckCircle2,
-  XCircle,
-  AlertCircle,
-  Loader2,
-} from "lucide-react";
+import { RefreshCw, Utensils, Clock, AlertCircle, Loader2 } from "lucide-react";
+import { C, R, SH, FONT } from "/home/loft_fire/simple-ar/src/data/theme.tsx";
 
 const API_URL =
   import.meta.env.VITE_API_URL || "https://weldwood.sunny-rentals.online";
 const POLL_MS = 15_000;
-
-/* ============================================================
-   TYPES
-   ============================================================ */
 
 type AuthState = {
   authenticated: boolean;
@@ -26,10 +15,6 @@ type AuthState = {
   loading: boolean;
   error: string;
 };
-
-/* ============================================================
-   COMPONENT
-   ============================================================ */
 
 export default function RestaurantDashboard() {
   const [searchParams] = useSearchParams();
@@ -49,19 +34,33 @@ export default function RestaurantDashboard() {
   const [filter, setFilter] = useState<"all" | "active" | "done">("active");
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
 
-  // ── Auth via token ──
+  // Auth
   useEffect(() => {
     if (!token) {
-      setAuth({ authenticated: false, restaurantId: "", restaurantName: "", loading: false, error: "Токен не указан. Используйте ссылку с параметром ?token=..." });
+      setAuth({
+        authenticated: false,
+        restaurantId: "",
+        restaurantName: "",
+        loading: false,
+        error: "Токен не указан. Используйте ссылку с параметром ?token=...",
+      });
       return;
     }
 
     const authenticate = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/dashboard/auth?token=${encodeURIComponent(token)}`);
+        const res = await fetch(
+          `${API_URL}/api/dashboard/auth?token=${encodeURIComponent(token)}`,
+        );
         if (!res.ok) {
           const data = await res.json().catch(() => ({ detail: "Ошибка авторизации" }));
-          setAuth({ authenticated: false, restaurantId: "", restaurantName: "", loading: false, error: data.detail || "Неверный токен" });
+          setAuth({
+            authenticated: false,
+            restaurantId: "",
+            restaurantName: "",
+            loading: false,
+            error: data.detail || "Неверный токен",
+          });
           return;
         }
         const data = await res.json();
@@ -73,14 +72,20 @@ export default function RestaurantDashboard() {
           error: "",
         });
       } catch {
-        setAuth({ authenticated: false, restaurantId: "", restaurantName: "", loading: false, error: "Не удалось подключиться к серверу" });
+        setAuth({
+          authenticated: false,
+          restaurantId: "",
+          restaurantName: "",
+          loading: false,
+          error: "Не удалось подключиться к серверу",
+        });
       }
     };
 
     authenticate();
   }, [token]);
 
-  // ── Fetch orders ──
+  // Orders
   const fetchOrders = useCallback(async () => {
     if (!auth.authenticated || !auth.restaurantId) return;
     setLoadingOrders(true);
@@ -92,7 +97,7 @@ export default function RestaurantDashboard() {
         setLastRefresh(new Date());
       }
     } catch {
-      // silently retry
+      /* retry */
     } finally {
       setLoadingOrders(false);
     }
@@ -105,7 +110,6 @@ export default function RestaurantDashboard() {
     return () => clearInterval(id);
   }, [auth.authenticated, fetchOrders]);
 
-  // ── Actions ──
   const updateStatus = async (orderId: string, status: string) => {
     if (!auth.restaurantId) return;
     setActionLoading(orderId);
@@ -116,13 +120,11 @@ export default function RestaurantDashboard() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status }),
-        }
+        },
       );
-      if (res.ok) {
-        await fetchOrders();
-      }
+      if (res.ok) await fetchOrders();
     } catch {
-      // ignore
+      /* ignore */
     } finally {
       setActionLoading(null);
     }
@@ -133,18 +135,15 @@ export default function RestaurantDashboard() {
   const handleMarkPaid = (orderId: string) => updateStatus(orderId, "PAID");
   const handleMarkDone = (orderId: string) => updateStatus(orderId, "DONE");
   const handleDismiss = (orderId: string) => {
-    // Remove from local view only (already DONE/CANCELLED)
     setOrders((prev) => prev.filter((o) => o.order_id !== orderId));
   };
 
-  // ── Filtered orders ──
   const filtered = orders.filter((o) => {
     if (filter === "active") return o.status !== "DONE" && o.status !== "CANCELLED";
     if (filter === "done") return o.status === "DONE" || o.status === "CANCELLED";
     return true;
   });
 
-  // ── Stats ──
   const stats = {
     new: orders.filter((o) => o.status === "NEW").length,
     confirmed: orders.filter((o) => o.status === "CONFIRMED").length,
@@ -153,26 +152,25 @@ export default function RestaurantDashboard() {
     cancelled: orders.filter((o) => o.status === "CANCELLED").length,
   };
 
-  // ── Render ──
-
-  // Loading auth
   if (auth.loading) {
     return (
       <div style={s.page}>
         <div style={s.centerBox}>
-          <Loader2 size={32} style={{ animation: "spin 1s linear infinite", color: "#D97706" }} />
+          <Loader2
+            size={32}
+            style={{ animation: "spin 1s linear infinite", color: C.accent }}
+          />
           <p style={s.loadingText}>Авторизация...</p>
         </div>
       </div>
     );
   }
 
-  // Auth error
   if (!auth.authenticated) {
     return (
       <div style={s.page}>
         <div style={s.centerBox}>
-          <AlertCircle size={40} style={{ color: "#DC2626" }} />
+          <AlertCircle size={40} style={{ color: C.danger }} />
           <h2 style={s.errorTitle}>Доступ запрещён</h2>
           <p style={s.errorText}>{auth.error}</p>
         </div>
@@ -182,41 +180,34 @@ export default function RestaurantDashboard() {
 
   return (
     <div style={s.page}>
-      {/* ── Header ── */}
+      {/* Header */}
       <div style={s.header}>
         <div style={s.headerLeft}>
-          <Utensils size={20} style={{ color: "#E04E1B" }} />
+          <div style={s.brandIcon}>
+            <Utensils size={18} style={{ color: "#FFFFFF" }} />
+          </div>
           <div>
             <h1 style={s.title}>{auth.restaurantName}</h1>
             <p style={s.subtitle}>Панель управления заказами</p>
           </div>
         </div>
         <button style={s.refreshBtn} onClick={fetchOrders} disabled={loadingOrders}>
-          <RefreshCw size={16} style={loadingOrders ? { animation: "spin 1s linear infinite" } : {}} />
+          <RefreshCw
+            size={16}
+            style={loadingOrders ? { animation: "spin 1s linear infinite" } : {}}
+          />
         </button>
       </div>
 
-      {/* ── Stats bar ── */}
+      {/* Stats */}
       <div style={s.statsBar}>
-        <div style={{ ...s.statItem, borderLeft: "3px solid #F59E0B" }}>
-          <span style={s.statValue}>{stats.new}</span>
-          <span style={s.statLabel}>Новые</span>
-        </div>
-        <div style={{ ...s.statItem, borderLeft: "3px solid #3B82F6" }}>
-          <span style={s.statValue}>{stats.confirmed}</span>
-          <span style={s.statLabel}>Подтв.</span>
-        </div>
-        <div style={{ ...s.statItem, borderLeft: "3px solid #22C55E" }}>
-          <span style={s.statValue}>{stats.paid}</span>
-          <span style={s.statLabel}>Оплач.</span>
-        </div>
-        <div style={{ ...s.statItem, borderLeft: "3px solid #06B6D4" }}>
-          <span style={s.statValue}>{stats.done}</span>
-          <span style={s.statLabel}>Готово</span>
-        </div>
+        <StatChip value={stats.new} label="Новые" color={C.accent} />
+        <StatChip value={stats.confirmed} label="Подтв." color={C.info} />
+        <StatChip value={stats.paid} label="Оплач." color={C.ok} />
+        <StatChip value={stats.done} label="Готово" color={C.done} />
       </div>
 
-      {/* ── Filter tabs ── */}
+      {/* Filter */}
       <div style={s.filterBar}>
         {(["active", "all", "done"] as const).map((f) => (
           <button
@@ -231,21 +222,24 @@ export default function RestaurantDashboard() {
           </button>
         ))}
         <span style={s.lastRefresh}>
-          {lastRefresh.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" })}
+          {lastRefresh.toLocaleTimeString("ru-RU", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
         </span>
       </div>
 
-      {/* ── Orders list ── */}
+      {/* List */}
       <div style={s.ordersList}>
         {filtered.length === 0 ? (
           <div style={s.emptyState}>
-            <Clock size={40} style={{ color: "#D4C8B8" }} />
+            <Clock size={40} style={{ color: C.hint }} />
             <p style={s.emptyText}>
               {filter === "active"
                 ? "Нет активных заказов"
                 : filter === "done"
-                ? "Нет завершённых заказов"
-                : "Заказов пока нет"}
+                  ? "Нет завершённых заказов"
+                  : "Заказов пока нет"}
             </p>
           </div>
         ) : (
@@ -267,6 +261,23 @@ export default function RestaurantDashboard() {
   );
 }
 
+function StatChip({
+  value,
+  label,
+  color,
+}: {
+  value: number;
+  label: string;
+  color: string;
+}) {
+  return (
+    <div style={{ ...s.statItem, borderTop: `3px solid ${color}` }}>
+      <span style={{ ...s.statValue, color }}>{value}</span>
+      <span style={s.statLabel}>{label}</span>
+    </div>
+  );
+}
+
 /* ============================================================
    STYLES
    ============================================================ */
@@ -274,9 +285,10 @@ export default function RestaurantDashboard() {
 const s: Record<string, CSSProperties> = {
   page: {
     minHeight: "100vh",
-    background: "#F7F4F0",
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    background: C.pageBg,
+    fontFamily: FONT,
     padding: "0 0 40px",
+    color: C.text,
   },
   centerBox: {
     display: "flex",
@@ -287,130 +299,116 @@ const s: Record<string, CSSProperties> = {
     gap: 16,
     padding: 20,
   },
-  loadingText: {
-    fontSize: 14,
-    color: "#7A6650",
-  },
-  errorTitle: {
-    fontSize: 20,
-    fontWeight: 900,
-    color: "#1A1208",
-    margin: 0,
-  },
+  loadingText: { fontSize: 14, color: C.muted },
+  errorTitle: { fontSize: 20, fontWeight: 800, color: C.text, margin: 0 },
   errorText: {
     fontSize: 14,
-    color: "#7A6650",
+    color: C.muted,
     textAlign: "center" as const,
     maxWidth: 300,
   },
 
-  /* Header */
   header: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     padding: "16px 20px",
-    background: "#FFFFFF",
-    borderBottom: "1px solid rgba(120,80,30,0.16)",
+    background: C.bg,
+    borderBottom: `1px solid ${C.border}`,
     position: "sticky" as const,
     top: 0,
     zIndex: 100,
-    boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+    boxShadow: "0 1px 6px rgba(20,10,5,0.04)",
   },
-  headerLeft: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
+  headerLeft: { display: "flex", alignItems: "center", gap: 12 },
+  brandIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: R.md,
+    background: C.accentGradient,
+    display: "grid",
+    placeItems: "center",
+    boxShadow: SH.accent,
   },
   title: {
-    fontSize: 18,
-    fontWeight: 900,
-    color: "#1A1208",
+    fontSize: 17,
+    fontWeight: 800,
+    color: C.text,
     margin: 0,
     letterSpacing: -0.3,
   },
-  subtitle: {
-    fontSize: 12,
-    color: "#9A8A78",
-    margin: 0,
-  },
+  subtitle: { fontSize: 12, color: C.faint, margin: 0 },
   refreshBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-    border: "1px solid rgba(120,80,30,0.16)",
-    background: "#FFFAF2",
+    width: 40,
+    height: 40,
+    borderRadius: R.md,
+    border: `1px solid ${C.border}`,
+    background: C.cream,
     cursor: "pointer",
     display: "grid",
     placeItems: "center",
-    color: "#7A6650",
+    color: C.muted,
   },
 
-  /* Stats */
   statsBar: {
     display: "flex",
-    gap: 8,
-    padding: "12px 20px",
+    gap: 10,
+    padding: "14px 16px 8px",
     overflowX: "auto" as const,
   },
   statItem: {
     flex: 1,
-    minWidth: 70,
-    padding: "8px 10px",
-    borderRadius: 10,
-    background: "#FFFFFF",
+    minWidth: 76,
+    padding: "10px 10px 8px",
+    borderRadius: R.md,
+    background: C.bg,
+    border: `1px solid ${C.border}`,
+    boxShadow: SH.card,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     gap: 2,
   },
-  statValue: {
-    fontSize: 20,
-    fontWeight: 900,
-    color: "#1A1208",
-  },
+  statValue: { fontSize: 22, fontWeight: 900, lineHeight: 1.1 },
   statLabel: {
     fontSize: 10,
     fontWeight: 700,
-    color: "#9A8A78",
+    color: C.faint,
     textTransform: "uppercase" as const,
     letterSpacing: 0.8,
   },
 
-  /* Filter */
   filterBar: {
     display: "flex",
     alignItems: "center",
     gap: 8,
-    padding: "8px 20px 12px",
+    padding: "8px 16px 12px",
   },
   filterBtn: {
-    padding: "6px 14px",
-    borderRadius: 8,
-    border: "1px solid #D4C8B8",
-    background: "transparent",
-    color: "#7A6650",
-    fontSize: 12,
+    padding: "7px 14px",
+    borderRadius: R.pill,
+    border: `1px solid ${C.border}`,
+    background: C.bg,
+    color: C.muted,
+    fontSize: 12.5,
     fontWeight: 700,
     cursor: "pointer",
     fontFamily: "inherit",
   },
   filterBtnActive: {
-    background: "#1A1208",
+    background: C.accentGradient,
     color: "#FFFFFF",
-    borderColor: "#1A1208",
+    borderColor: "transparent",
+    boxShadow: SH.accent,
   },
   lastRefresh: {
     marginLeft: "auto",
     fontSize: 11,
-    color: "#9A8A78",
+    color: C.faint,
     fontVariantNumeric: "tabular-nums",
   },
 
-  /* Orders */
-  ordersList: {
-    padding: "0 16px",
-  },
+  ordersList: { padding: "0 16px" },
   emptyState: {
     display: "flex",
     flexDirection: "column",
@@ -418,9 +416,5 @@ const s: Record<string, CSSProperties> = {
     gap: 12,
     padding: "60px 20px",
   },
-  emptyText: {
-    fontSize: 14,
-    color: "#9A8A78",
-    margin: 0,
-  },
+  emptyText: { fontSize: 14, color: C.faint, margin: 0 },
 };

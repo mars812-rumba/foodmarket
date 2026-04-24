@@ -29,6 +29,7 @@ const T = {
   btnGotIt: "order.btnGotIt",
   btnPaymentSent: "order.btnPaymentSent",
   btnPaymentSentDone: "order.btnPaymentSentDone",
+  btnCompleteOrder: "order.btnCompleteOrder",
   statusWork_title: "order.statusWork.title",
   statusWork_desc: "order.statusWork.desc",
   statusWork_action: "order.statusWork.action",
@@ -39,6 +40,7 @@ const T = {
   statusPbook_paymentSentNote: "order.statusPbook.paymentSentNote",
   statusBook_title: "order.statusBook.title",
   statusBook_desc: "order.statusBook.desc",
+  statusBook_cooking: "order.statusBook.cooking",
   statusDone_title: "order.statusDone.title",
   statusDone_desc: "order.statusDone.desc",
   deliveryPickup: "order.delivery.pickup",
@@ -64,6 +66,7 @@ const RU: Record<string, string> = {
   [T.btnGotIt]: "Понятно",
   [T.btnPaymentSent]: "Отправил",
   [T.btnPaymentSentDone]: "Оплата отмечена",
+  [T.btnCompleteOrder]: "Заказ завершён",
   [T.statusWork_title]: "Ожидание подтверждения",
   [T.statusWork_desc]: "Для подтверждения заказа свяжитесь с менеджером",
   [T.statusWork_action]: "Нажмите кнопку ниже, чтобы менеджер подтвердил заказ",
@@ -73,9 +76,10 @@ const RU: Record<string, string> = {
   [T.statusPbook_qrHint]: "Отсканируйте QR-код для оплаты",
   [T.statusPbook_paymentSentNote]: "Вы отметили оплату. Менеджер проверит и подтвердит заказ.",
   [T.statusBook_title]: "Заказ подтверждён",
-  [T.statusBook_desc]: "Ваш заказ оплачен и готовится!",
+  [T.statusBook_desc]: "Ваш заказ готовится!",
+  [T.statusBook_cooking]: "Обычно мы справляемся за 15–20 минут. Мы сообщим Вам о готовности.",
   [T.statusDone_title]: "Заказ готов",
-  [T.statusDone_desc]: "Ваш заказ готов к получению!",
+  [T.statusDone_desc]: "Забирайте! Ваш заказ готов к получению!",
   [T.deliveryPickup]: "Самовывоз",
   [T.deliveryDelivery]: "Доставка",
   [T.paymentCash]: "Наличные",
@@ -171,8 +175,8 @@ function useCountdown(createdAt: string | undefined): {
 type Props = {
   /** QR code image URL from restaurant config */
   paymentQrUrl?: string;
-  /** Telegram bot username for "Contact Manager" deep link */
-  botUsername?: string;
+  /** Telegram @username of the restaurant manager for "Contact Manager" */
+  managerUsername?: string;
 };
 
 /* ============================================================
@@ -184,9 +188,9 @@ const API_URL =
 
 export default function ClientOrderModal({
   paymentQrUrl,
-  botUsername = "LoftFireBot",
+  managerUsername,
 }: Props) {
-  const { activeOrder, modalOpen, closeModal, clearOrder, cancelOrder, needsAttention } =
+  const { activeOrder, modalOpen, closeModal, clearOrder, cancelOrder, completeOrder, needsAttention } =
     useOrder();
   const timer = useCountdown(activeOrder?.createdAt);
   const [paymentSent, setPaymentSent] = useState(false);
@@ -207,8 +211,9 @@ export default function ClientOrderModal({
   const config = STATUS_CONFIG[activeOrder.status];
 
   const handleContactManager = () => {
-    // Open bot chat directly — user can send order number manually
-    const chatLink = `https://t.me/${botUsername}`;
+    // Open manager's Telegram profile — user can message directly
+    const username = managerUsername || "LoftFireBot";
+    const chatLink = `https://t.me/${username}`;
 
     try {
       const tg = (window as any).Telegram?.WebApp;
@@ -246,8 +251,8 @@ export default function ClientOrderModal({
     }
   };
 
-  const handleDone = () => {
-    clearOrder();
+  const handleCompleteOrder = () => {
+    completeOrder();
   };
 
   const handleCancelOrder = () => {
@@ -408,9 +413,20 @@ export default function ClientOrderModal({
               </button>
             </>
           )}
-          {(activeOrder.status === "Book" ||
-            activeOrder.status === "Done") && (
-            <button style={s.btnDone} onClick={handleDone}>
+          {activeOrder.status === "Book" && (
+            <>
+              <button style={s.btnContact} onClick={handleContactManager}>
+                <MessageCircle size={18} />
+                {t(T.btnContactManager)}
+              </button>
+              <button style={s.btnComplete} onClick={handleCompleteOrder}>
+                <CheckCircle2 size={18} />
+                {t(T.btnCompleteOrder)}
+              </button>
+            </>
+          )}
+          {activeOrder.status === "Done" && (
+            <button style={s.btnDone} onClick={handleCompleteOrder}>
               {t(T.btnGotIt)}
             </button>
           )}
@@ -482,10 +498,11 @@ function BookContent() {
   return (
     <div style={{ ...s.statusBlock, borderColor: STATUS_CONFIG.Book.borderColor }}>
       <div style={s.statusIconWrap}>
-        <CheckCircle2 size={40} style={{ color: STATUS_CONFIG.Book.color }} />
+        <Utensils size={36} style={{ color: STATUS_CONFIG.Book.color }} />
       </div>
       <h3 style={s.statusTitle}>{t(T.statusBook_title)}</h3>
       <p style={s.statusDesc}>{t(T.statusBook_desc)}</p>
+      <p style={s.cookingNote}>{t(T.statusBook_cooking)}</p>
     </div>
   );
 }
@@ -855,6 +872,30 @@ const s: Record<string, CSSProperties> = {
     color: "#2563EB",
     textAlign: "center" as const,
     lineHeight: 1.4,
+  },
+  cookingNote: {
+    margin: 0,
+    fontSize: 13,
+    color: "#16A34A",
+    fontWeight: 600,
+    textAlign: "center" as const,
+    lineHeight: 1.5,
+  },
+  btnComplete: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    background: "linear-gradient(135deg, #0891B2 0%, #0E7490 100%)",
+    color: "#FFFFFF",
+    border: "none",
+    padding: "14px 20px",
+    borderRadius: 14,
+    fontWeight: 900,
+    fontSize: 15,
+    cursor: "pointer",
+    fontFamily: "inherit",
+    boxShadow: "0 4px 12px rgba(8,145,178,0.4)",
   },
   timerFooter: {
     display: "flex",
