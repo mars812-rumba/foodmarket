@@ -1,0 +1,3633 @@
+[
+  {
+    "booking_id": "ORD-ER9IX",
+    "user_id": "web_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-23T20:32:41.140056",
+    "updated_at": "2026-04-23T20:32:41.140056",
+    "form_data": {
+      "car": {
+        "name": "Стейк из говядины (x1), Pasta Balonese (x1), Лимонады 0,5л (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T20:32:41.140056",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 800.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        },
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-MQ6F7",
+    "user_id": "web_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-23T21:07:26.721145",
+    "updated_at": "2026-04-23T21:07:26.721145",
+    "form_data": {
+      "car": {
+        "name": "Чизбургер (x1), Чизбургер (x1), Стейк из говядины (x1), Суши сет  (x1), Куриные ножки (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T21:07:26.721145",
+        "end": null
+      },
+      "contact": {
+        "name": "Mars",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 2090.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        },
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        },
+        {
+          "name": "Суши сет ",
+          "price": 870.0,
+          "qnt": 1
+        },
+        {
+          "name": "Куриные ножки",
+          "price": 470.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-I23OT",
+    "user_id": "web_79991234567",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-04-23T21:59:21.457266",
+    "updated_at": "2026-04-23T22:22:55.212382",
+    "form_data": {
+      "car": {
+        "name": "Маргарита (x2)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T21:59:21.457266",
+        "end": null
+      },
+      "contact": {
+        "name": "Тестовый клиент",
+        "value": "+79991234567"
+      },
+      "pricing": {
+        "totalRental": 700.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Маргарита",
+          "price": 350.0,
+          "qnt": 2
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-WFNXD",
+    "user_id": "123456789",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-23T22:12:36.819787",
+    "updated_at": "2026-04-23T22:13:55.335193",
+    "form_data": {
+      "car": {
+        "name": "Пепперони (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T22:12:36.819787",
+        "end": null
+      },
+      "contact": {
+        "name": "Тест Telegram",
+        "value": "+79990001111"
+      },
+      "pricing": {
+        "totalRental": 450.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Пепперони",
+          "price": 450.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-KZXA3",
+    "user_id": "web_9996464",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-23T22:32:14.855151",
+    "updated_at": "2026-04-23T22:32:14.855151",
+    "form_data": {
+      "car": {
+        "name": "Суши сет  (x1), Лимонады 0,5л (x1), 4 сыра (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T22:32:14.855151",
+        "end": null
+      },
+      "contact": {
+        "name": "Mars812",
+        "value": "+9996464"
+      },
+      "pricing": {
+        "totalRental": 1400.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суши сет ",
+          "price": 970.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        },
+        {
+          "name": "4 сыра",
+          "price": 380.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-40K9V",
+    "user_id": "web_66842039140",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-23T23:14:10.236323",
+    "updated_at": "2026-04-23T23:14:10.236323",
+    "form_data": {
+      "car": {
+        "name": "Маргарита (x5)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T23:14:10.236323",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel",
+        "value": "+66842039140"
+      },
+      "pricing": {
+        "totalRental": 1250.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Маргарита",
+          "price": 250.0,
+          "qnt": 5
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "ORD-V5IJY",
+    "user_id": "web_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-23T23:21:35.397587",
+    "updated_at": "2026-04-23T23:21:35.397587",
+    "form_data": {
+      "car": {
+        "name": "Чизбургер (x1), Pasta Balonese (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T23:21:35.397587",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 350.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-ALIAO",
+    "user_id": "web_792199999999",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T02:05:45.833565",
+    "updated_at": "2026-04-24T02:05:45.833565",
+    "form_data": {
+      "car": {
+        "name": "4 сыра (x1), Стейк из говядины (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T02:05:45.833565",
+        "end": null
+      },
+      "contact": {
+        "name": "Алекс",
+        "value": "+792199999999"
+      },
+      "pricing": {
+        "totalRental": 880.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "4 сыра",
+          "price": 380.0,
+          "qnt": 1
+        },
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1776998644",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T02:44:04.810539",
+    "updated_at": "2026-04-24T02:44:04.810554",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T02:44:04.810539",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-ULRY6",
+    "user_id": "web_9219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T02:45:56.982439",
+    "updated_at": "2026-04-24T02:45:56.982439",
+    "form_data": {
+      "car": {
+        "name": "4 сыра (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T02:45:56.982439",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "9219959164"
+      },
+      "pricing": {
+        "totalRental": 380.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "4 сыра",
+          "price": 380.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1776999598",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T02:59:58.754234",
+    "updated_at": "2026-04-24T02:59:58.754252",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T02:59:58.754234",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1776999765",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:02:45.522192",
+    "updated_at": "2026-04-24T03:02:45.522212",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:02:45.522192",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-CKFQ2",
+    "user_id": "web_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:03:25.499101",
+    "updated_at": "2026-04-24T03:03:25.499101",
+    "form_data": {
+      "car": {
+        "name": "Чизбургер (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:03:25.499101",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 150.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777001406",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:30:06.831874",
+    "updated_at": "2026-04-24T03:30:06.831885",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:30:06.831874",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-PU6DV",
+    "user_id": "web_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:31:12.932234",
+    "updated_at": "2026-04-24T03:31:12.932234",
+    "form_data": {
+      "car": {
+        "name": "4 сыра (x1), Чизбургер (x1), Лимонады 0,5л (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:31:12.932234",
+        "end": null
+      },
+      "contact": {
+        "name": "Mars",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 580.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "4 сыра",
+          "price": 380.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777001569",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:32:49.024153",
+    "updated_at": "2026-04-24T03:32:49.024165",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:32:49.024153",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777001675",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:34:35.802508",
+    "updated_at": "2026-04-24T03:34:35.802524",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:34:35.802508",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777002226",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:43:46.230921",
+    "updated_at": "2026-04-24T03:43:46.230932",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:43:46.230921",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "ORD-N9Y26",
+    "user_id": "web_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T03:44:47.557727",
+    "updated_at": "2026-04-24T03:44:47.557727",
+    "form_data": {
+      "car": {
+        "name": "Маргарита (x1), Carbonara (x1), Balon'ieze pasta (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T03:44:47.557727",
+        "end": null
+      },
+      "contact": {
+        "name": "Mars Khasan",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 800.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Маргарита",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Carbonara",
+          "price": 280.0,
+          "qnt": 1
+        },
+        {
+          "name": "Balon'ieze pasta",
+          "price": 270.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777003277",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:01:17.382880",
+    "updated_at": "2026-04-24T04:01:17.382891",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:01:17.382880",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777003396",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:03:16.741207",
+    "updated_at": "2026-04-24T04:03:16.741217",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:03:16.741207",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-2W0P8",
+    "user_id": "web_79219959164",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:04:35.617253",
+    "updated_at": "2026-04-24T04:04:35.617253",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-2W0P8",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:04:35.617253",
+        "end": null
+      },
+      "contact": {
+        "name": "John",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 1370.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суши сет ",
+          "price": 970.0,
+          "qnt": 1
+        },
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777004211",
+    "user_id": "374897465",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:16:51.443441",
+    "updated_at": "2026-04-24T04:16:51.443462",
+    "form_data": {
+      "car": {
+        "name": "",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:16:51.443441",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-BC7W5",
+    "user_id": "web_3664346",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:18:06.358771",
+    "updated_at": "2026-04-24T04:18:06.358771",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-BC7W5",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:18:06.358771",
+        "end": null
+      },
+      "contact": {
+        "name": "Клиент",
+        "value": "3664346"
+      },
+      "pricing": {
+        "totalRental": 970.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суши сет ",
+          "price": 970.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777005950",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:45:50.241803",
+    "updated_at": "2026-04-24T04:45:50.241826",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777005950",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:45:50.241803",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-GACTT",
+    "user_id": "web_79219959164",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:46:38.077557",
+    "updated_at": "2026-04-24T04:46:38.077557",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-GACTT",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:46:38.077557",
+        "end": null
+      },
+      "contact": {
+        "name": "Mars",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 930.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "4 сыра",
+          "price": 380.0,
+          "qnt": 1
+        },
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777006189",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:49:49.595250",
+    "updated_at": "2026-04-24T04:49:49.595265",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777006189",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:49:49.595250",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-QA7X5",
+    "user_id": "web_66842039140",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T04:50:59.074683",
+    "updated_at": "2026-04-24T04:50:59.074683",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-QA7X5",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T04:50:59.074683",
+        "end": null
+      },
+      "contact": {
+        "name": "Khasanov Marsel",
+        "value": "66842039140"
+      },
+      "pricing": {
+        "totalRental": 980.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        },
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        },
+        {
+          "name": "4 сыра",
+          "price": 330.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777007140",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T05:05:40.946741",
+    "updated_at": "2026-04-24T05:05:40.946751",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777007140",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T05:05:40.946741",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-3QJQD",
+    "user_id": "web_66610106473",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T05:06:17.464474",
+    "updated_at": "2026-04-24T05:06:17.464474",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-3QJQD",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T05:06:17.464474",
+        "end": null
+      },
+      "contact": {
+        "name": "Мврс",
+        "value": "+66610106473"
+      },
+      "pricing": {
+        "totalRental": 150.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777007343",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T05:09:03.246224",
+    "updated_at": "2026-04-24T05:09:03.246235",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777007343",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T05:09:03.246224",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-TGG5H",
+    "user_id": "web_6684203648",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T05:13:03.271748",
+    "updated_at": "2026-04-24T05:13:03.271748",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-TGG5H",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T05:13:03.271748",
+        "end": null
+      },
+      "contact": {
+        "name": "Пионер",
+        "value": "+6684203648"
+      },
+      "pricing": {
+        "totalRental": 780.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "4 сыра",
+          "price": 380.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        },
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777007681",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T05:14:41.733116",
+    "updated_at": "2026-04-24T05:14:41.733126",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777007681",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T05:14:41.733116",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-CJ8EM",
+    "user_id": "web_66610106473",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T05:18:37.100568",
+    "updated_at": "2026-04-24T05:18:37.100568",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-CJ8EM",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T05:18:37.100568",
+        "end": null
+      },
+      "contact": {
+        "name": "Тест 1",
+        "value": "+66610106473"
+      },
+      "pricing": {
+        "totalRental": 350.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777010678",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T06:04:38.185596",
+    "updated_at": "2026-04-24T06:04:38.185611",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777010678",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T06:04:38.185596",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777011209",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T06:13:29.581408",
+    "updated_at": "2026-04-24T06:13:29.581448",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777011209",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T06:13:29.581408",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777011491",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T06:18:11.322050",
+    "updated_at": "2026-04-24T06:18:11.322068",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777011491",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T06:18:11.322050",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777013069",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T06:44:29.695509",
+    "updated_at": "2026-04-24T06:44:29.695524",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777013069",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T06:44:29.695509",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-HRGWC",
+    "user_id": "web_79219959164",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T06:54:01.007677",
+    "updated_at": "2026-04-24T06:54:01.007677",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-HRGWC",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T06:54:01.007677",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 550.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Куриные ножки",
+          "price": 450.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-5PL4U",
+    "user_id": "web_79219959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T06:55:56.538042",
+    "updated_at": "2026-04-24T07:26:36.860968",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-5PL4U",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T06:55:56.538042",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 600.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777014146",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:02:26.921065",
+    "updated_at": "2026-04-24T07:02:26.921077",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777014146",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:02:26.921065",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777014508",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:08:28.915674",
+    "updated_at": "2026-04-24T07:08:28.915687",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777014508",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:08:28.915674",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777014800",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:13:20.151696",
+    "updated_at": "2026-04-24T07:13:20.151705",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777014800",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:13:20.151696",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777015566",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:26:06.687605",
+    "updated_at": "2026-04-24T07:26:06.687625",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777015566",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:26:06.687605",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "ORD-SZ1CM",
+    "user_id": "web_79219959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:27:17.708827",
+    "updated_at": "2026-04-24T07:32:34.304028",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-SZ1CM",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:27:17.708827",
+        "end": null
+      },
+      "contact": {
+        "name": "Clown",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 760.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Carbonara",
+          "price": 230.0,
+          "qnt": 1
+        },
+        {
+          "name": "Balon'ieze pasta",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Carbonara",
+          "price": 280.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777015830",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:30:30.943518",
+    "updated_at": "2026-04-24T07:30:30.943533",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777015830",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:30:30.943518",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777016044",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:34:04.327228",
+    "updated_at": "2026-04-24T07:34:04.327248",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777016044",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:34:04.327228",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777016093",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:34:53.227167",
+    "updated_at": "2026-04-24T07:34:53.227177",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777016093",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:34:53.227167",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777016384",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:39:44.206427",
+    "updated_at": "2026-04-24T07:39:44.206441",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777016384",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:39:44.206427",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777016416",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:40:16.556212",
+    "updated_at": "2026-04-24T07:40:16.556226",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777016416",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:40:16.556212",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777017389",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T07:56:29.623457",
+    "updated_at": "2026-04-24T07:56:29.623477",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777017389",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T07:56:29.623457",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777019006",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:23:26.391409",
+    "updated_at": "2026-04-24T08:23:26.391424",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777019006",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:23:26.391409",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777019046",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:24:06.438756",
+    "updated_at": "2026-04-24T08:24:06.438770",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777019046",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:24:06.438756",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777019282",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:28:02.836763",
+    "updated_at": "2026-04-24T08:28:02.836780",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777019282",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:28:02.836763",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-6451825371-1777019346",
+    "user_id": "6451825371",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:29:06.922931",
+    "updated_at": "2026-04-24T08:29:06.922950",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-6451825371-1777019346",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:29:06.922931",
+        "end": null
+      },
+      "contact": {
+        "name": "mars_rent",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-531857167-1777019350",
+    "user_id": "531857167",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:29:10.982478",
+    "updated_at": "2026-04-24T08:29:10.982487",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-531857167-1777019350",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:29:10.982478",
+        "end": null
+      },
+      "contact": {
+        "name": "ivn_fo",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-6451825371-1777019875",
+    "user_id": "6451825371",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:37:55.147824",
+    "updated_at": "2026-04-24T08:37:55.147844",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-6451825371-1777019875",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:37:55.147824",
+        "end": null
+      },
+      "contact": {
+        "name": "mars_rent",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-6451825371-1777019990",
+    "user_id": "6451825371",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:39:50.119840",
+    "updated_at": "2026-04-24T08:39:50.119853",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-6451825371-1777019990",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:39:50.119840",
+        "end": null
+      },
+      "contact": {
+        "name": "mars_rent",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777020049",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:40:49.534932",
+    "updated_at": "2026-04-24T08:40:49.534945",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777020049",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:40:49.534932",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-531857167-1777020973",
+    "user_id": "531857167",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:56:13.100794",
+    "updated_at": "2026-04-24T08:56:13.100811",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-531857167-1777020973",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:56:13.100794",
+        "end": null
+      },
+      "contact": {
+        "name": "ivn_fo",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777020998",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:56:38.597947",
+    "updated_at": "2026-04-24T08:56:38.597958",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777020998",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:56:38.597947",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777021051",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:57:31.395952",
+    "updated_at": "2026-04-24T08:57:31.395965",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777021051",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:57:31.395952",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "ORD-KPE91",
+    "user_id": "web_6666666666",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T08:58:03.337462",
+    "updated_at": "2026-04-24T13:01:45.033528",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-KPE91",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T08:58:03.337462",
+        "end": null
+      },
+      "contact": {
+        "name": "BigDick",
+        "value": "6666666666"
+      },
+      "pricing": {
+        "totalRental": 650.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        },
+        {
+          "name": "Куриные ножки",
+          "price": 450.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777021252",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:00:52.962903",
+    "updated_at": "2026-04-24T09:00:52.962914",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777021252",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:00:52.962903",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777022411",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:20:11.018862",
+    "updated_at": "2026-04-24T09:20:11.018876",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777022411",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:20:11.018862",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777022485",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:21:25.609834",
+    "updated_at": "2026-04-24T09:21:25.609848",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777022485",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:21:25.609834",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777022614",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:23:34.142976",
+    "updated_at": "2026-04-24T09:23:34.142987",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777022614",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:23:34.142976",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777022939",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:28:59.659424",
+    "updated_at": "2026-04-24T09:28:59.659445",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777022939",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:28:59.659424",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "ORD-ON7GL",
+    "user_id": "web_66610106473",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:29:45.832699",
+    "updated_at": "2026-04-24T09:30:33.550408",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-ON7GL",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:29:45.832699",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель.",
+        "value": "+66610106473"
+      },
+      "pricing": {
+        "totalRental": 750.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "BEEF KIN BURGER SET",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Chicken Burger Classic",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Chicken Burger Classic",
+          "price": 250.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777023535",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:38:55.483782",
+    "updated_at": "2026-04-24T09:38:55.483800",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777023535",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:38:55.483782",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "ORD-8JR8S",
+    "user_id": "web_79219959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:39:29.668069",
+    "updated_at": "2026-04-24T09:50:40.535724",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-8JR8S",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:39:29.668069",
+        "end": null
+      },
+      "contact": {
+        "name": "Марс",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 110.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Roselle Soda",
+          "price": 110.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777024044",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:47:24.692237",
+    "updated_at": "2026-04-24T09:47:24.692258",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777024044",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:47:24.692237",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777024635",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:57:15.532305",
+    "updated_at": "2026-04-24T09:57:15.532315",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777024635",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:57:15.532305",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "ORD-FINH1",
+    "user_id": "web_99999999999",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T09:58:16.601753",
+    "updated_at": "2026-04-24T10:19:05.192573",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-FINH1",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T09:58:16.601753",
+        "end": null
+      },
+      "contact": {
+        "name": "Марселойд",
+        "value": "99999999999"
+      },
+      "pricing": {
+        "totalRental": 550.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "BEEF KIN BURGER SET",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Chicken Burger Classic",
+          "price": 300.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777025902",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:18:22.707556",
+    "updated_at": "2026-04-24T10:18:22.707566",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777025902",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:18:22.707556",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777026471",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:27:51.245853",
+    "updated_at": "2026-04-24T10:27:51.245867",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777026471",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:27:51.245853",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777026727",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:32:07.161632",
+    "updated_at": "2026-04-24T10:32:07.161646",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777026727",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:32:07.161632",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777026904",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:35:04.855854",
+    "updated_at": "2026-04-24T10:35:04.855880",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777026904",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:35:04.855854",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777026931",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:35:31.574618",
+    "updated_at": "2026-04-24T10:35:31.574629",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777026931",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:35:31.574618",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "ORD-DGS2Q",
+    "user_id": "web_79219959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:37:09.050088",
+    "updated_at": "2026-04-24T10:48:51.754609",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-DGS2Q",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:37:09.050088",
+        "end": null
+      },
+      "contact": {
+        "name": "Nars",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 550.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "BEEF KIN BURGER SET",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Chicken Burger Classic",
+          "price": 300.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777027145",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:39:05.644585",
+    "updated_at": "2026-04-24T10:39:05.644599",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777027145",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:39:05.644585",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "ORD-39M60",
+    "user_id": "web_79219959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T10:54:04.027954",
+    "updated_at": "2026-04-24T12:16:22.787136",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-39M60",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T10:54:04.027954",
+        "end": null
+      },
+      "contact": {
+        "name": "Толик",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 110.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Roselle Soda",
+          "price": 110.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777028753",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:05:53.944581",
+    "updated_at": "2026-04-24T11:05:53.944595",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777028753",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:05:53.944581",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777028787",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:06:27.643718",
+    "updated_at": "2026-04-24T11:06:27.643731",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777028787",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:06:27.643718",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777029784",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:23:04.659169",
+    "updated_at": "2026-04-24T11:23:04.659179",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777029784",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:23:04.659169",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777029833",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:23:53.291052",
+    "updated_at": "2026-04-24T11:23:53.291073",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777029833",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:23:53.291052",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777031125",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:45:25.425542",
+    "updated_at": "2026-04-24T11:45:25.425559",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777031125",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:45:25.425542",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777031201",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:46:41.089642",
+    "updated_at": "2026-04-24T11:46:41.089654",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777031201",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:46:41.089642",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777031351",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:49:11.297262",
+    "updated_at": "2026-04-24T11:49:11.297277",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777031351",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:49:11.297262",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777031552",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T11:52:32.061560",
+    "updated_at": "2026-04-24T11:52:32.061572",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777031552",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T11:52:32.061560",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777032520",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:08:40.297267",
+    "updated_at": "2026-04-24T12:08:40.297284",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777032520",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:08:40.297267",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777032953",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:15:53.357871",
+    "updated_at": "2026-04-24T12:15:53.357883",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777032953",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:15:53.357871",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-HF15F",
+    "user_id": "web_79219959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:16:48.903606",
+    "updated_at": "2026-04-24T13:01:37.655485",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-HF15F",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:16:48.903606",
+        "end": null
+      },
+      "contact": {
+        "name": "Test 1",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 550.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "BEEF KIN BURGER SET",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Chicken Burger Classic",
+          "price": 300.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-5BBXH",
+    "user_id": "web_666666665555",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:18:36.579405",
+    "updated_at": "2026-04-24T12:19:05.991758",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-5BBXH",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:18:36.579405",
+        "end": null
+      },
+      "contact": {
+        "name": "Meew",
+        "value": "666666665555"
+      },
+      "pricing": {
+        "totalRental": 250.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-6KSF5",
+    "user_id": "web_666666665555",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:19:42.951535",
+    "updated_at": "2026-04-24T12:20:54.769772",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-6KSF5",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:19:42.951535",
+        "end": null
+      },
+      "contact": {
+        "name": "Meew",
+        "value": "666666665555"
+      },
+      "pricing": {
+        "totalRental": 50.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777033451",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:24:11.475844",
+    "updated_at": "2026-04-24T12:24:11.475858",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777033451",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:24:11.475844",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777033987",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:33:07.633426",
+    "updated_at": "2026-04-24T12:33:07.633440",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777033987",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:33:07.633426",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777034586",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:43:06.882946",
+    "updated_at": "2026-04-24T12:43:06.882956",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777034586",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:43:06.882946",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777035524",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T12:58:44.022841",
+    "updated_at": "2026-04-24T12:58:44.022856",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777035524",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T12:58:44.022841",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777035750",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T13:02:30.754109",
+    "updated_at": "2026-04-24T13:02:30.754123",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777035750",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T13:02:30.754109",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "hello_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777039959",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T14:12:39.945483",
+    "updated_at": "2026-04-24T14:12:39.945497",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777039959",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T14:12:39.945483",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777040593",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T14:23:13.139830",
+    "updated_at": "2026-04-24T14:23:13.139844",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777040593",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T14:23:13.139830",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777043737",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T15:15:37.748447",
+    "updated_at": "2026-04-24T15:15:37.748462",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777043737",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T15:15:37.748447",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777044033",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T15:20:33.881466",
+    "updated_at": "2026-04-24T15:20:33.881480",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777044033",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T15:20:33.881466",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777044278",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-04-24T15:24:38.966701",
+    "updated_at": "2026-04-24T15:24:38.966723",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777044278",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-24T15:24:38.966701",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  }
+]

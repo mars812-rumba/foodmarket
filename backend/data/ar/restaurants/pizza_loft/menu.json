@@ -1,0 +1,189 @@
+{
+  "restaurant_id": "pizza_loft",
+  "categories": [
+    "pizza",
+    "burger",
+    "steak",
+    "pasta",
+    "sushi",
+    "drinks",
+    "potato_chicken"
+  ],
+  "items": [
+    {
+      "id": "4_syra",
+      "name": "4 сыра",
+      "slug": "4_syra",
+      "category": "pizza",
+      "price": 250.0,
+      "weight": "500",
+      "image": "restaurants/pizzeria_1/4_syra_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1776955652741",
+          "name": "Пармезан",
+          "price": 50.0
+        },
+        {
+          "id": "ing_1776955661216",
+          "name": "Моцарелла",
+          "price": 80.0
+        }
+      ],
+      "available": true,
+      "notes": "Нам вкуснейшие сыр давай",
+      "photos": {
+        "main": "restaurants/pizzeria_1/4_syra_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-23T14:57:15.970453"
+    },
+    {
+      "id": "chizburger",
+      "name": "Чизбургер",
+      "slug": "chizburger",
+      "category": "burger",
+      "price": 100.0,
+      "weight": "350 гр",
+      "image": "restaurants/pizzeria_1/chizburger_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1776955841352",
+          "name": "Двойной сыр",
+          "price": 50.0
+        }
+      ],
+      "available": true,
+      "notes": "Лучшие бургеры",
+      "photos": {
+        "main": "restaurants/pizzeria_1/chizburger_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-23T15:08:11.374847"
+    },
+    {
+      "id": "steyk_iz_govyadiny",
+      "name": "Стейк из говядины",
+      "slug": "steyk_iz_govyadiny",
+      "category": "steak",
+      "price": 500.0,
+      "weight": "450 гр",
+      "image": "restaurants/pizzeria_1/steyk_iz_govyadiny_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1776956010038",
+          "name": "Полная ",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1776956025096",
+          "name": "Средняя",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1776956033827",
+          "name": "С кровью",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Лучшая австралийская говядина",
+      "photos": {
+        "main": "restaurants/pizzeria_1/steyk_iz_govyadiny_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-23T14:56:51.954191"
+    },
+    {
+      "id": "sushi_set_",
+      "name": "Суши сет ",
+      "slug": "sushi_set_",
+      "category": "sushi",
+      "price": 780.0,
+      "weight": "990 гр",
+      "image": "restaurants/pizzeria_1/sushi_set_sashimi_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1776956089064",
+          "name": "Сашими",
+          "price": 100.0
+        },
+        {
+          "id": "ing_1776956097493",
+          "name": "Филадельфия ",
+          "price": 90.0
+        }
+      ],
+      "available": true,
+      "notes": "Отличный сет на компанию",
+      "photos": {
+        "main": "restaurants/pizzeria_1/sushi_set_sashimi_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-23T14:56:35.023921"
+    },
+    {
+      "id": "kurinye_nozhki",
+      "name": "Куриные ножки",
+      "slug": "kurinye_nozhki",
+      "category": "potato_chicken",
+      "price": 450.0,
+      "weight": "500 гр",
+      "image": "restaurants/pizzeria_1/kurinye_nozhki_s_fri_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1776956158145",
+          "name": "Кислый соус ",
+          "price": 20.0
+        }
+      ],
+      "available": true,
+      "notes": "Вкусные ножки",
+      "photos": {
+        "main": "restaurants/pizzeria_1/kurinye_nozhki_s_fri_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-23T14:56:18.192924"
+    },
+    {
+      "id": "limonady_0_5l",
+      "name": "Лимонады 0,5л",
+      "slug": "limonady_0_5l",
+      "category": "drinks",
+      "price": 50.0,
+      "weight": "500 мл",
+      "image": "restaurants/pizzeria_1/limonady_0_5l_0.webp",
+      "ingredients": [
+        {
+          "id": "ing_1776956292271",
+          "name": "Лед",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Освежающий лимонад из фруктов",
+      "photos": {
+        "main": "restaurants/pizzeria_1/limonady_0_5l_0.webp",
+        "gallery": []
+      },
+      "updated_at": "2026-04-23T14:58:38.658644"
+    },
+    {
+      "id": "pasta_balonese",
+      "name": "Pasta Balonese",
+      "slug": "pasta_balonese",
+      "category": "pasta",
+      "price": 250.0,
+      "weight": "350 gr.",
+      "image": "restaurants/pizza_loft/pasta_balonese_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Лучшая паста",
+      "photos": {
+        "main": "restaurants/pizza_loft/pasta_balonese_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-23T19:02:28.024142"
+    }
+  ]
+}

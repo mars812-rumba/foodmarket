@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест мобильной версии - LOFT FIRE</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        .test-section h2 {
+            color: #ea580c;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #10b981;
+            color: white;
+        }
+        .status.warning {
+            background: #f59e0b;
+            color: white;
+        }
+        .link-button {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            background: #ea580c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .link-button:hover {
+            background: #dc2626;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .check {
+            color: #10b981;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 LOFT FIRE - Тестирование мобильной версии</h1>
+        
+        <div class="test-section">
+            <h2>📱 Статус адаптивной верстки</h2>
+            <span class="status success">✓ Готово</span>
+            <p>Все компоненты адаптированы для мобильных устройств</p>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Выполненные улучшения:</h2>
+            <ul>
+                <li><span class="check">✓</span> Исправлены глобальные стили и настроен Tailwind CSS</li>
+                <li><span class="check">✓</span> Добавлены безопасные отступы для устройств с вырезами (safe-area)</li>
+                <li><span class="check">✓</span> Header.tsx - адаптивный логотип, мобильное меню, правильные отступы</li>
+                <li><span class="check">✓</span> Home.tsx - оптимизированная сетка категорий, адаптивные размеры</li>
+                <li><span class="check">✓</span> Catalog.tsx - мобильные фильтры, адаптивные карточки товаров</li>
+                <li><span class="check">✓</span> Product.tsx - улучшенная галерея, фиксированная кнопка заказа</li>
+                <li><span class="check">✓</span> Предотвращение горизонтального скролла на мобильных</li>
+                <li><span class="check">✓</span> Оптимизация для iOS Safari (размер шрифта в инпутах)</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🎨 Ключевые особенности дизайна:</h2>
+            <ul>
+                <li>Минималистичный и современный интерфейс</li>
+                <li>Акцентный оранжевый цвет (#ea580c)</li>
+                <li>Плавные анимации и переходы</li>
+                <li>Четкая типографика с жирными заголовками</li>
+                <li>Карточки с тенями и hover-эффектами</li>
+                <li>Градиентные фоны для глубины</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🔗 Тестовые ссылки:</h2>
+            <a href="http://localhost:5173/" class="link-button" target="_blank">Главная страница</a>
+            <a href="http://localhost:5173/catalog" class="link-button" target="_blank">Каталог</a>
+            <a href="http://localhost:5173/catalog?category=grills" class="link-button" target="_blank">Грили</a>
+        </div>
+
+        <div class="test-section">
+            <h2>📏 Брейкпоинты:</h2>
+            <ul>
+                <li><strong>sm:</strong> 640px и выше</li>
+                <li><strong>md:</strong> 768px и выше</li>
+                <li><strong>lg:</strong> 1024px и выше</li>
+                <li><strong>xl:</strong> 1280px и выше</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Рекомендации по тестированию:</h2>
+            <ul>
+                <li>Проверьте на реальном мобильном устройстве</li>
+                <li>Используйте инструменты разработчика Chrome (F12)</li>
+                <li>Протестируйте разные размеры экрана</li>
+                <li>Проверьте работу на iOS и Android</li>
+                <li>Убедитесь в отсутствии горизонтального скролла</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

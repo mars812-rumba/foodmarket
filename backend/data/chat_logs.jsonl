@@ -1,0 +1,14 @@
+{"timestamp": "2026-04-23T23:14:47.634Z", "user_id": "web_66842039140", "role": "manager", "text": "Privet", "source": "crm_panel"}
+{"timestamp": "2026-04-24T03:04:20.511Z", "user_id": "web_79219959164", "role": "manager", "text": "Привет", "source": "crm_panel"}
+{"timestamp": "2026-04-24T03:16:51.948Z", "user_id": 374897465, "role": "manager", "text": "Привет", "source": "crm_panel"}
+{"timestamp": "2026-04-24T03:35:50.377Z", "user_id": 374897465, "role": "manager", "text": "Привет", "source": "crm_panel"}
+{"timestamp": "2026-04-24T03:36:32.044Z", "user_id": 374897465, "role": "manager", "text": "Как ваши дела? Помочь с заказом?", "source": "crm_panel"}
+{"timestamp": "2026-04-24T04:08:13.431Z", "user_id": 374897465, "role": "manager", "text": "Помочь?", "source": "crm_panel"}
+{"timestamp": "2026-04-24T04:45:02.820Z", "user_id": 374897465, "role": "manager", "text": "Заказ номер", "source": "crm_panel"}
+{"timestamp": "2026-04-24T06:40:14.896Z", "user_id": "374897465", "role": "manager", "text": "Здоровааааа Марселойд", "source": "crm_panel"}
+{"timestamp": "2026-04-24T10:55:38.433Z", "user_id": "web_79219959164", "role": "manager", "text": "Привет толик", "source": "crm_panel"}
+{"timestamp": "2026-04-24T10:56:02.044Z", "user_id": "374897465", "role": "manager", "text": "Толиииик", "source": "crm_panel"}
+{"timestamp": "2026-04-24T12:34:52.156Z", "user_id": 374897465, "role": "manager", "text": "Привет", "source": "crm_panel"}
+{"timestamp": "2026-04-24T12:34:54.116152", "user_id": 374897465, "role": "assistant", "content": "Привет"}
+{"timestamp": "2026-04-24T12:35:00.675190", "user_id": 374897465, "role": "user", "text": "Привет", "username": "Marseloid", "source": "telegram_bot"}
+{"timestamp": "2026-04-24T12:35:30.968438", "user_id": "374897465", "role": "manager", "content": {"text": "", "message": "", "media": {"type": "sent_media", "content_type": "image/jpeg", "download_url": "/api/crm/media/374897465/sent_20260424_123530_FB_IMG_1777014731417.jpg", "filename": "sent_20260424_123530_FB_IMG_1777014731417.jpg", "file_size": 60201}}}

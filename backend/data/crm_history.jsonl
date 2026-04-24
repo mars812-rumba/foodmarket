@@ -1,0 +1,65 @@
+{"timestamp": "2026-04-23T23:12:23.341266", "user_id": 123456789, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-23T23:12:49.976628", "user_id": 123456789, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-23T23:13:06.882799", "user_id": "web_9996464", "action": "status_changed", "old_status": "new", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-23T23:13:24.026211", "user_id": "web_79219959164", "action": "status_changed", "old_status": "new", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-23T23:14:47.634Z", "user_id": "web_66842039140", "action": "manager_message_sent", "message_length": 6}
+{"timestamp": "2026-04-23T23:16:36.798192", "user_id": "web_66842039140", "action": "status_changed", "old_status": "new", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-23T23:22:49.638716", "user_id": 123456789, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-23T23:23:13.659158", "user_id": "web_79219959164", "action": "note_added", "note": "Привет", "added_by": "6451825371"}
+{"timestamp": "2026-04-23T23:23:20.501168", "user_id": "web_79219959164", "action": "note_added", "note": "Привет самовывоз", "added_by": "6451825371"}
+{"timestamp": "2026-04-23T23:34:02.894543", "user_id": "web_79219959164", "action": "status_changed", "old_status": "new", "new_status": "in_work", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-23T23:34:07.335111", "user_id": "web_79219959164", "action": "status_changed", "old_status": "in_work", "new_status": "pre_booking", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-23T23:35:57.431966", "user_id": 123456789, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-23T23:38:17.763562", "user_id": "web_79219959164", "action": "status_changed", "old_status": "pre_booking", "new_status": "new", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-23T23:38:39.314187", "user_id": "web_79219959164", "action": "marker_updated", "marker": "offer_sent", "changed_by": "6451825371"}
+{"timestamp": "2026-04-23T23:38:40.814138", "user_id": "web_79219959164", "action": "marker_updated", "marker": "need_info", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T02:29:13.771185", "user_id": 374897465, "action": "message_received", "content": "t.me/foodmarket_order_bot/?start=gmap_pizza_loft"}
+{"timestamp": "2026-04-24T02:29:31.136558", "user_id": 374897465, "action": "message_received", "content": "/help"}
+{"timestamp": "2026-04-24T02:29:34.878973", "user_id": 374897465, "action": "message_received", "content": "/about"}
+{"timestamp": "2026-04-24T02:29:36.827852", "user_id": 374897465, "action": "message_received", "content": "/restart"}
+{"timestamp": "2026-04-24T02:44:45.937083", "user_id": "web_79219959164", "action": "status_changed", "old_status": "new", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T02:44:48.100831", "user_id": "web_792199999999", "action": "status_changed", "old_status": "new", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T02:45:04.254171", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T02:53:13.312243", "user_id": "web_9219959164", "action": "status_changed", "old_status": "new", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T02:53:26.562849", "user_id": 374897465, "action": "status_changed", "old_status": "new", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T03:04:20.511Z", "user_id": "web_79219959164", "action": "manager_message_sent", "message_length": 6}
+{"timestamp": "2026-04-24T03:04:43.784160", "user_id": "web_79219959164", "action": "status_changed", "old_status": "new", "new_status": "in_work", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T03:16:26.652320", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T03:16:30.099982", "user_id": 123456789, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T03:16:50.834791", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T03:16:51.948Z", "user_id": 374897465, "action": "manager_message_sent", "message_length": 6}
+{"timestamp": "2026-04-24T03:33:27.497944", "user_id": "web_79219959164", "action": "status_changed", "old_status": "new", "new_status": "pre_booking", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T03:35:22.338052", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T03:35:35.677775", "user_id": 374897465, "action": "message_received", "content": "Привет"}
+{"timestamp": "2026-04-24T03:35:50.377Z", "user_id": 374897465, "action": "manager_message_sent", "message_length": 6}
+{"timestamp": "2026-04-24T03:36:04.394391", "user_id": 374897465, "action": "message_received", "content": "Как дела?"}
+{"timestamp": "2026-04-24T03:36:16.739458", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T03:36:32.044Z", "user_id": 374897465, "action": "manager_message_sent", "message_length": 32}
+{"timestamp": "2026-04-24T04:05:53.964323", "user_id": 374897465, "action": "message_received", "content": "Привет"}
+{"timestamp": "2026-04-24T04:06:08.012054", "user_id": 374897465, "action": "message_received", "content": "Как заказать пиццу?"}
+{"timestamp": "2026-04-24T04:07:48.951378", "user_id": 374897465, "action": "message_received", "content": "Нак?"}
+{"timestamp": "2026-04-24T04:08:03.182520", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T04:08:13.431Z", "user_id": 374897465, "action": "manager_message_sent", "message_length": 7}
+{"timestamp": "2026-04-24T04:10:16.922601", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T04:11:45.623103", "user_id": "web_79219959164", "action": "note_added", "note": "Привет", "added_by": "6451825371"}
+{"timestamp": "2026-04-24T04:44:50.008694", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T04:45:02.820Z", "user_id": 374897465, "action": "manager_message_sent", "message_length": 11}
+{"timestamp": "2026-04-24T06:40:04.503103", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T06:40:14.896Z", "user_id": "374897465", "action": "manager_message_sent", "message_length": 21}
+{"timestamp": "2026-04-24T06:40:37.559061", "user_id": "374897465", "action": "marker_updated", "marker": "need_info", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T06:40:39.419708", "user_id": "374897465", "action": "marker_updated", "marker": null, "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T06:40:44.478959", "user_id": "web_3664346", "action": "status_changed", "old_status": "pre_booking", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T06:40:46.000676", "user_id": "web_79219959164", "action": "status_changed", "old_status": "pre_booking", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T06:40:48.639273", "user_id": "web_66842039140", "action": "status_changed", "old_status": "pre_booking", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T06:40:51.016537", "user_id": "web_6684203648", "action": "status_changed", "old_status": "pre_booking", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T06:40:53.200787", "user_id": "web_6684203648", "action": "status_changed", "old_status": "archive", "new_status": "archive", "note": "", "changed_by": "6451825371"}
+{"timestamp": "2026-04-24T10:38:11.383552", "user_id": 374897465, "action": "message_received", "content": "Привет"}
+{"timestamp": "2026-04-24T10:55:38.433Z", "user_id": "web_79219959164", "action": "manager_message_sent", "message_length": 12}
+{"timestamp": "2026-04-24T10:56:02.044Z", "user_id": "374897465", "action": "manager_message_sent", "message_length": 8}
+{"timestamp": "2026-04-24T12:34:48.773092", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T12:34:52.156Z", "user_id": 374897465, "action": "manager_message_sent", "message_length": 6}
+{"timestamp": "2026-04-24T12:35:00.673479", "user_id": 374897465, "action": "message_received", "content": "Привет"}
+{"timestamp": "2026-04-24T12:35:00.686170", "user_id": 374897465, "action": "user_message_received", "message_length": 6, "message_type": "text", "username": "Marseloid", "media_info": null}
+{"timestamp": "2026-04-24T12:35:30.970668", "user_id": "374897465", "action": "manager_media_sent", "filename": "sent_20260424_123530_FB_IMG_1777014731417.jpg"}
+{"timestamp": "2026-04-24T15:18:03.148178", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T15:18:17.296215", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}

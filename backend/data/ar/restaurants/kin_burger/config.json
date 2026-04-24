@@ -1,0 +1,16 @@
+{
+  "restaurant_id": "kin_burger",
+  "name": "KIN BURGER",
+  "address": "https://maps.app.goo.gl/M8yER7aG5b3YbCcN7",
+  "phone": "0989392252",
+  "logo": "restaurant_logos/kin_burger_logo.jpg",
+  "created_at": "2026-04-24T07:18:15.293504",
+  "id": "kin_burger",
+  "description": "Authentic Italian Kitchen",
+  "info_text": "Open 09:00-21:00",
+  "payment_qr_url": "/images_web/restaurants/kin_burger/qr_promptpay.jpg",
+  "admin_ids": [
+    "374897465"
+  ],
+  "dashboard_token": "kb_kin2025"
+}

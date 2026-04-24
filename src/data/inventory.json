@@ -1,0 +1,348 @@
+[
+  {
+    "id": "grill_001",
+    "category": "grill",
+    "name": "Мангал Classic 800",
+    "description": "Стальной мангал с крышкой и зонтом. Профильная труба 40х40, толщина стали 4мм.",
+    "price": 12500,
+    "old_price": 15900,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["thickness_steel", "kazan_ring"],
+    "images": {
+      "cover": "grill/classic_800/1.jpg",
+      "gallery": ["grill/classic_800/1.jpg", "grill/classic_800/2.jpg"]
+    },
+    "dimensions": {
+      "width": 800,
+      "height": 900,
+      "length": 400,
+      "weight": 45
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "thickness_steel": 4,
+      "chimney_height": 500,
+      "skewers_capacity": 8,
+      "kazan_ring": false,
+      "lid": true,
+      "grill_grate": true,
+      "thermometer": false,
+      "ash_drawer": true,
+      "firewood_niche": true,
+      "damper": true
+    }
+  },
+  {
+    "id": "grill_002",
+    "category": "grill",
+    "name": "Мангал Profi 1200 с кольцом под казан",
+    "description": "Усиленный мангал для большой компании. Кольцо под казан 12л, дымоход.",
+    "price": 18900,
+    "old_price": 23500,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["kazan_ring", "thermometer"],
+    "images": {
+      "cover": "grill/profi_1200/1.jpg",
+      "gallery": ["grill/profi_1200/1.jpg", "grill/profi_1200/2.jpg", "grill/profi_1200/3.jpg"]
+    },
+    "dimensions": {
+      "width": 1200,
+      "height": 1000,
+      "length": 500,
+      "weight": 68
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "thickness_steel": 4,
+      "chimney_height": 800,
+      "skewers_capacity": 12,
+      "kazan_ring": true,
+      "kazan_volume": "12л",
+      "lid": true,
+      "grill_grate": true,
+      "thermometer": true,
+      "ash_drawer": true,
+      "firewood_niche": true,
+      "damper": true
+    }
+  },
+  {
+    "id": "dog_cage_001",
+    "category": "dog_cage",
+    "name": "Вольер для собак 1000х700",
+    "description": "Металлический вольер с поддоном. Профиль 20х20, быстрая сборка.",
+    "price": 22000,
+    "old_price": 27500,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["bars_profile", "door_lock"],
+    "images": {
+      "cover": "dog_cage/1000x700/1.jpg",
+      "gallery": ["dog_cage/1000x700/1.jpg", "dog_cage/1000x700/2.jpg"]
+    },
+    "dimensions": {
+      "width": 1000,
+      "height": 800,
+      "length": 700,
+      "weight": 55
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "bars_profile": "20x20",
+      "door_lock": true,
+      "tray": true,
+      "countertop": false,
+      "assembly_time": "15 мин"
+    }
+  },
+  {
+    "id": "garden_furniture_001",
+    "category": "garden_furniture",
+    "name": "Садový комплект Столик + 2 лавки",
+    "description": "Набор для сада: стол 1500мм + 2 лавки. Сосна, покрытие Pinotex.",
+    "price": 35000,
+    "old_price": 44000,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["wood_species", "wood_treatment"],
+    "images": {
+      "cover": "garden_furniture/set_1500/1.jpg",
+      "gallery": ["garden_furniture/set_1500/1.jpg", "garden_furniture/set_1500/2.jpg"]
+    },
+    "dimensions": {
+      "width": 1500,
+      "height": 750,
+      "length": 800,
+      "weight": 85
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "set_composition": ["стол", "лавка", "лавка"],
+      "seats_count": 6,
+      "wood_species": "сосна",
+      "wood_treatment": "pinotex 2 слоя",
+      "wood_color": "тёмное",
+      "table_length": 1500,
+      "bench_length": 1500
+    }
+  },
+  {
+    "id": "table_base_001",
+    "category": "table_and_base",
+    "name": "Подстолье металлическое 800х600",
+    "description": "Усиленные подстолья для столов. Профиль 40х40, регулируемые ножки.",
+    "price": 6500,
+    "old_price": 8200,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["adjustable_feet", "max_load"],
+    "images": {
+      "cover": "table_and_base/800x600/1.jpg",
+      "gallery": ["table_and_base/800x600/1.jpg", "table_and_base/800x600/2.jpg"]
+    },
+    "dimensions": {
+      "width": 800,
+      "height": 750,
+      "length": 600,
+      "weight": 22
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "shape": "прямоугольная",
+      "adjustable_feet": true,
+      "max_load": 150,
+      "legs_count": 4,
+      "profile_thickness": 2
+    }
+  },
+  {
+    "id": "shelf_001",
+    "category": "shelf",
+    "name": "Стеллаж настенный 5 полок",
+    "description": "Настенный стеллаж из ЛДСП. Цвет дуб, максимальная нагрузка 30кг/полка.",
+    "price": 8900,
+    "old_price": 11200,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["shelves_count", "max_load_per_shelf"],
+    "images": {
+      "cover": "shelf/wall_5/1.jpg",
+      "gallery": ["shelf/wall_5/1.jpg", "shelf/wall_5/2.jpg"]
+    },
+    "dimensions": {
+      "width": 900,
+      "height": 1200,
+      "length": 300,
+      "weight": 35
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "shelves_count": 5,
+      "shelf_material": "лдсп",
+      "shelf_color": "дуб",
+      "mount_type": "wall",
+      "max_load_per_shelf": 30,
+      "shelf_spacing": 300
+    }
+  },
+  {
+    "id": "stove_001",
+    "category": "stove",
+    "name": "Печь под казан 12л с дымоходом",
+    "description": "Цельносварная печь для казана 12л. Дымоход 1м, дровница, регулировка тяги.",
+    "price": 14500,
+    "old_price": 18200,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["kazan_volume", "thickness_steel"],
+    "images": {
+      "cover": "stove/kazan_12/1.jpg",
+      "gallery": ["stove/kazan_12/1.jpg", "stove/kazan_12/2.jpg", "stove/kazan_12/3.jpg"]
+    },
+    "dimensions": {
+      "width": 600,
+      "height": 900,
+      "length": 600,
+      "weight": 55
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "kazan_volume": "12л",
+      "thickness_steel": 4,
+      "chimney": true,
+      "chimney_height": 1000,
+      "firewood_niche": true,
+      "draft_control": true
+    }
+  },
+  {
+    "id": "stove_002",
+    "category": "stove",
+    "name": "Печь под казан 20л усиленная",
+    "description": "Печь для казана 20л. Толщина стали 5мм, усиленный колосник.",
+    "price": 19500,
+    "old_price": 24500,
+    "type": "custom",
+    "availability": "custom",
+    "featured_attributes": ["kazan_volume", "thickness_steel"],
+    "images": {
+      "cover": "stove/kazan_20/1.jpg",
+      "gallery": ["stove/kazan_20/1.jpg", "stove/kazan_20/2.jpg"]
+    },
+    "dimensions": {
+      "width": 700,
+      "height": 950,
+      "length": 700,
+      "weight": 78
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "kazan_volume": "20л",
+      "thickness_steel": 5,
+      "chimney": true,
+      "chimney_height": 1200,
+      "firewood_niche": true,
+      "draft_control": true
+    }
+  },
+  {
+    "id": "computer_table_001",
+    "category": "table_and_base",
+    "name": "Стол компьютерный Классик",
+    "description": "Стол с полкой под монитор и ящиком. ЛДСП дуб 32мм.",
+    "price": 9500,
+    "old_price": 12000,
+    "type": "standard",
+    "availability": "in_stock",
+    "featured_attributes": ["monitor_shelf", "cable_management"],
+    "images": {
+      "cover": "table_and_base/classic/1.jpg",
+      "gallery": ["table_and_base/classic/1.jpg", "table_and_base/classic/2.jpg"]
+    },
+    "dimensions": {
+      "width": 1200,
+      "height": 750,
+      "length": 600,
+      "weight": 32
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "tabletop_material": "лдсп",
+      "tabletop_color": "дуб",
+      "tabletop_thickness": 32,
+      "shelves_count": 1,
+      "drawers": 1,
+      "cable_management": true,
+      "monitor_shelf": true,
+      "keyboard_shelf": false,
+      "height_adjustment": false,
+      "max_load": 80
+    }
+  },
+  {
+    "id": "computer_table_002",
+    "category": "table_and_base",
+    "name": "Стол компьютерный Геймер",
+    "description": "Игровой стол с подсветкой, полка для монитора, 2 ящика, кабель-канал.",
+    "price": 14900,
+    "old_price": 18500,
+    "type": "custom",
+    "availability": "custom",
+    "featured_attributes": ["height_adjustment", "cable_management"],
+    "images": {
+      "cover": "table_and_base/gamer/1.jpg",
+      "gallery": ["table_and_base/gamer/1.jpg", "table_and_base/gamer/2.jpg", "table_and_base/gamer/3.jpg"]
+    },
+    "dimensions": {
+      "width": 1400,
+      "height": 750,
+      "length": 700,
+      "weight": 45
+    },
+    "base_specs": {
+      "material": "metal",
+      "color": "black"
+    },
+    "attributes": {
+      "tabletop_material": "лдсп",
+      "tabletop_color": "чёрный",
+      "tabletop_thickness": 32,
+      "shelves_count": 2,
+      "drawers": 2,
+      "cable_management": true,
+      "monitor_shelf": true,
+      "keyboard_shelf": true,
+      "height_adjustment": true,
+      "max_load": 100
+    }
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "booking_id": "ORD-ER9IX",
+    "user_id": "phone_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-23T20:32:41.140056",
+    "updated_at": "2026-04-23T20:32:41.140056",
+    "form_data": {
+      "car": {
+        "name": "Стейк из говядины (x1), Pasta Balonese (x1), Лимонады 0,5л (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T20:32:41.140056",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 800.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        },
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-MQ6F7",
+    "user_id": "phone_79219959164",
+    "status": "new",
+    "order_type": "food",
+    "created_at": "2026-04-23T21:07:26.721145",
+    "updated_at": "2026-04-23T21:07:26.721145",
+    "form_data": {
+      "car": {
+        "name": "Чизбургер (x1), Чизбургер (x1), Стейк из говядины (x1), Суши сет  (x1), Куриные ножки (x1)",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-04-23T21:07:26.721145",
+        "end": null
+      },
+      "contact": {
+        "name": "Mars",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 2090.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 150.0,
+          "qnt": 1
+        },
+        {
+          "name": "Стейк из говядины",
+          "price": 500.0,
+          "qnt": 1
+        },
+        {
+          "name": "Суши сет ",
+          "price": 870.0,
+          "qnt": 1
+        },
+        {
+          "name": "Куриные ножки",
+          "price": 470.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  }
+]

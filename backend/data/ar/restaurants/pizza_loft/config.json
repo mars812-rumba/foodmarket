@@ -1,0 +1,21 @@
+{
+  "restaurant_id": "pizza_loft",
+  "name": "PIZZA LOFT",
+  "description": "Wood-Fired Pizza & Craft Drinks",
+  "info_text": "Open daily 12:00–00:00 · Patong, Phuket",
+  "logo": "restaurant_logos/pizza_loft_logo.png",
+  "phone": "+66912345678",
+  "address": "Patong, Phuket",
+  "payment_qr_url": "/images_web/restaurants/pizza_loft/qr_promptpay.jpg",
+  "admin_ids": [
+    "5244326802"
+  ],
+  "dashboard_token": "pl_loft2025",
+  "delivery": {
+    "min_order": 200,
+    "time": "30-45 мин",
+    "fee": 50
+  },
+  "id": "pizza_loft",
+  "created_at": ""
+}

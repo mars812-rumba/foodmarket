@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /botapi/
+Disallow: /api/
+
+Sitemap: https://sunny-rentals.online/sitemap.xml

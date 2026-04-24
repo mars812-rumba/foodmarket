@@ -1,0 +1,72 @@
+{
+  "restaurant_id": "kin_burger",
+  "categories": [
+    "burger",
+    "drinks"
+  ],
+  "items": [
+    {
+      "id": "kin_burger",
+      "name": "BEEF KIN BURGER SET",
+      "slug": "kin_burger",
+      "category": "burger",
+      "price": 200.0,
+      "weight": "350 gr",
+      "image": "restaurants/kin_burger/kin_burger_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1777015257552",
+          "name": "Extra Cheese",
+          "price": 50.0
+        }
+      ],
+      "available": true,
+      "notes": "Juicy 100% beef burger on a toasted bun paired with golden, crispy fries. The ultimate balance of flavor and crunch.",
+      "photos": {
+        "main": "restaurants/kin_burger/kin_burger_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T07:24:35.992369"
+    },
+    {
+      "id": "chicken_burger_classic",
+      "name": "Chicken Burger Classic",
+      "slug": "chicken_burger_classic",
+      "category": "burger",
+      "price": 250.0,
+      "weight": "350 g.",
+      "image": "restaurants/kin_burger/chicken_burger_classic_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1777018379574",
+          "name": "Cheese",
+          "price": 50.0
+        }
+      ],
+      "available": true,
+      "notes": "Crispy chicken breast seasoned to perfection, served on a toasted bun with fresh greens and a side of golden fries. Tender on the inside, crunchy on the outside",
+      "photos": {
+        "main": "restaurants/kin_burger/chicken_burger_classic_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T08:13:33.792160"
+    },
+    {
+      "id": "roselle_soda",
+      "name": "Roselle Soda",
+      "slug": "roselle_soda",
+      "category": "drinks",
+      "price": 110.0,
+      "weight": "450 ml.",
+      "image": "restaurants/kin_burger/roselle_soda_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "An artisanal iced Roselle Soda is presented on a weathered wooden table in an open-air tropical garden patio. The tall glass of vibrant, deep ruby-red liquid is filled with ice cubes and shows refreshing carbonation. It is elaborately garnished with a whole fresh roselle calyx, a sprig of aromatic mint, a lime slice, and a natural bamboo straw. A small ceramic bowl of dried roselle calyces, a halved lime, and a clear, condensation-beaded glass bottle of \"Phetchabun Soda\" with its distinct \"Roselle Soda\" label complete the table setting. The entire scene is bathed in warm, natural daylight, with the lush greenery and blurred figures of the patio in the background, creating an inviting and relaxing atmosphere.",
+      "photos": {
+        "main": "restaurants/kin_burger/roselle_soda_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T08:21:53.722613"
+    }
+  ]
+}

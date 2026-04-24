@@ -1,0 +1,9 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="80" fill="#2D2D2D"/>
+  
+  <rect x="60" y="60" width="392" height="392" rx="60" stroke="#FFB800" stroke-width="20"/>
+  
+  <rect x="180" y="110" width="152" height="292" rx="25" stroke="#FFB800" stroke-width="12"/>
+  <circle cx="256" cy="370" r="12" fill="#FFB800"/> <rect x="230" y="125" width="52" height="6" rx="3" fill="#FFB800"/> <path d="M210 200C210 185 225 175 256 175C287 175 302 185 302 200H210Z" fill="#FFB800"/> <rect x="210" y="205" width="92" height="8" rx="4" fill="#FFB800"/> <path d="M210 218H302V225C302 230 290 235 256 235C222 235 210 230 210 225V218Z" fill="#FFB800"/> <rect x="205" y="270" width="102" height="35" rx="10" fill="#FFB800"/>
+  <text x="256" y="293" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2D2D2D" text-anchor="middle">ORDER</text>
+</svg>
