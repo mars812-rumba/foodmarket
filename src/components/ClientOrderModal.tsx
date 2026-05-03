@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState, useMemo, type CSSProperties } from "react";
 import {
   Receipt,
   MessageCircle,
@@ -14,6 +14,7 @@ import {
   CheckCheck,
 } from "lucide-react";
 import { useOrder, type ActiveOrder, type ClientOrderStatus } from "@/contexts/OrderContext";
+import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
 
 /* ============================================================
    TRANSLATION KEYS (no hardcoded strings in UI)
@@ -57,36 +58,36 @@ const T = {
    ============================================================ */
 
 const RU: Record<string, string> = {
-  [T.orderNumber]: "Заказ",
-  [T.orderStatus]: "Статус",
-  [T.orderItems]: "Состав заказа",
-  [T.orderTotal]: "Итого",
-  [T.btnClose]: "Закрыть",
-  [T.btnContactManager]: "Связаться с менеджером",
-  [T.btnGotIt]: "Понятно",
-  [T.btnPaymentSent]: "Отправил",
-  [T.btnPaymentSentDone]: "Оплата отмечена",
-  [T.btnCompleteOrder]: "Заказ завершён",
-  [T.statusWork_title]: "Ожидание подтверждения",
-  [T.statusWork_desc]: "Для подтверждения заказа свяжитесь с менеджером",
-  [T.statusWork_action]: "Нажмите кнопку ниже, чтобы менеджер подтвердил заказ",
-  [T.statusPbook_title]: "Ожидание оплаты",
-  [T.statusPbook_desc]: "Оплатите заказ для начала готовки",
-  [T.statusPbook_timer]: "Время на оплату",
-  [T.statusPbook_qrHint]: "Отсканируйте QR-код для оплаты",
-  [T.statusPbook_paymentSentNote]: "Вы отметили оплату. Менеджер проверит и подтвердит заказ.",
-  [T.statusBook_title]: "Заказ подтверждён",
-  [T.statusBook_desc]: "Ваш заказ готовится!",
-  [T.statusBook_cooking]: "Обычно мы справляемся за 15–20 минут. Мы сообщим Вам о готовности.",
-  [T.statusDone_title]: "Заказ готов",
-  [T.statusDone_desc]: "Забирайте! Ваш заказ готов к получению!",
-  [T.deliveryPickup]: "Самовывоз",
-  [T.deliveryDelivery]: "Доставка",
-  [T.paymentCash]: "Наличные",
+  [T.orderNumber]: "Order",
+  [T.orderStatus]: "Status",
+  [T.orderItems]: "Order Items",
+  [T.orderTotal]: "Total",
+  [T.btnClose]: "Close",
+  [T.btnContactManager]: "Contact Manager",
+  [T.btnGotIt]: "Got it",
+  [T.btnPaymentSent]: "Sent",
+  [T.btnPaymentSentDone]: "Payment Confirmed",
+  [T.btnCompleteOrder]: "Order Complete",
+  [T.statusWork_title]: "Awaiting Confirmation",
+  [T.statusWork_desc]: "Contact the manager to confirm your order",
+  [T.statusWork_action]: "Click the button below to have the manager confirm your order",
+  [T.statusPbook_title]: "Awaiting Payment",
+  [T.statusPbook_desc]: "Pay for your order to start cooking",
+  [T.statusPbook_timer]: "Time to pay",
+  [T.statusPbook_qrHint]: "Scan the QR code to pay",
+  [T.statusPbook_paymentSentNote]: "You marked payment as sent. The manager will verify and confirm your order.",
+  [T.statusBook_title]: "Order Confirmed",
+  [T.statusBook_desc]: "Your order is being prepared!",
+  [T.statusBook_cooking]: "We usually finish in 15–20 minutes. We'll let you know when it's ready.",
+  [T.statusDone_title]: "Order Ready",
+  [T.statusDone_desc]: "Pick it up! Your order is ready for pickup!",
+  [T.deliveryPickup]: "Pickup",
+  [T.deliveryDelivery]: "Delivery",
+  [T.paymentCash]: "Cash",
   [T.paymentQr]: "QR Prompt Pay",
-  [T.timerExpired]: "Время истекло",
-  [T.btnCancelOrder]: "Отменить заказ",
-  [T.cancelConfirm]: "Вы уверены, что хотите отменить заказ?",
+  [T.timerExpired]: "Time expired",
+  [T.btnCancelOrder]: "Cancel Order",
+  [T.cancelConfirm]: "Are you sure you want to cancel this order?",
 };
 
 function t(key: string): string {
@@ -190,6 +191,8 @@ export default function ClientOrderModal({
   paymentQrUrl,
   managerUsername,
 }: Props) {
+  const C = useTheme();
+  const s = useMemo(() => buildClientOrderStyles(C), [C]);
   const { activeOrder, modalOpen, closeModal, clearOrder, cancelOrder, completeOrder, needsAttention } =
     useOrder();
   const timer = useCountdown(activeOrder?.createdAt);
@@ -212,21 +215,33 @@ export default function ClientOrderModal({
 
   const handleContactManager = () => {
     // Open manager's Telegram profile — user can message directly
-    const username = managerUsername || "LoftFireBot";
-    const chatLink = `https://t.me/${username}`;
-
+    if (managerUsername) {
+      // Manager configured — open direct chat
+      const chatLink = `https://t.me/${managerUsername}`;
+      try {
+        const tg = (window as any).Telegram?.WebApp;
+        if (tg?.openTelegramLink) {
+          tg.openTelegramLink(chatLink);
+          setTimeout(() => { try { tg.close(); } catch { /* ignore */ } }, 500);
+        } else {
+          window.open(chatLink, "_blank");
+        }
+      } catch {
+        window.open(chatLink, "_blank");
+      }
+      return;
+    }
+    // No manager configured — open bot chat as fallback
     try {
       const tg = (window as any).Telegram?.WebApp;
       if (tg?.openTelegramLink) {
-        tg.openTelegramLink(chatLink);
-        setTimeout(() => {
-          try { tg.close(); } catch { /* ignore */ }
-        }, 500);
+        tg.openTelegramLink("https://t.me/mars_rent");
+        setTimeout(() => { try { tg.close(); } catch { /* ignore */ } }, 500);
       } else {
-        window.open(chatLink, "_blank");
+        window.open("https://t.me/mars_rent", "_blank");
       }
     } catch {
-      window.open(chatLink, "_blank");
+      window.open("https://t.me/mars_rent", "_blank");
     }
   };
 
@@ -300,16 +315,17 @@ export default function ClientOrderModal({
 
           {/* ── Status-specific content ── */}
           {activeOrder.status === "Work" && (
-            <WorkContent />
+            <WorkContent s={s} />
           )}
           {activeOrder.status === "Pbook" && (
             <PbookContent
               qrUrl={paymentQrUrl}
               timer={timer}
+              s={s}
             />
           )}
-          {activeOrder.status === "Book" && <BookContent />}
-          {activeOrder.status === "Done" && <DoneContent />}
+          {activeOrder.status === "Book" && <BookContent s={s} />}
+          {activeOrder.status === "Done" && <DoneContent s={s} />}
 
           {/* ── Order items ── */}
           <div style={s.section}>
@@ -333,7 +349,7 @@ export default function ClientOrderModal({
           {/* ── Delivery & Payment ── */}
           <div style={s.infoGrid}>
             <div style={s.infoItem}>
-              <Truck size={14} style={{ color: "#EA580C", flexShrink: 0 }} />
+              <Truck size={14} style={{ color: C.accent, flexShrink: 0 }} />
               <div>
                 <div style={s.infoLabel}>
                   {activeOrder.deliveryType === "delivery"
@@ -343,7 +359,7 @@ export default function ClientOrderModal({
               </div>
             </div>
             <div style={s.infoItem}>
-              <Wallet size={14} style={{ color: "#16A34A", flexShrink: 0 }} />
+              <Wallet size={14} style={{ color: C.green, flexShrink: 0 }} />
               <div>
                 <div style={s.infoLabel}>
                   {activeOrder.paymentMethod === "cash"
@@ -355,7 +371,7 @@ export default function ClientOrderModal({
           </div>
 
           {/* ── Total ── */}
-          <div style={s.totalBox}>
+          <div style={{...s.totalBox, background: C.soft, border: `1px solid ${C.borderLight}`}}>
             <span style={s.totalLabel}>{t(T.orderTotal)}</span>
             <span style={s.totalValue}>
               {activeOrder.total.toLocaleString()} ฿
@@ -380,7 +396,7 @@ export default function ClientOrderModal({
           {activeOrder.status === "Pbook" && (
             <>
               <div style={s.timerFooter}>
-                <Clock size={14} style={{ color: "#EA580C" }} />
+                <Clock size={14} style={{ color: C.accent }} />
                 <span style={s.timerText}>
                   {timer.expired
                     ? t(T.timerExpired)
@@ -440,7 +456,7 @@ export default function ClientOrderModal({
    STATUS-SPECIFIC SUB-COMPONENTS
    ============================================================ */
 
-function WorkContent() {
+function WorkContent({ s }: { s: Record<string, CSSProperties> }) {
   return (
     <div style={{ ...s.statusBlock, borderColor: STATUS_CONFIG.Work.borderColor }}>
       <div style={s.statusIconWrap}>
@@ -456,10 +472,13 @@ function WorkContent() {
 function PbookContent({
   qrUrl,
   timer,
+  s,
 }: {
   qrUrl?: string;
   timer: { mm: string; ss: string; expired: boolean };
+  s: Record<string, CSSProperties>;
 }) {
+  const C = useTheme();
   return (
     <div style={{ ...s.statusBlock, borderColor: STATUS_CONFIG.Pbook.borderColor }}>
       <div style={s.statusIconWrap}>
@@ -470,7 +489,7 @@ function PbookContent({
 
       {/* Timer */}
       <div style={s.timerBox}>
-        <Clock size={16} style={{ color: "#EA580C" }} />
+        <Clock size={16} style={{ color: C.accent }} />
         <span style={s.timerDigits}>
           {timer.expired ? t(T.timerExpired) : `${timer.mm}:${timer.ss}`}
         </span>
@@ -494,7 +513,7 @@ function PbookContent({
   );
 }
 
-function BookContent() {
+function BookContent({ s }: { s: Record<string, CSSProperties> }) {
   return (
     <div style={{ ...s.statusBlock, borderColor: STATUS_CONFIG.Book.borderColor }}>
       <div style={s.statusIconWrap}>
@@ -507,7 +526,7 @@ function BookContent() {
   );
 }
 
-function DoneContent() {
+function DoneContent({ s }: { s: Record<string, CSSProperties> }) {
   return (
     <div style={{ ...s.statusBlock, borderColor: STATUS_CONFIG.Done.borderColor }}>
       <div style={s.statusIconWrap}>
@@ -520,394 +539,398 @@ function DoneContent() {
 }
 
 /* ============================================================
-   STYLES
+   STYLES — theme-aware builder
    ============================================================ */
 
-const BORDER = "rgba(120, 80, 30, 0.16)";
+function buildClientOrderStyles(C: ThemeColors): Record<string, CSSProperties> {
+  const BORDER = C.border;
 
-const s: Record<string, CSSProperties> = {
-  overlay: {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(20,10,5,0.55)",
-    backdropFilter: "blur(3px)",
-    WebkitBackdropFilter: "blur(3px)",
-    zIndex: 300,
-  },
-  modal: {
-    position: "fixed",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "min(440px, 92vw)",
-    maxHeight: "88vh",
-    background: "#FFFFFF",
-    borderRadius: 20,
-    zIndex: 310,
-    display: "flex",
-    flexDirection: "column",
-    boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
-    fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-    overflow: "hidden",
-  },
-  header: {
-    padding: "16px 20px 12px",
-    borderBottom: `1px solid ${BORDER}`,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  headerLeft: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: 900,
-    color: "#1A1208",
-    letterSpacing: -0.3,
-  },
-  closeBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 10,
-    border: `1px solid ${BORDER}`,
-    background: "#FFFAF2",
-    cursor: "pointer",
-    color: "#7A6650",
-    display: "grid",
-    placeItems: "center",
-  },
-  body: {
-    padding: "16px 20px",
-    overflowY: "auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: 14,
-    flex: 1,
-  },
+  return {
+    overlay: {
+      position: "fixed",
+      inset: 0,
+      background: C.overlay,
+      backdropFilter: "blur(3px)",
+      WebkitBackdropFilter: "blur(3px)",
+      zIndex: 300,
+    },
+    modal: {
+      position: "fixed",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "min(440px, 92vw)",
+      maxHeight: "88vh",
+      background: C.bg,
+      borderRadius: 20,
+      zIndex: 310,
+      display: "flex",
+      flexDirection: "column",
+      boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
+      fontFamily:
+        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      overflow: "hidden",
+    },
+    header: {
+      padding: "16px 20px 12px",
+      borderBottom: `1px solid ${BORDER}`,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    headerLeft: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+    },
+    headerTitle: {
+      fontSize: 16,
+      fontWeight: 900,
+      color: C.text,
+      letterSpacing: -0.3,
+    },
+    closeBtn: {
+      width: 32,
+      height: 32,
+      borderRadius: 10,
+      border: `1px solid ${BORDER}`,
+      background: C.cream,
+      cursor: "pointer",
+      color: C.muted,
+      display: "grid",
+      placeItems: "center",
+    },
+    body: {
+      padding: "16px 20px",
+      overflowY: "auto",
+      display: "flex",
+      flexDirection: "column",
+      gap: 14,
+      flex: 1,
+    },
 
-  /* Status badge */
-  statusRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-  },
-  statusBadge: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: 4,
-    padding: "6px 12px",
-    borderRadius: 10,
-    border: "1px solid",
-    fontSize: 12,
-    fontWeight: 800,
-    letterSpacing: 0.8,
-  },
+    /* Status badge */
+    statusRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+    },
+    statusBadge: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 4,
+      padding: "6px 12px",
+      borderRadius: 10,
+      border: "1px solid",
+      fontSize: 12,
+      fontWeight: 800,
+      letterSpacing: 0.8,
+    },
 
-  /* Status block (Work/Pbook/Book/Done) */
-  statusBlock: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 10,
-    padding: "20px 16px",
-    borderRadius: 16,
-    border: "1px solid",
-    background: "#FFFAF2",
-    textAlign: "center" as const,
-  },
-  statusIconWrap: {
-    width: 56,
-    height: 56,
-    borderRadius: 16,
-    background: "#FFFFFF",
-    display: "grid",
-    placeItems: "center",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-  },
-  statusTitle: {
-    margin: 0,
-    fontSize: 18,
-    fontWeight: 900,
-    color: "#1A1208",
-  },
-  statusDesc: {
-    margin: 0,
-    fontSize: 14,
-    color: "#7A6650",
-    lineHeight: 1.5,
-  },
-  statusAction: {
-    margin: 0,
-    fontSize: 12,
-    color: "#9A8A78",
-    lineHeight: 1.4,
-  },
+    /* Status block (Work/Pbook/Book/Done) */
+    statusBlock: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 10,
+      padding: "20px 16px",
+      borderRadius: 16,
+      border: "1px solid",
+      background: C.cream,
+      textAlign: "center" as const,
+    },
+    statusIconWrap: {
+      width: 56,
+      height: 56,
+      borderRadius: 16,
+      background: C.white,
+      display: "grid",
+      placeItems: "center",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+    },
+    statusTitle: {
+      margin: 0,
+      fontSize: 18,
+      fontWeight: 900,
+      color: C.text,
+    },
+    statusDesc: {
+      margin: 0,
+      fontSize: 14,
+      color: C.muted,
+      lineHeight: 1.5,
+    },
+    statusAction: {
+      margin: 0,
+      fontSize: 12,
+      color: C.muted,
+      lineHeight: 1.4,
+    },
 
 
-  /* Timer */
-  timerBox: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    padding: "8px 16px",
-    borderRadius: 10,
-    background: "#FFF7ED",
-    border: "1px solid #FDBA74",
-  },
-  timerDigits: {
-    fontSize: 20,
-    fontWeight: 900,
-    color: "#EA580C",
-    fontVariantNumeric: "tabular-nums",
-    letterSpacing: 1,
-  },
+    /* Timer */
+    timerBox: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "8px 16px",
+      borderRadius: 10,
+      background: C.accentSoft,
+      border: `1px solid ${C.borderLight}`,
+    },
+    timerDigits: {
+      fontSize: 20,
+      fontWeight: 900,
+      color: C.accent,
+      fontVariantNumeric: "tabular-nums",
+      letterSpacing: 1,
+    },
 
-  /* QR */
-  qrBox: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 8,
-    marginTop: 4,
-  },
-  qrImg: {
-    width: 180,
-    height: 180,
-    objectFit: "contain",
-    borderRadius: 12,
-    border: "1px solid #EDE8E0",
-    background: "#FFFFFF",
-  },
-  qrHint: {
-    margin: 0,
-    fontSize: 12,
-    color: "#9A8A78",
-  },
+    /* QR */
+    qrBox: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 8,
+      marginTop: 4,
+    },
+    qrImg: {
+      width: 180,
+      height: 180,
+      objectFit: "contain",
+      borderRadius: 12,
+      border: `1px solid ${C.borderLight}`,
+      background: C.white,
+    },
+    qrHint: {
+      margin: 0,
+      fontSize: 12,
+      color: C.muted,
+    },
 
-  /* Items */
-  section: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 6,
-  },
-  sectionLabel: {
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    fontSize: 11,
-    fontWeight: 900,
-    letterSpacing: 1.4,
-    textTransform: "uppercase" as const,
-    color: "#7A6650",
-  },
-  itemsList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-  },
-  itemRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    padding: "6px 10px",
-    borderRadius: 10,
-    background: "#F7F4F0",
-  },
-  itemName: {
-    flex: 1,
-    fontSize: 13,
-    fontWeight: 700,
-    color: "#1A1208",
-  },
-  itemQty: {
-    fontSize: 12,
-    color: "#7A6650",
-    fontWeight: 600,
-  },
-  itemPrice: {
-    fontSize: 13,
-    fontWeight: 800,
-    color: "#E04E1B",
-    minWidth: 60,
-    textAlign: "right" as const,
-  },
+    /* Items */
+    section: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 6,
+    },
+    sectionLabel: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      fontSize: 11,
+      fontWeight: 900,
+      letterSpacing: 1.4,
+      textTransform: "uppercase" as const,
+      color: C.muted,
+    },
+    itemsList: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 4,
+    },
+    itemRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "6px 10px",
+      borderRadius: 10,
+      background: C.soft,
+    },
+    itemName: {
+      flex: 1,
+      fontSize: 13,
+      fontWeight: 700,
+      color: C.text,
+    },
+    itemQty: {
+      fontSize: 12,
+      color: C.muted,
+      fontWeight: 600,
+    },
+    itemPrice: {
+      fontSize: 13,
+      fontWeight: 800,
+      color: C.accentDeep,
+      minWidth: 60,
+      textAlign: "right" as const,
+    },
 
-  /* Info grid */
-  infoGrid: {
-    display: "flex",
-    gap: 12,
-  },
-  infoItem: {
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    padding: "10px 12px",
-    borderRadius: 12,
-    background: "#F7F4F0",
-  },
-  infoLabel: {
-    fontSize: 12,
-    fontWeight: 700,
-    color: "#3D2E1E",
-  },
+    /* Info grid */
+    infoGrid: {
+      display: "flex",
+      gap: 12,
+    },
+    infoItem: {
+      flex: 1,
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "10px 12px",
+      borderRadius: 12,
+      background: C.soft,
+    },
+    infoLabel: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: C.textSoft,
+    },
 
-  /* Total */
-  totalBox: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "12px 16px",
-    borderRadius: 14,
-    background: "#1A1208",
-  },
-  totalLabel: {
-    fontSize: 12,
-    fontWeight: 800,
-    letterSpacing: 1.2,
-    textTransform: "uppercase" as const,
-    color: "#C4B8A8",
-  },
-  totalValue: {
-    fontSize: 22,
-    fontWeight: 900,
-    color: "#FFFFFF",
-  },
+    /* Total */
+    totalBox: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "12px 16px",
+      borderRadius: 14,
+      background: C.soft,
+      border: `1px solid ${C.borderLight}`,
+    },
+    totalLabel: {
+      fontSize: 12,
+      fontWeight: 800,
+      letterSpacing: 1.2,
+      textTransform: "uppercase" as const,
+      color: C.muted,
+    },
+    totalValue: {
+      fontSize: 22,
+      fontWeight: 900,
+      color: C.text,
+    },
 
-  /* Footer */
-  footer: {
-    padding: "14px 20px 22px",
-    borderTop: `1px solid ${BORDER}`,
-    display: "flex",
-    flexDirection: "column",
-    gap: 8,
-    background: "#FAFAF8",
-  },
-  btnContact: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    background: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "14px 20px",
-    borderRadius: 14,
-    fontWeight: 900,
-    fontSize: 15,
-    cursor: "pointer",
-    fontFamily: "inherit",
-    boxShadow: "0 4px 12px rgba(34,197,94,0.4)",
-  },
-  btnDone: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    background: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "14px 20px",
-    borderRadius: 14,
-    fontWeight: 900,
-    fontSize: 15,
-    cursor: "pointer",
-    fontFamily: "inherit",
-    boxShadow: "0 4px 12px rgba(34,197,94,0.4)",
-  },
-  btnCancel: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    background: "transparent",
-    color: "#9A8A78",
-    border: "1px solid #D4C8B8",
-    padding: "10px 20px",
-    borderRadius: 14,
-    fontWeight: 700,
-    fontSize: 13,
-    cursor: "pointer",
-    fontFamily: "inherit",
-  },
-  btnPaymentSent: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    background: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "14px 20px",
-    borderRadius: 14,
-    fontWeight: 900,
-    fontSize: 15,
-    cursor: "pointer",
-    fontFamily: "inherit",
-    boxShadow: "0 4px 12px rgba(59,130,246,0.4)",
-  },
-  btnPaymentSentDone: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    background: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "14px 20px",
-    borderRadius: 14,
-    fontWeight: 900,
-    fontSize: 15,
-    cursor: "default",
-    fontFamily: "inherit",
-    boxShadow: "0 4px 12px rgba(34,197,94,0.3)",
-  },
-  paymentSentNote: {
-    margin: 0,
-    fontSize: 12,
-    color: "#2563EB",
-    textAlign: "center" as const,
-    lineHeight: 1.4,
-  },
-  cookingNote: {
-    margin: 0,
-    fontSize: 13,
-    color: "#16A34A",
-    fontWeight: 600,
-    textAlign: "center" as const,
-    lineHeight: 1.5,
-  },
-  btnComplete: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    background: "linear-gradient(135deg, #0891B2 0%, #0E7490 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "14px 20px",
-    borderRadius: 14,
-    fontWeight: 900,
-    fontSize: 15,
-    cursor: "pointer",
-    fontFamily: "inherit",
-    boxShadow: "0 4px 12px rgba(8,145,178,0.4)",
-  },
-  timerFooter: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    padding: "8px",
-  },
-  timerText: {
-    fontSize: 14,
-    fontWeight: 800,
-    color: "#EA580C",
-    fontVariantNumeric: "tabular-nums",
-  },
-};
+    /* Footer */
+    footer: {
+      padding: "14px 20px 22px",
+      borderTop: `1px solid ${BORDER}`,
+      display: "flex",
+      flexDirection: "column",
+      gap: 8,
+      background: C.pageBg,
+    },
+    btnContact: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      background: C.greenGradient,
+      color: C.white,
+      border: "none",
+      padding: "14px 20px",
+      borderRadius: 14,
+      fontWeight: 900,
+      fontSize: 15,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      boxShadow: "0 4px 12px rgba(34,197,94,0.4)",
+    },
+    btnDone: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      background: C.greenGradient,
+      color: C.white,
+      border: "none",
+      padding: "14px 20px",
+      borderRadius: 14,
+      fontWeight: 900,
+      fontSize: 15,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      boxShadow: "0 4px 12px rgba(34,197,94,0.4)",
+    },
+    btnCancel: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      background: "transparent",
+      color: C.muted,
+      border: `1px solid ${C.borderLight}`,
+      padding: "10px 20px",
+      borderRadius: 14,
+      fontWeight: 700,
+      fontSize: 13,
+      cursor: "pointer",
+      fontFamily: "inherit",
+    },
+    btnPaymentSent: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      background: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
+      color: C.white,
+      border: "none",
+      padding: "14px 20px",
+      borderRadius: 14,
+      fontWeight: 900,
+      fontSize: 15,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      boxShadow: "0 4px 12px rgba(59,130,246,0.4)",
+    },
+    btnPaymentSentDone: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      background: C.greenGradient,
+      color: C.white,
+      border: "none",
+      padding: "14px 20px",
+      borderRadius: 14,
+      fontWeight: 900,
+      fontSize: 15,
+      cursor: "default",
+      fontFamily: "inherit",
+      boxShadow: "0 4px 12px rgba(34,197,94,0.3)",
+    },
+    paymentSentNote: {
+      margin: 0,
+      fontSize: 12,
+      color: "#2563EB",
+      textAlign: "center" as const,
+      lineHeight: 1.4,
+    },
+    cookingNote: {
+      margin: 0,
+      fontSize: 13,
+      color: C.green,
+      fontWeight: 600,
+      textAlign: "center" as const,
+      lineHeight: 1.5,
+    },
+    btnComplete: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      background: "linear-gradient(135deg, #0891B2 0%, #0E7490 100%)",
+      color: C.white,
+      border: "none",
+      padding: "14px 20px",
+      borderRadius: 14,
+      fontWeight: 900,
+      fontSize: 15,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      boxShadow: "0 4px 12px rgba(8,145,178,0.4)",
+    },
+    timerFooter: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      padding: "8px",
+    },
+    timerText: {
+      fontSize: 14,
+      fontWeight: 800,
+      color: C.accent,
+      fontVariantNumeric: "tabular-nums",
+    },
+  };
+}
+

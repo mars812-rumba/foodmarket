@@ -17,7 +17,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 
-from order_manager import create_order, update_status, get_latest_orders, get_order, save_order_event, VALID_STATUSES
+from order_manager import create_order, update_status, get_latest_orders, get_order, save_order_event, delete_orders, VALID_STATUSES
 from crm_adapter import sync_order_to_crm, get_all_food_orders_as_bookings, ORDER_TO_CRM_USER_STATUS
 
 logger = logging.getLogger(__name__)
@@ -43,6 +43,9 @@ class UpdateStatusRequest(BaseModel):
 
 class PaymentSentRequest(BaseModel):
     payment_sent: bool = True
+
+class DeleteOrdersRequest(BaseModel):
+    order_ids: List[str] = Field(..., description="List of order_id values to delete")
 
 
 # ── Telegram notification via HTTP ──────────────────────────────────────
@@ -224,6 +227,22 @@ def create_order_router(data_path: str = "./data/ar") -> APIRouter:
             return {"status": "ok", "order": order}
         except HTTPException:
             raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
+    # ── Delete orders ──────────────────────────────────────────────────
+
+    @router.post("/{restaurant_id}/orders/delete")
+    async def api_delete_orders(restaurant_id: str, body: DeleteOrdersRequest):
+        """Delete orders by IDs from the JSONL file (permanent removal)."""
+        try:
+            removed = delete_orders(
+                restaurant_id=restaurant_id,
+                order_ids=body.order_ids,
+                data_path=data_path,
+            )
+            logger.info(f"✅ Deleted {removed} order events for restaurant {restaurant_id}")
+            return {"status": "ok", "deleted": removed}
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 

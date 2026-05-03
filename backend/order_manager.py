@@ -135,6 +135,46 @@ def create_order(
 VALID_STATUSES = {"NEW", "CONFIRMED", "PAID", "DONE", "CANCELLED"}
 
 
+def delete_orders(
+    restaurant_id: str,
+    order_ids: List[str],
+    data_path: str = "./data/ar",
+) -> int:
+    """
+    Remove orders by order_ids from the JSONL file.
+    Rewrites the file keeping only events whose order_id is NOT in order_ids.
+    Returns the number of events removed.
+    """
+    path = _orders_file(restaurant_id, data_path)
+    if not path.exists():
+        return 0
+
+    ids_set = set(order_ids)
+    lock = _get_lock(str(path))
+    with lock:
+        kept: List[str] = []
+        removed = 0
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                raw = line.strip()
+                if not raw:
+                    continue
+                try:
+                    ev = json.loads(raw)
+                    if ev.get("order_id") in ids_set:
+                        removed += 1
+                    else:
+                        kept.append(raw)
+                except json.JSONDecodeError:
+                    kept.append(raw)  # keep malformed lines as-is
+
+        with open(path, "w", encoding="utf-8") as f:
+            for line in kept:
+                f.write(line + "\n")
+
+    return removed
+
+
 def update_status(
     restaurant_id: str,
     order_id: str,

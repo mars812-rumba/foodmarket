@@ -189,6 +189,8 @@ def create_menu_router(data_path: str = "./data/ar") -> APIRouter:
                                 "logo": config.get("logo"),
                                 "payment_qr_url": config.get("payment_qr_url"),
                                 "admin_ids": config.get("admin_ids", []),
+                                "manager_username": config.get("manager_username"),
+                                "theme": config.get("theme"),
                                 "created_at": config.get("created_at"),
                             })
             
@@ -355,7 +357,7 @@ def create_menu_router(data_path: str = "./data/ar") -> APIRouter:
         name: str = Form(...),
         address: str = Form(...),
         phone: str = Form(...),
-        logo: str = Form(...)
+        logo: UploadFile = File(None)
     ):
         """Создать новый ресторан"""
         try:
@@ -365,13 +367,39 @@ def create_menu_router(data_path: str = "./data/ar") -> APIRouter:
             # Создаём структуру папок
             ensure_restaurant_structure(restaurant_id, data_path)
             
+            # Обработка логотипа если он загружен
+            logo_path = None
+            if logo and logo.filename:
+                upload_dir = Path(data_path) / "restaurant_logos"
+                upload_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Получаем расширение файла
+                ext = Path(logo.filename).suffix if '.' in logo.filename else '.png'
+                logo_filename = f"{restaurant_id}_logo{ext}"
+                logo_file_path = upload_dir / logo_filename
+                
+                # Сохраняем файл
+                contents = await logo.read()
+                with open(logo_file_path, 'wb') as f:
+                    f.write(contents)
+                
+                # Также сохраняем в public/images_web/restaurant_logos/
+                root_path = Path(data_path).parent.parent
+                public_upload_dir = root_path / "public" / "images_web" / "restaurant_logos"
+                public_upload_dir.mkdir(parents=True, exist_ok=True)
+                public_logo_path = public_upload_dir / logo_filename
+                with open(public_logo_path, 'wb') as f:
+                    f.write(contents)
+                
+                logo_path = f"restaurant_logos/{logo_filename}"
+            
             # Создаём config.json
             config = {
                 "restaurant_id": restaurant_id,
                 "name": name,
                 "address": address,
                 "phone": phone,
-                "logo": logo,
+                "logo": logo_path,
                 "created_at": datetime.now().isoformat()
             }
             save_config(restaurant_id, config, data_path)
@@ -410,6 +438,54 @@ def create_menu_router(data_path: str = "./data/ar") -> APIRouter:
             raise
         except Exception as e:
             print(f"❌ Error creating restaurant: {e}")
+            raise HTTPException(status_code=500, detail=str(e))
+
+    @router.delete("/{restaurant_id}")
+    async def delete_restaurant(restaurant_id: str):
+        """Удалить ресторан со всеми данными"""
+        try:
+            # Удаляем папку ресторана
+            rest_path = get_restaurant_path(restaurant_id, data_path)
+            if rest_path.exists():
+                shutil.rmtree(rest_path)
+                print(f"✅ Restaurant folder deleted: {rest_path}")
+            
+            # Удаляем логотип если есть
+            logo_dir = Path(data_path) / "restaurant_logos"
+            if logo_dir.exists():
+                for logo_file in logo_dir.glob(f"{restaurant_id}_logo*"):
+                    logo_file.unlink()
+                    print(f"✅ Logo deleted: {logo_file}")
+            
+            # Также удаляем из public/
+            root_path = Path(data_path).parent.parent
+            public_logo_dir = root_path / "public" / "images_web" / "restaurant_logos"
+            if public_logo_dir.exists():
+                for logo_file in public_logo_dir.glob(f"{restaurant_id}_logo*"):
+                    logo_file.unlink()
+                    print(f"✅ Public logo deleted: {logo_file}")
+            
+            # Удаляем из restaurants.json
+            restaurants_file = Path(data_path) / "restaurants.json"
+            if restaurants_file.exists():
+                try:
+                    with open(restaurants_file, 'r', encoding='utf-8') as f:
+                        restaurants = json.load(f)
+                    
+                    # Фильтруем ресторан
+                    restaurants = [r for r in restaurants if r.get("restaurant_id") != restaurant_id]
+                    
+                    # Сохраняем обновленный список
+                    with open(restaurants_file, 'w', encoding='utf-8') as f:
+                        json.dump(restaurants, f, ensure_ascii=False, indent=2)
+                    print(f"✅ Restaurant removed from restaurants.json: {restaurant_id}")
+                except Exception as e:
+                    print(f"⚠️ Error updating restaurants.json: {e}")
+            
+            print(f"✅ Restaurant deleted: {restaurant_id}")
+            return {"status": "ok", "message": f"Restaurant {restaurant_id} deleted"}
+        except Exception as e:
+            print(f"❌ Error deleting restaurant: {e}")
             raise HTTPException(status_code=500, detail=str(e))
 
     @router.post("/{restaurant_id}/menu")

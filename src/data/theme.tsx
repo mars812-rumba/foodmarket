@@ -2,59 +2,15 @@
    SHARED DESIGN TOKENS — Pizza Loft / Food Market style
    Используется во всех модалках и дашборде для общего вида.
    Все компоненты ссылаются на эти токены через объект C / R / SH / FONT.
+   
+   C теперь реэкспортируется из themes.ts (warm = дефолт).
+   Для динамической темы используйте useTheme() из ThemeContext.
    ============================================================ */
 
-/** Цветовая палитра */
-export const C = {
-  // Поверхности
-  bg: "#FFFFFF",
-  cream: "#FFFAF2",        // основной "тёплый" фон карточек/инпутов
-  pageBg: "#FFF6EC",       // фон страницы дашборда
-  surface: "#FFFFFF",
-  soft: "#FBF5EC",         // мягкая подложка для строк/чипов
-  dark: "#1A1208",         // почти-чёрный, основной текст и тёмная панель Total
+import { THEMES } from "@/data/themes";
 
-  // Текст
-  text: "#1A1208",
-  textSoft: "#3D2E1E",
-  muted: "#7A6650",
-  faint: "#9A8A78",
-  hint: "#C4B8A8",
-
-  // Акценты (оранжевый — главный бренд)
-  accent: "#FF6B35",
-  accentDeep: "#E04E1B",
-  accentSoft: "#FFF1E6",
-  accentBorder: "#FFD4B8",
-  accentGradient:
-    "linear-gradient(135deg, #FF8A4C 0%, #FF6B35 50%, #E04E1B 100%)",
-
-  // Линии
-  border: "rgba(120, 80, 30, 0.12)",
-  borderStrong: "rgba(120, 80, 30, 0.18)",
-
-  // Семантика статусов (мягкие, в одном "тёплом" регистре)
-  warn: "#D97706",
-  warnBg: "#FFF7EA",
-  warnBorder: "#F5C77A",
-
-  info: "#2563EB",
-  infoBg: "#EEF4FF",
-  infoBorder: "#BFD4F7",
-
-  ok: "#16A34A",
-  okBg: "#EEFBF2",
-  okBorder: "#A7E3BC",
-  okGradient: "linear-gradient(135deg, #34D27A 0%, #16A34A 100%)",
-
-  done: "#0891B2",
-  doneBg: "#E8FAFC",
-  doneBorder: "#9FE0EA",
-
-  danger: "#DC2626",
-  dangerBg: "#FEF2F2",
-  dangerBorder: "#FCA5A5",
-} as const;
+/** Цветовая палитра — дефолт (warm). Для динамики — useTheme() */
+export const C = THEMES.warm;
 
 /** Радиусы — единая шкала */
 export const R = {

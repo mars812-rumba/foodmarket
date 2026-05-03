@@ -16,6 +16,7 @@ export type MenuItem = {
   notes?: string;
   ingredients?: Ingredient[];
   available?: boolean;
+  badges?: string[]; // attractive badges like "Отборная говядина", "Много сыра", "Хит продаж"
 };
 
 export type CartLine = {

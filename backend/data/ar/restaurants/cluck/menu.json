@@ -1,0 +1,325 @@
+{
+  "restaurant_id": "kin_burger",
+  "categories": [
+    "burger",
+    "drinks",
+    "steak",
+    "pizza",
+    "potato_chicken"
+  ],
+  "items": [
+    {
+      "id": "kin_burger",
+      "name": "BEEF KIN BURGER SET",
+      "slug": "kin_burger",
+      "category": "burger",
+      "price": 190.0,
+      "weight": "350 gr",
+      "image": "restaurants/kin_burger/kin_burger_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1777015257552",
+          "name": "Extra Cheese",
+          "price": 50.0
+        }
+      ],
+      "available": true,
+      "notes": "Juicy 100% beef burger on a toasted bun paired with golden, crispy fries. The ultimate balance of flavor and crunch.",
+      "photos": {
+        "main": "restaurants/kin_burger/kin_burger_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:49:38.606375"
+    },
+    {
+      "id": "chicken_burger_classic",
+      "name": "Chicken Burger Classic",
+      "slug": "chicken_burger_classic",
+      "category": "burger",
+      "price": 150.0,
+      "weight": "350 g.",
+      "image": "restaurants/kin_burger/chicken_burger_classic_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1777018379574",
+          "name": "Cheese",
+          "price": 50.0
+        }
+      ],
+      "available": true,
+      "notes": "Crispy chicken breast seasoned to perfection, served on a toasted bun with fresh greens and a side of golden fries. Tender on the inside, crunchy on the outside",
+      "photos": {
+        "main": "restaurants/kin_burger/chicken_burger_classic_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:49:55.857758"
+    },
+    {
+      "id": "roselle_soda",
+      "name": "Roselle Soda",
+      "slug": "roselle_soda",
+      "category": "drinks",
+      "price": 110.0,
+      "weight": "450 ml.",
+      "image": "restaurants/kin_burger/roselle_soda_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "An artisanal iced Roselle Soda is presented on a weathered wooden table in an open-air tropical garden patio. ",
+      "photos": {
+        "main": "restaurants/kin_burger/roselle_soda_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T05:56:53.409723"
+    },
+    {
+      "id": "beef_steak_australia",
+      "name": "Beef Steak AUSTRALIA",
+      "slug": "beef_steak_australia",
+      "category": "steak",
+      "price": 350.0,
+      "weight": "350 g.",
+      "image": "restaurants/kin_burger/beef_steak_australia_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "100% Australian Beef with no bun",
+      "photos": {
+        "main": "restaurants/kin_burger/beef_steak_australia_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:28:19.317933"
+    },
+    {
+      "id": "pork_cheese_burger_",
+      "name": "Pork Cheese Burger ",
+      "slug": "pork_cheese_burger_",
+      "category": "burger",
+      "price": 150.0,
+      "weight": "349 g.",
+      "image": "restaurants/kin_burger/pork_cheese_burger__0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "100% Pork Meat. Fried on open fire. Vegetables includes .",
+      "photos": {
+        "main": "restaurants/kin_burger/pork_cheese_burger__0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:49:22.605723"
+    },
+    {
+      "id": "pizza_4_cheeses",
+      "name": "Pizza 4 cheeses",
+      "slug": "pizza_4_cheeses",
+      "category": "pizza",
+      "price": 550.0,
+      "weight": "500 g.",
+      "image": "restaurants/kin_burger/pizza_4_cheeses_0.png",
+      "ingredients": [
+        {
+          "id": "ing_1777074022407",
+          "name": "Extra Cheese",
+          "price": 50.0
+        }
+      ],
+      "available": true,
+      "notes": "Incredibly delicious Pepperoni Pizza made from original Italian reciept ",
+      "photos": {
+        "main": "restaurants/kin_burger/pizza_4_cheeses_0.png",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:50:12.795366"
+    },
+    {
+      "id": "kinburger",
+      "name": "KinBurger",
+      "slug": "kinburger",
+      "category": "burger",
+      "price": 150.0,
+      "weight": "350 gm",
+      "image": "restaurants/kin_burger/kinburger_0.jpg",
+      "ingredients": [
+        {
+          "id": "ing_1777074219323",
+          "name": "Fried Egg",
+          "price": 20.0
+        }
+      ],
+      "available": true,
+      "notes": "An incredible combination of beef and fried egg flavors with our signature sauce.",
+      "photos": {
+        "main": "restaurants/kin_burger/kinburger_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:44:17.502904"
+    },
+    {
+      "id": "blueberry_blast",
+      "name": "Blueberry Blast",
+      "slug": "blueberry_blast",
+      "category": "drinks",
+      "price": 110.0,
+      "weight": "500 ml",
+      "image": "restaurants/kin_burger/blueberry_blast_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "This milk shake have so manny berrys its make perfect taste balance",
+      "photos": {
+        "main": "restaurants/kin_burger/blueberry_blast_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:46:57.364580"
+    },
+    {
+      "id": "lemon_yuzu_soda",
+      "name": "Lemon Yuzu Soda",
+      "slug": "lemon_yuzu_soda",
+      "category": "drinks",
+      "price": 110.0,
+      "weight": "500 ml",
+      "image": "restaurants/kin_burger/lemon_yuzu_soda_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Made from lemons. Good taste",
+      "photos": {
+        "main": "restaurants/kin_burger/lemon_yuzu_soda_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-24T23:49:06.539196"
+    },
+    {
+      "id": "australia_beef_burger_",
+      "name": "Australia Beef Burger ",
+      "slug": "australia_beef_burger_",
+      "category": "burger",
+      "price": 220.0,
+      "weight": "350 g.",
+      "image": "restaurants/kin_burger/australia_beef_burger__0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Juicy Australian beef with crispy lettuce and toasted sesame seed bun 😋 ",
+      "photos": {
+        "main": "restaurants/kin_burger/australia_beef_burger__0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T05:58:42.843110"
+    },
+    {
+      "id": "beefburger_",
+      "name": "Beefburger ",
+      "slug": "beefburger_",
+      "category": "burger",
+      "price": 320.0,
+      "weight": "350 g",
+      "image": "restaurants/kin_burger/beefburger__0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "",
+      "photos": {
+        "main": "restaurants/kin_burger/beefburger__0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T05:52:56.054772"
+    },
+    {
+      "id": "thai_milk",
+      "name": "Thai milk",
+      "slug": "thai_milk",
+      "category": "drinks",
+      "price": 110.0,
+      "weight": "500 ml",
+      "image": "restaurants/kin_burger/fruit_tea_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Thai milk. It is milk from Thailand. With black balls unside",
+      "photos": {
+        "main": "restaurants/kin_burger/fruit_tea_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T05:56:15.603909"
+    },
+    {
+      "id": "freezly_pizza_",
+      "name": "Freezly Pizza ",
+      "slug": "freezly_pizza_",
+      "category": "pizza",
+      "price": 400.0,
+      "weight": "400 g.",
+      "image": "restaurants/freezly_pizza/freezly_pizza__0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "",
+      "photos": {
+        "main": "restaurants/freezly_pizza/freezly_pizza__0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T13:36:37.503506"
+    },
+    {
+      "id": "freezly_pizza_2",
+      "name": "Freezly Pizza 2",
+      "slug": "freezly_pizza_2",
+      "category": "pizza",
+      "price": 450.0,
+      "weight": "700 g.",
+      "image": "restaurants/freezly_pizza/freezly_pizza_2_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "",
+      "photos": {
+        "main": "restaurants/freezly_pizza/freezly_pizza_2_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T13:37:19.580968"
+    },
+    {
+      "id": "freezly_pizza_3",
+      "name": "Freezly Pizza 3",
+      "slug": "freezly_pizza_3",
+      "category": "pizza",
+      "price": 600.0,
+      "weight": "900 g.",
+      "image": "restaurants/freezly_pizza/freezly_pizza_3_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "",
+      "photos": {
+        "main": "restaurants/freezly_pizza/freezly_pizza_3_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T13:38:04.193041"
+    },
+    {
+      "id": "cluck_burger_1",
+      "name": "Cluck Burger 1",
+      "slug": "cluck_burger_1",
+      "category": "burger",
+      "price": 150.0,
+      "weight": "350 g.",
+      "image": "restaurants/cluck/cluck_burger_1_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "",
+      "photos": {
+        "main": "restaurants/cluck/cluck_burger_1_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T14:19:40.071386"
+    },
+    {
+      "id": "chicken_sour_sugar",
+      "name": "Chicken Sour sugar",
+      "slug": "chicken_sour_sugar",
+      "category": "potato_chicken",
+      "price": 120.0,
+      "weight": "350 g.",
+      "image": "restaurants/cluck/chicken_0.jpg",
+      "ingredients": [],
+      "available": true,
+      "notes": "",
+      "photos": {
+        "main": "restaurants/cluck/chicken_0.jpg",
+        "gallery": []
+      },
+      "updated_at": "2026-04-25T14:20:39.261085"
+    }
+  ]
+}

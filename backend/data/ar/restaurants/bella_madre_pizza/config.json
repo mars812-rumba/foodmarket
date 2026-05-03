@@ -1,0 +1,16 @@
+{
+  "restaurant_id": "bella_madre_pizza",
+  "name": "Bella Madre Pizza",
+  "address": "Chiang Mai",
+  "phone": "+66 62 217 2232",
+  "logo": "restaurant_logos/bella_madre_pizza_logo.jpg",
+  "created_at": "2026-04-25T11:19:01.125288",
+  "id": "bella_madre_pizza",
+  "description": "Popular Chiang Mai Restaurant",
+  "info_text": "10:00-22:00",
+  "payment_qr_url": "",
+  "admin_ids": [],
+  "dashboard_token": "bella_madre_pizza",
+  "manager_username": "",
+  "theme": "ocean"
+}

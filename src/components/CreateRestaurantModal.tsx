@@ -77,30 +77,15 @@ export default function CreateRestaurantModal({ open, onOpenChange, onRestaurant
     try {
       const restaurantId = slugify(formData.name);
       
-      // Сначала загружаем логотип
-      const logoFormData = new FormData();
-      logoFormData.append('logo', logoFile);
-      logoFormData.append('restaurant_id', restaurantId);
-
-      const logoRes = await fetch(`${API_URL}/api/restaurants/upload-logo`, {
-        method: 'POST',
-        body: logoFormData,
-      });
-
-      if (!logoRes.ok) {
-        const errorData = await logoRes.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Ошибка загрузки логотипа');
-      }
-
-      const logoData = await logoRes.json();
-
-      // Потом создаём ресторан с данными логотипа
+      // Создаём ресторан с логотипом в одном запросе
       const createFormData = new FormData();
       createFormData.append('restaurant_id', restaurantId);
       createFormData.append('name', formData.name);
       createFormData.append('address', formData.address);
       createFormData.append('phone', formData.phone);
-      createFormData.append('logo', logoData.logo_path);
+      if (logoFile) {
+        createFormData.append('logo', logoFile);
+      }
 
       const createRes = await fetch(`${API_URL}/api/restaurants`, {
         method: 'POST',

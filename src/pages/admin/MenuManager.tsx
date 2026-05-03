@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import {
   Plus, Edit, Trash2, Search, Package, Upload,
-  DollarSign, Tag, X, Save, Image as ImageIcon,
+  DollarSign, Tag, X, Save, Image as ImageIcon, Palette,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateRestaurantModal from '@/components/CreateRestaurantModal';
 import { CATEGORY_ICONS } from '@/data/categoryIcons.tsx';
+import { THEME_LABELS, type ThemeKey } from '@/data/themes';
 
 const API_URL = import.meta.env.VITE_API_URL || "https://weldwood.sunny-rentals.online";
 
@@ -88,6 +89,7 @@ interface Restaurant {
   payment_qr_url?: string;
   admin_ids?: string[];
   manager_username?: string;
+  theme?: string;
   created_at?: string;
 }
 
@@ -534,40 +536,68 @@ export default function MenuManager() {
               </SelectContent>
             </Select>
             {selectedRestaurant && (
-              <Button
-                onClick={async () => {
-                  try {
-                    const res = await fetch(`${API_URL}/api/restaurants/${selectedRestaurant}/config`);
-                    if (res.ok) {
-                      const config = await res.json();
-                      const restaurant: Restaurant = {
-                        id: selectedRestaurant,
-                        restaurant_id: config.restaurant_id || selectedRestaurant,
-                        name: config.name || selectedRestaurant,
-                        description: config.description || '',
-                        info_text: config.info_text || '',
-                        address: config.address || '',
-                        phone: config.phone || '',
-                        logo: config.logo || '',
-                        payment_qr_url: config.payment_qr_url || '',
-                        admin_ids: config.admin_ids || [],
-                        manager_username: config.manager_username || '',
-                        created_at: config.created_at || '',
-                      };
-                      setEditingRestaurant(restaurant);
-                      setRestaurantFormData(restaurant);
-                      setIsEditRestaurantOpen(true);
+              <>
+                <Button
+                  onClick={async () => {
+                    try {
+                      const res = await fetch(`${API_URL}/api/restaurants/${selectedRestaurant}/config`);
+                      if (res.ok) {
+                        const config = await res.json();
+                        const restaurant: Restaurant = {
+                          id: selectedRestaurant,
+                          restaurant_id: config.restaurant_id || selectedRestaurant,
+                          name: config.name || selectedRestaurant,
+                          description: config.description || '',
+                          info_text: config.info_text || '',
+                          address: config.address || '',
+                          phone: config.phone || '',
+                          logo: config.logo || '',
+                          payment_qr_url: config.payment_qr_url || '',
+                          admin_ids: config.admin_ids || [],
+                          manager_username: config.manager_username || '',
+                          created_at: config.created_at || '',
+                        };
+                        setEditingRestaurant(restaurant);
+                        setRestaurantFormData(restaurant);
+                        setIsEditRestaurantOpen(true);
+                      }
+                    } catch (e) {
+                      console.error('Ошибка загрузки конфига ресторана', e);
                     }
-                  } catch (e) {
-                    console.error('Ошибка загрузки конфига ресторана', e);
-                  }
-                }}
-                size="sm"
-                variant="outline"
-                className="h-10 border-slate-300"
-              >
-                <Edit className="h-4 w-4" />
-              </Button>
+                  }}
+                  size="sm"
+                  variant="outline"
+                  className="h-10 border-slate-300"
+                >
+                  <Edit className="h-4 w-4" />
+                </Button>
+                <Button
+                  onClick={async () => {
+                    if (window.confirm(`Вы уверены? Это удалит ресторан "${restaurants.find(r => r.id === selectedRestaurant)?.name}" со всеми данными, меню и логотипом.`)) {
+                      try {
+                        const res = await fetch(`${API_URL}/api/restaurants/${selectedRestaurant}`, {
+                          method: 'DELETE',
+                        });
+                        if (res.ok) {
+                          alert('Ресторан удален');
+                          setSelectedRestaurant('');
+                          fetchRestaurants();
+                        } else {
+                          alert('Ошибка удаления ресторана');
+                        }
+                      } catch (e) {
+                        console.error('Ошибка удаления ресторана', e);
+                        alert('Ошибка удаления ресторана');
+                      }
+                    }
+                  }}
+                  size="sm"
+                  variant="destructive"
+                  className="h-10"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </>
             )}
 
             <div className="relative flex-1">
@@ -1041,6 +1071,35 @@ export default function MenuManager() {
                 className="h-12 rounded-xl bg-slate-50 border-none text-lg font-bold focus-visible:ring-orange-500"
                 onChange={(e) => setRestaurantFormData(prev => ({ ...prev, manager_username: e.target.value }))}
               />
+            </div>
+
+            {/* Тема оформления */}
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-slate-500 ml-1 flex items-center gap-1.5">
+                <Palette className="h-3.5 w-3.5" /> ТЕМА ОФОРМЛЕНИЯ ВИТРИНЫ
+              </Label>
+              <div className="grid grid-cols-5 gap-2">
+                {(Object.entries(THEME_LABELS) as [ThemeKey, typeof THEME_LABELS[ThemeKey]][]).map(([key, { label, emoji, preview }]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setRestaurantFormData(prev => ({ ...prev, theme: key }))}
+                    className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all ${
+                      (restaurantFormData.theme || 'warm') === key
+                        ? 'border-orange-500 bg-orange-50 shadow-md scale-105'
+                        : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span
+                      className="w-8 h-8 rounded-full shadow-sm border border-white/50"
+                      style={{ background: preview }}
+                    />
+                    <span className="text-[10px] font-bold text-slate-600 leading-tight text-center">
+                      {emoji} {label}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Логотип */}

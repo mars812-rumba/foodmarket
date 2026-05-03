@@ -1,0 +1,16 @@
+{
+  "restaurant_id": "black_box_pizza",
+  "name": "Black Box Pizza",
+  "address": "Chiang Mai",
+  "phone": "+66 95 724 7112",
+  "logo": "restaurant_logos/black_box_pizza_logo.jpg",
+  "created_at": "2026-04-25T12:23:01.380631",
+  "id": "black_box_pizza",
+  "description": "Chicago Style Pizza",
+  "info_text": "",
+  "payment_qr_url": "",
+  "admin_ids": [],
+  "dashboard_token": "blkboxpizza",
+  "manager_username": "",
+  "theme": "dark"
+}

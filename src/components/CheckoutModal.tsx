@@ -1,8 +1,10 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState, useMemo, type CSSProperties } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useTelegramContext } from "@/contexts/TelegramContext";
 import { useOrder, type ClientOrderStatus } from "@/contexts/OrderContext";
 import { toast } from "sonner";
+import { CreditCard, Banknote, CheckCircle2, Send, Truck, MapPin } from "lucide-react";
+import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
 
 type Props = {
   open: boolean;
@@ -14,6 +16,8 @@ type Delivery = "pickup" | "delivery";
 type Payment = "qr_prompt_pay" | "cash";
 
 export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
+  const C = useTheme();
+  const s = useMemo(() => buildCheckoutStyles(C), [C]);
   const { cart, cartTotal, incQty, decQty, removeFromCart, clearCart, submitOrder } = useCart();
   const { user: tgUser, isTelegramEnvironment } = useTelegramContext();
   const { setActiveOrder, openModal: openOrderModal } = useOrder();
@@ -46,7 +50,7 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
 
   if (!open) return null;
 
-  // Telegram users: phone is optional (contact via Telegram); web users: phone required
+  // Validation is informational only — order submits regardless
   const isValid =
     cart.length > 0 &&
     name.trim().length >= 2 &&
@@ -54,7 +58,7 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
     (delivery === "pickup" || address.trim().length >= 3);
 
   const handleSubmit = async () => {
-    if (!isValid || submitting) return;
+    if (submitting) return;
     setSubmitting(true);
     const res = await submitOrder(
       {
@@ -90,7 +94,7 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
         createdAt: new Date().toISOString(),
       });
     } else {
-      toast.error("Не удалось оформить заказ", { description: res.error });
+      toast.error("Failed to place order", { description: res.error });
     }
   };
 
@@ -104,18 +108,18 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
   return (
     <>
       <div style={s.overlay} onClick={onClose} />
-      <div style={s.modal} role="dialog" aria-modal="true" aria-label="Оформление заказа">
+      <div style={s.modal} role="dialog" aria-modal="true" aria-label="Checkout">
         <div style={s.header}>
-          <h2 style={s.title}>Оформление заказа</h2>
-          <button onClick={onClose} style={s.close} aria-label="Закрыть">✕</button>
+          <h2 style={s.title}>Checkout</h2>
+          <button onClick={onClose} style={s.close} aria-label="Close">✕</button>
         </div>
 
         <div style={s.body}>
           {/* Cart lines */}
           <section style={s.section}>
-            <div style={s.sectionLabel}>Ваш заказ</div>
+            <div style={s.sectionLabel}>Your Order</div>
             {cart.length === 0 ? (
-              <div style={s.emptyCart}>Корзина пуста</div>
+              <div style={s.emptyCart}>Cart is empty</div>
             ) : (
               <div style={s.lines}>
                 {cart.map((l) => (
@@ -127,12 +131,12 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
                       )}
                     </div>
                     <div style={s.qtyBox}>
-                      <button style={s.qtyBtn} onClick={() => decQty(l.uid)} aria-label="Меньше">−</button>
+                      <button style={s.qtyBtn} onClick={() => decQty(l.uid)} aria-label="Decrease">−</button>
                       <span style={s.qtyVal}>{l.qty}</span>
-                      <button style={s.qtyBtn} onClick={() => incQty(l.uid)} aria-label="Больше">+</button>
+                      <button style={s.qtyBtn} onClick={() => incQty(l.uid)} aria-label="Increase">+</button>
                     </div>
-                    <div style={s.linePrice}>{l.total} ₽</div>
-                    <button style={s.lineDel} onClick={() => removeFromCart(l.uid)} aria-label="Удалить">✕</button>
+                    <div style={s.linePrice}>{l.total} ฿</div>
+                    <button style={s.lineDel} onClick={() => removeFromCart(l.uid)} aria-label="Remove">✕</button>
                   </div>
                 ))}
               </div>
@@ -141,23 +145,23 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
 
           {/* Customer */}
           <section style={s.section}>
-            <div style={s.sectionLabel}>Контакты</div>
+            <div style={s.sectionLabel}>Contacts</div>
             {isTg && (
               <div style={s.tgContactBadge}>
-                ✈️ Связь через Telegram
+                <Send size={14} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Contact via Telegram
                 {tgUsername && <span style={s.tgContactName}>{tgUsername}</span>}
               </div>
             )}
             <input
               style={s.input}
-              placeholder={isTg ? "Имя (автозаполнено из Telegram)" : "Имя"}
+              placeholder={isTg ? "Name (auto-filled from Telegram)" : "Name"}
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             {!isTg && (
               <input
                 style={s.input}
-                placeholder="Телефон"
+                placeholder="Phone"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -167,27 +171,27 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
 
           {/* Delivery */}
           <section style={s.section}>
-            <div style={s.sectionLabel}>Получение</div>
+            <div style={s.sectionLabel}>Pickup</div>
             <div style={s.segmented}>
               <button
                 style={{ ...s.segBtn, ...(delivery === "pickup" ? s.segBtnActive : {}) }}
                 onClick={() => setDelivery("pickup")}
                 type="button"
               >
-                🚶 Самовывоз
+                <MapPin size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Pickup
               </button>
               <button
                 style={{ ...s.segBtn, ...(delivery === "delivery" ? s.segBtnActive : {}) }}
                 onClick={() => setDelivery("delivery")}
                 type="button"
               >
-                🛵 Доставка (Grab)
+                <Truck size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Delivery (Grab)
               </button>
             </div>
             {delivery === "delivery" && (
               <input
                 style={{ ...s.input, marginTop: 8 }}
-                placeholder="Адрес доставки"
+                placeholder="Delivery address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -196,21 +200,21 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
 
           {/* Payment */}
           <section style={s.section}>
-            <div style={s.sectionLabel}>Оплата</div>
+            <div style={s.sectionLabel}>Payment</div>
             <div style={s.segmented}>
               <button
                 style={{ ...s.segBtn, ...(payment === "qr_prompt_pay" ? s.segBtnActive : {}) }}
                 onClick={() => setPayment("qr_prompt_pay")}
                 type="button"
               >
-                💳 QR Prompt Pay
+                <CreditCard size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> QR Prompt Pay
               </button>
               <button
                 style={{ ...s.segBtn, ...(payment === "cash" ? s.segBtnActive : {}) }}
                 onClick={() => setPayment("cash")}
                 type="button"
               >
-                💵 Наличные
+                <Banknote size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Cash
               </button>
             </div>
           </section>
@@ -218,15 +222,15 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
 
         <div style={s.footer}>
           <div style={s.totalRow}>
-            <span style={s.totalLabel}>Итого</span>
-            <span style={s.totalValue}>{cartTotal} ₽</span>
+            <span style={s.totalLabel}>Total</span>
+            <span style={s.totalValue}>{cartTotal} ฿</span>
           </div>
           <button
             onClick={handleSubmit}
-            disabled={!isValid || submitting}
-            style={{ ...s.submit, opacity: !isValid || submitting ? 0.55 : 1, cursor: !isValid || submitting ? "not-allowed" : "pointer" }}
+            disabled={submitting}
+            style={{ ...s.submit, opacity: submitting ? 0.55 : 1, cursor: submitting ? "not-allowed" : "pointer" }}
           >
-            {submitting ? "Отправка..." : "Оформить заказ"}
+            {submitting ? "Submitting..." : "Place Order"}
           </button>
         </div>
       </div>
@@ -235,23 +239,23 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
       {showSuccess && (
         <>
           <div style={s.overlay} onClick={handleCloseSuccess} />
-          <div style={s.successModal} role="dialog" aria-modal="true" aria-label="Заказ оформлен">
-            <div style={s.successIcon}>✅</div>
-            <h2 style={s.successTitle}>Заказ оформлен!</h2>
+          <div style={s.successModal} role="dialog" aria-modal="true" aria-label="Order placed">
+            <div style={s.successIcon}><CheckCircle2 size={48} style={{color:"#16A34A"}} /></div>
+            <h2 style={s.successTitle}>Order Placed!</h2>
             {successOrderId && (
-              <div style={s.successOrderId}>Номер заказа: <strong>{successOrderId}</strong></div>
+              <div style={s.successOrderId}>Order #: <strong>{successOrderId}</strong></div>
             )}
             <div style={s.successInfo}>
-              ⏳ Ожидайте подтверждения от ресторана!<br />
-              🕐 Время готовки ~15 минут после подтверждения.
+              Waiting for restaurant confirmation!<br />
+              Cooking time ~15 minutes after confirmation.
             </div>
             {payment === "cash" && (
               <div style={s.successCash}>
-                💵 Оплата наличными — нажмите «Чат с Менеджером» в Telegram
+                <Banknote size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Cash payment — click "Chat with Manager" in Telegram
               </div>
             )}
             <button style={s.successBtn} onClick={handleCloseSuccess}>
-              Отлично!
+              Got it!
             </button>
           </div>
         </>
@@ -262,8 +266,10 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
 
 const BORDER = "rgba(120, 80, 30, 0.16)";
 
-const s: Record<string, CSSProperties> = {
-  overlay: { position: "fixed", inset: 0, background: "rgba(20,10,5,0.55)", backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)", zIndex: 220 },
+function buildCheckoutStyles(C: ThemeColors): Record<string, CSSProperties> {
+  const BORDER = C.border;
+  return {
+  overlay: { position: "fixed", inset: 0, background: C.overlay, backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)", zIndex: 220 },
   modal: {
     position: "fixed",
     left: "50%",
@@ -271,7 +277,7 @@ const s: Record<string, CSSProperties> = {
     transform: "translateX(-50%)",
     width: "min(520px, 100vw)",
     maxHeight: "92vh",
-    background: "#FFFFFF",
+    background: C.bg,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     zIndex: 230,
@@ -287,64 +293,64 @@ const s: Record<string, CSSProperties> = {
     alignItems: "center",
     justifyContent: "space-between",
   },
-  title: { margin: 0, fontSize: 18, fontWeight: 900, color: "#1A1208", letterSpacing: -0.3 },
+  title: { margin: 0, fontSize: 18, fontWeight: 900, color: C.text, letterSpacing: -0.3 },
   close: {
     width: 32, height: 32, borderRadius: 10, border: `1px solid ${BORDER}`,
-    background: "#FFFAF2", fontSize: 14, cursor: "pointer", color: "#7A6650",
+    background: C.cream, fontSize: 14, cursor: "pointer", color: C.muted,
     display: "grid", placeItems: "center",
   },
   body: { padding: "16px 20px", overflowY: "auto", display: "flex", flexDirection: "column", gap: 18, flex: 1 },
   section: { display: "flex", flexDirection: "column", gap: 8 },
   sectionLabel: {
-    fontSize: 11, fontWeight: 900, letterSpacing: 1.4, textTransform: "uppercase", color: "#7A6650",
+    fontSize: 11, fontWeight: 900, letterSpacing: 1.4, textTransform: "uppercase", color: C.muted,
   },
-  emptyCart: { padding: "16px", textAlign: "center", color: "#7A6650", fontSize: 14, background: "#F7F4F0", borderRadius: 12 },
+  emptyCart: { padding: "16px", textAlign: "center", color: C.muted, fontSize: 14, background: C.soft, borderRadius: 12 },
   lines: { display: "flex", flexDirection: "column", gap: 8 },
   line: {
     display: "flex", alignItems: "center", gap: 10,
     padding: "10px 12px", borderRadius: 14,
-    background: "#F7F4F0", border: "1px solid #EDE8E0",
+    background: C.soft, border: `1px solid ${C.borderLight}`,
   },
-  lineName: { fontWeight: 800, fontSize: 14, color: "#1A1208" },
-  lineIngs: { fontSize: 11, color: "#7A6650", marginTop: 2 },
-  linePrice: { fontWeight: 800, fontSize: 14, color: "#E04E1B", flexShrink: 0, minWidth: 60, textAlign: "right" as const },
+  lineName: { fontWeight: 800, fontSize: 14, color: C.text },
+  lineIngs: { fontSize: 11, color: C.muted, marginTop: 2 },
+  linePrice: { fontWeight: 800, fontSize: 14, color: C.accentDeep, flexShrink: 0, minWidth: 60, textAlign: "right" as const },
   lineDel: {
     width: 26, height: 26, borderRadius: 8, border: `1px solid ${BORDER}`,
-    background: "#FFFAF2", cursor: "pointer", fontSize: 11, color: "#7A6650", flexShrink: 0,
+    background: C.cream, cursor: "pointer", fontSize: 11, color: C.muted, flexShrink: 0,
   },
   qtyBox: {
     display: "flex", alignItems: "center", gap: 4,
-    background: "#FFFFFF", border: `1px solid ${BORDER}`, borderRadius: 10, padding: "2px",
+    background: C.bg, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "2px",
   },
   qtyBtn: {
     width: 26, height: 26, border: "none", background: "transparent",
-    cursor: "pointer", fontSize: 16, fontWeight: 900, color: "#1A1208", lineHeight: 1,
+    cursor: "pointer", fontSize: 16, fontWeight: 900, color: C.text, lineHeight: 1,
   },
-  qtyVal: { minWidth: 18, textAlign: "center" as const, fontWeight: 800, fontSize: 13, color: "#1A1208" },
+  qtyVal: { minWidth: 18, textAlign: "center" as const, fontWeight: 800, fontSize: 13, color: C.text },
   input: {
     width: "100%", padding: "12px 14px", border: `1px solid ${BORDER}`, borderRadius: 12,
-    fontSize: 14, fontFamily: "inherit", color: "#1A1208", background: "#FFFFFF",
+    fontSize: 14, fontFamily: "inherit", color: C.text, background: C.bg,
     outline: "none", boxSizing: "border-box",
   },
   segmented: { display: "flex", gap: 8 },
   segBtn: {
     flex: 1, padding: "11px 10px", border: `1px solid ${BORDER}`,
-    background: "#FFFAF2", borderRadius: 12, fontSize: 13, fontWeight: 700,
-    color: "#3D2E1E", cursor: "pointer", fontFamily: "inherit",
+    background: C.cream, borderRadius: 12, fontSize: 13, fontWeight: 700,
+    color: C.textSoft, cursor: "pointer", fontFamily: "inherit",
   },
   segBtnActive: {
-    background: "#1A1208", color: "#FFFFFF", borderColor: "#1A1208",
+    background: C.text, color: C.bg, borderColor: C.text,
   },
   footer: {
     padding: "14px 20px 22px", borderTop: `1px solid ${BORDER}`,
-    display: "flex", flexDirection: "column", gap: 10, background: "#FAFAF8",
+    display: "flex", flexDirection: "column", gap: 10, background: C.cream,
   },
   totalRow: { display: "flex", alignItems: "center", justifyContent: "space-between" },
-  totalLabel: { fontSize: 12, fontWeight: 800, letterSpacing: 1.2, textTransform: "uppercase", color: "#7A6650" },
-  totalValue: { fontSize: 22, fontWeight: 900, color: "#1A1208" },
+  totalLabel: { fontSize: 12, fontWeight: 800, letterSpacing: 1.2, textTransform: "uppercase", color: C.muted },
+  totalValue: { fontSize: 22, fontWeight: 900, color: C.text, background: "transparent" },
   submit: {
-    background: "linear-gradient(135deg, #22C55E 0%, #16A34A 50%, #15803D 100%)",
-    color: "#FFFFFF", border: "none",
+    background: C.greenGradient,
+    color: C.white, border: "none",
     padding: "15px 20px", borderRadius: 16, fontWeight: 900, fontSize: 15,
     letterSpacing: 0.4, width: "100%", fontFamily: "inherit",
     boxShadow: "0 6px 16px rgba(34,197,94,0.45), inset 0 1px 0 rgba(255,255,255,0.4)",
@@ -356,7 +362,7 @@ const s: Record<string, CSSProperties> = {
     top: "50%",
     transform: "translate(-50%, -50%)",
     width: "min(380px, 90vw)",
-    background: "#FFFFFF",
+    background: C.bg,
     borderRadius: 24,
     zIndex: 250,
     padding: "32px 24px",
@@ -369,10 +375,10 @@ const s: Record<string, CSSProperties> = {
     textAlign: "center" as const,
   },
   successIcon: { fontSize: 48, lineHeight: 1 },
-  successTitle: { margin: 0, fontSize: 22, fontWeight: 900, color: "#1A1208" },
-  successOrderId: { fontSize: 15, fontWeight: 600, color: "#3D2E1E" },
-  successInfo: { fontSize: 14, color: "#7A6650", lineHeight: 1.6 },
-  successCash: { fontSize: 13, color: "#E04E1B", fontWeight: 700, padding: "8px 12px", background: "#FFF7ED", borderRadius: 10 },
+  successTitle: { margin: 0, fontSize: 22, fontWeight: 900, color: C.text },
+  successOrderId: { fontSize: 15, fontWeight: 600, color: C.textSoft },
+  successInfo: { fontSize: 14, color: C.muted, lineHeight: 1.6 },
+  successCash: { fontSize: 13, color: C.accentDeep, fontWeight: 700, padding: "8px 12px", background: C.accentSoft, borderRadius: 10 },
   tgContactBadge: {
     display: "flex", alignItems: "center", gap: 8,
     padding: "10px 14px", borderRadius: 12,
@@ -383,10 +389,11 @@ const s: Record<string, CSSProperties> = {
     fontWeight: 800, color: "#0D5A9E", fontSize: 12,
   },
   successBtn: {
-    background: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
-    color: "#FFFFFF", border: "none",
+    background: C.greenGradient,
+    color: C.white, border: "none",
     padding: "14px 32px", borderRadius: 14, fontWeight: 900, fontSize: 15,
     cursor: "pointer", fontFamily: "inherit",
     boxShadow: "0 4px 12px rgba(34,197,94,0.4)",
   },
-};
+  };
+}

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import './index.css'
 import  Home  from "./pages/Home"
+import AdminApp from "./pages/AdminApp"
 import { Catalog } from './pages/Catalog'
 import { Product } from './pages/Product'
 import { NotFound } from './pages/NotFound'
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')!).render(
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/admin" element={<AdminApp />} />
               <Route path="/catalog" element={<Catalog />} />
               <Route path="/product/:id" element={<Product />} />
               <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />

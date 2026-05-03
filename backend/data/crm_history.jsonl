@@ -63,3 +63,43 @@
 {"timestamp": "2026-04-24T12:35:30.970668", "user_id": "374897465", "action": "manager_media_sent", "filename": "sent_20260424_123530_FB_IMG_1777014731417.jpg"}
 {"timestamp": "2026-04-24T15:18:03.148178", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
 {"timestamp": "2026-04-24T15:18:17.296215", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:08:43.939778", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:09:02.102Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 15}
+{"timestamp": "2026-04-24T19:09:31.032Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 21}
+{"timestamp": "2026-04-24T19:12:55.658290", "user_id": 374897465, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:12:57.752Z", "user_id": 374897465, "action": "manager_message_sent", "message_length": 6}
+{"timestamp": "2026-04-24T19:13:09.628670", "user_id": 374897465, "action": "message_received", "content": "Здорова"}
+{"timestamp": "2026-04-24T19:13:09.640327", "user_id": 374897465, "action": "user_message_received", "message_length": 7, "message_type": "text", "username": "Marseloid", "media_info": null}
+{"timestamp": "2026-04-24T19:13:24.682627", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:13:28.266175", "user_id": 531857167, "action": "message_received", "content": "Пицца бот здраствуй!\nЯ днем заказывал лед, где он???!??"}
+{"timestamp": "2026-04-24T19:13:28.292320", "user_id": 531857167, "action": "user_message_received", "message_length": 55, "message_type": "text", "username": "ivn_fo", "media_info": null}
+{"timestamp": "2026-04-24T19:13:30.705443", "user_id": 531857167, "action": "claude_started"}
+{"timestamp": "2026-04-24T19:13:30.708926", "user_id": 531857167, "action": "claude_started", "by": "manager"}
+{"timestamp": "2026-04-24T19:13:49.384Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 12}
+{"timestamp": "2026-04-24T19:14:11.098897", "user_id": 531857167, "action": "message_received", "content": "Сцуко"}
+{"timestamp": "2026-04-24T19:14:36.422Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 47}
+{"timestamp": "2026-04-24T19:15:03.112Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 34}
+{"timestamp": "2026-04-24T19:15:33.153526", "user_id": "531857167", "action": "manager_media_sent", "filename": "sent_20260424_191532_Screenshot_2026-04-25-02-15-11-51_40deb401b9ffe8e1df2f1cc5ba480b12.jpg"}
+{"timestamp": "2026-04-24T19:15:52.348Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 40}
+{"timestamp": "2026-04-24T19:17:02.629144", "user_id": 531857167, "action": "message_received", "content": "А маню можно?"}
+{"timestamp": "2026-04-24T19:17:57.893495", "user_id": 531857167, "action": "message_received", "content": "Это что то сверх естественное?)"}
+{"timestamp": "2026-04-24T19:18:37.275967", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:20:33.328Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 240}
+{"timestamp": "2026-04-24T19:20:57.532406", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:21:19.433157", "user_id": "531857167", "action": "manager_media_sent", "filename": "sent_20260424_192118_Screenshot_2026-04-25-02-20-38-99_40deb401b9ffe8e1df2f1cc5ba480b12.jpg"}
+{"timestamp": "2026-04-24T19:21:37.241336", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:22:57.001Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 39}
+{"timestamp": "2026-04-24T19:23:45.639Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 97}
+{"timestamp": "2026-04-24T19:25:53.531545", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:27:57.500Z", "user_id": 531857167, "action": "manager_message_sent", "message_length": 18}
+{"timestamp": "2026-04-24T19:28:13.268777", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-24T19:39:50.381313", "user_id": 374897465, "action": "message_received", "content": "Привет"}
+{"timestamp": "2026-04-24T19:39:50.395959", "user_id": 374897465, "action": "user_message_received", "message_length": 6, "message_type": "text", "username": "Marseloid", "media_info": null}
+{"timestamp": "2026-04-24T21:04:35.176942", "user_id": 531857167, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-25T06:04:15.180203", "user_id": 531857167, "action": "message_received", "content": "😂😂😂 Убило)))"}
+{"timestamp": "2026-04-25T06:04:15.190316", "user_id": 531857167, "action": "user_message_received", "message_length": 12, "message_type": "text", "username": "ivn_fo", "media_info": null}
+{"timestamp": "2026-04-28T10:00:33.687701", "user_id": 837850841, "action": "messages_marked_read", "by": "manager"}
+{"timestamp": "2026-04-28T10:00:56.568Z", "user_id": 837850841, "action": "manager_message_sent", "message_length": 31}
+{"timestamp": "2026-04-28T10:01:38.529064", "user_id": 837850841, "action": "message_received", "content": "Выборой😂"}
+{"timestamp": "2026-04-28T10:01:38.535385", "user_id": 837850841, "action": "user_message_received", "message_length": 8, "message_type": "text", "username": "carphuket", "media_info": null}
+{"timestamp": "2026-04-28T10:13:39.267486", "user_id": 837850841, "action": "messages_marked_read", "by": "manager"}

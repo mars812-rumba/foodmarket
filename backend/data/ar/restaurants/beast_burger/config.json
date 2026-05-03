@@ -1,0 +1,15 @@
+{
+  "restaurant_id": "beast_burger",
+  "name": "Beast Burger",
+  "address": "Chiang Mai",
+  "phone": "+66 80 124 1414",
+  "logo": "restaurant_logos/beast_burger_logo.jpg",
+  "created_at": "2026-04-25T13:01:04.885014",
+  "id": "beast_burger",
+  "description": "And Pizza in Chiang Mai",
+  "info_text": "",
+  "payment_qr_url": "",
+  "admin_ids": [],
+  "dashboard_token" : "beastburger",
+  "manager_username": ""
+}

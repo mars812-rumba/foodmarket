@@ -1,5 +1,6 @@
-import { type CSSProperties } from "react";
+import { useMemo, type CSSProperties } from "react";
 import { X, MapPin, Phone, Clock } from "lucide-react";
+import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
 
 type Restaurant = {
   id: string;
@@ -17,18 +18,10 @@ interface AboutModalProps {
   restaurant: Restaurant | null;
 }
 
-const C = {
-  bg: "#FFFFFF",
-  text: "#1A1208",
-  muted: "#7A6650",
-  accent: "#FF6B35",
-  accentDeep: "#E04E1B",
-  accentGradient: "linear-gradient(135deg, #FF8A4C 0%, #FF6B35 50%, #E04E1B 100%)",
-  border: "rgba(120, 80, 30, 0.12)",
-  cream: "#FFFAF2",
-};
-
 export default function AboutModal({ open, onClose, restaurant }: AboutModalProps) {
+  const C = useTheme();
+  const S = useMemo(() => buildAboutStyles(C), [C]);
+
   if (!open || !restaurant) return null;
 
   return (
@@ -118,11 +111,12 @@ export default function AboutModal({ open, onClose, restaurant }: AboutModalProp
   );
 }
 
-const S: Record<string, CSSProperties> = {
+function buildAboutStyles(C: ThemeColors): Record<string, CSSProperties> {
+  return {
   overlay: {
     position: "fixed",
     inset: 0,
-    background: "rgba(20, 10, 5, 0.55)",
+    background: C.overlay,
     backdropFilter: "blur(4px)",
     WebkitBackdropFilter: "blur(4px)",
     zIndex: 200,
@@ -254,4 +248,5 @@ const S: Record<string, CSSProperties> = {
       "0 6px 16px rgba(255, 107, 53, 0.35), 0 14px 32px -8px rgba(224, 78, 27, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4)",
     transition: "all 0.2s ease",
   },
-};
+  };
+}

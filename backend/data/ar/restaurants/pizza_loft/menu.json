@@ -62,39 +62,6 @@
       "updated_at": "2026-04-23T15:08:11.374847"
     },
     {
-      "id": "steyk_iz_govyadiny",
-      "name": "Стейк из говядины",
-      "slug": "steyk_iz_govyadiny",
-      "category": "steak",
-      "price": 500.0,
-      "weight": "450 гр",
-      "image": "restaurants/pizzeria_1/steyk_iz_govyadiny_0.jpg",
-      "ingredients": [
-        {
-          "id": "ing_1776956010038",
-          "name": "Полная ",
-          "price": 0.0
-        },
-        {
-          "id": "ing_1776956025096",
-          "name": "Средняя",
-          "price": 0.0
-        },
-        {
-          "id": "ing_1776956033827",
-          "name": "С кровью",
-          "price": 0.0
-        }
-      ],
-      "available": true,
-      "notes": "Лучшая австралийская говядина",
-      "photos": {
-        "main": "restaurants/pizzeria_1/steyk_iz_govyadiny_0.jpg",
-        "gallery": []
-      },
-      "updated_at": "2026-04-23T14:56:51.954191"
-    },
-    {
       "id": "sushi_set_",
       "name": "Суши сет ",
       "slug": "sushi_set_",

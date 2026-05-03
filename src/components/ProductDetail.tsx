@@ -1,19 +1,23 @@
-import { useEffect, type CSSProperties } from "react";
+import { useEffect, useMemo, type CSSProperties } from "react";
 import { useCart, type MenuItem } from "@/contexts/CartContext";
+import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
 import { toast } from "sonner";
 
 type Props = {
   item: MenuItem | null;
   onClose: () => void;
-  imageSrc?: string; // готовый URL картинки (с timestamp), формирует Home
+  imageSrc?: string; // Ready URL image (with timestamp), formed by Home
 };
 
 /**
- * Минимальная модалка блюда:
- * фото, название, описание (notes), цена, кнопка «В корзину».
- * Без счётчика и без выбора ингредиентов — по требованию.
+ * Minimal product detail modal:
+ * photo, name, description (notes), price, "Add to Cart" button.
+ * No quantity counter and no ingredient selection — as required.
  */
 export default function ProductDetail({ item, onClose, imageSrc }: Props) {
+  const C = useTheme();
+  const s = useMemo(() => buildProductStyles(C), [C]);
+
   useEffect(() => {
     if (!item) return;
     const onKey = (e: KeyboardEvent) => {
@@ -29,7 +33,7 @@ export default function ProductDetail({ item, onClose, imageSrc }: Props) {
 
   const handleAdd = () => {
     addToCart(item, []);
-    toast.success(`${item.name} добавлено в корзину`);
+    toast.success(`${item.name} added to cart`);
     onClose();
   };
 
@@ -37,7 +41,7 @@ export default function ProductDetail({ item, onClose, imageSrc }: Props) {
     <>
       <div style={s.overlay} onClick={onClose} />
       <div style={s.modal} role="dialog" aria-modal="true" aria-label={item.name}>
-        <button onClick={onClose} style={s.close} aria-label="Закрыть">✕</button>
+        <button onClick={onClose} style={s.close} aria-label="Close">✕</button>
 
         <div style={s.imgWrap}>
           <img
@@ -54,8 +58,8 @@ export default function ProductDetail({ item, onClose, imageSrc }: Props) {
           {item.notes && <p style={s.desc}>{item.notes}</p>}
 
           <div style={s.footer}>
-            <div style={s.price}>{item.price} ₽</div>
-            <button onClick={handleAdd} style={s.addBtn}>В корзину</button>
+            <div style={s.price}>{item.price} ฿</div>
+            <button onClick={handleAdd} style={s.addBtn}>Add to Cart</button>
           </div>
         </div>
       </div>
@@ -63,11 +67,12 @@ export default function ProductDetail({ item, onClose, imageSrc }: Props) {
   );
 }
 
-const s: Record<string, CSSProperties> = {
+function buildProductStyles(C: ThemeColors): Record<string, CSSProperties> {
+  return {
   overlay: {
     position: "fixed",
     inset: 0,
-    background: "rgba(20,10,5,0.55)",
+    background: C.overlay,
     backdropFilter: "blur(3px)",
     WebkitBackdropFilter: "blur(3px)",
     zIndex: 200,
@@ -80,7 +85,7 @@ const s: Record<string, CSSProperties> = {
     transform: "translate(-50%, -50%)",
     width: "min(440px, calc(100vw - 24px))",
     maxHeight: "calc(100vh - 32px)",
-    background: "#FFFFFF",
+    background: C.bg,
     borderRadius: 24,
     overflow: "hidden",
     zIndex: 210,
@@ -101,21 +106,21 @@ const s: Record<string, CSSProperties> = {
     background: "rgba(255,255,255,0.92)",
     cursor: "pointer",
     fontSize: 16,
-    color: "#1A1208",
+    color: C.text,
     boxShadow: "0 2px 8px rgba(0,0,0,0.18)",
   },
   imgWrap: {
     width: "100%",
     aspectRatio: "1/1",
-    background: "#F7F4F0",
+    background: C.soft,
     overflow: "hidden",
     flexShrink: 0,
   },
   img: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
   body: { padding: "20px 22px 22px", display: "flex", flexDirection: "column", gap: 10, overflowY: "auto" },
-  name: { margin: 0, fontSize: 22, fontWeight: 900, color: "#1A1208", letterSpacing: -0.3 },
-  weight: { fontSize: 13, color: "#7A6650", fontWeight: 600 },
-  desc: { margin: "4px 0 0", fontSize: 14, color: "#3D2E1E", lineHeight: 1.5 },
+  name: { margin: 0, fontSize: 22, fontWeight: 900, color: C.text, letterSpacing: -0.3 },
+  weight: { fontSize: 13, color: C.muted, fontWeight: 600 },
+  desc: { margin: "4px 0 0", fontSize: 14, color: C.textSoft, lineHeight: 1.5 },
   footer: {
     marginTop: 16,
     display: "flex",
@@ -123,11 +128,11 @@ const s: Record<string, CSSProperties> = {
     justifyContent: "space-between",
     gap: 12,
   },
-  price: { fontSize: 24, fontWeight: 900, color: "#1A1208" },
+  price: { fontSize: 24, fontWeight: 900, color: C.text },
   addBtn: {
     flex: "0 0 auto",
-    background: "linear-gradient(135deg, #FF8A4C 0%, #FF6B35 50%, #E04E1B 100%)",
-    color: "#FFFFFF",
+    background: C.accentGradient,
+    color: C.white,
     border: "none",
     padding: "13px 22px",
     borderRadius: 14,
@@ -137,4 +142,5 @@ const s: Record<string, CSSProperties> = {
     cursor: "pointer",
     boxShadow: "0 6px 16px rgba(255,107,53,0.45), inset 0 1px 0 rgba(255,255,255,0.4)",
   },
-};
+  };
+}

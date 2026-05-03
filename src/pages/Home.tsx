@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, useMemo, type CSSProperties } from "react";
 import {
   ShoppingCart,
   Zap,
@@ -16,6 +16,8 @@ import AboutModal from "@/components/AboutModal";
 import { useCart, type MenuItem as CartMenuItem, type Ingredient as CartIngredient } from "@/contexts/CartContext";
 import { useTelegramContext } from "@/contexts/TelegramContext";
 import { useOrder } from "@/contexts/OrderContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { THEMES, type ThemeKey, type ThemeColors } from "@/data/themes";
 import { CATEGORY_ICONS } from "@/data/categoryIcons.tsx";
 
 import hero_pizza from "@/assets/hero_menu/pizza.png";
@@ -67,25 +69,7 @@ type Restaurant = {
   info_text?: string;
   payment_qr_url?: string;
   manager_username?: string;
-};
-
-/* ============================================================
-   ЦВЕТОВАЯ ПАЛИТРА
-   ============================================================ */
-const C = {
-  bg: "#FFFFFF",
-  text: "#1A1208",
-  muted: "#7A6650",
-  accent: "#FF6B35",
-  accentDeep: "#E04E1B",
-  accentGradient: "linear-gradient(135deg, #FF8A4C 0%, #FF6B35 50%, #E04E1B 100%)",
-  green: "#22C55E",
-  greenDeep: "#16A34A",
-  greenGradient: "linear-gradient(135deg, #4ADE80 0%, #22C55E 50%, #16A34A 100%)",
-  darkGradient: "linear-gradient(135deg, #2A1A0C 0%, #15100A 100%)",
-  white: "#FFFFFF",
-  cream: "#FFFAF2",
-  border: "rgba(120, 80, 30, 0.12)",
+  theme?: string;
 };
 
 /* ============================================================
@@ -147,6 +131,17 @@ export default function Home() {
   const [heroes, setHeroes] = useState<Hero[]>([]);
   const [loading, setLoading] = useState(true);
   const [photoTimestamp, setPhotoTimestamp] = useState<number>(Date.now());
+
+  // ── Theme: compute from selected restaurant ──
+  const themeKey = useMemo<ThemeKey>(() => {
+    const r = restaurants.find(r => r.id === selectedRestaurant);
+    const t = r?.theme;
+    if (t && t in THEMES) return t as ThemeKey;
+    return "warm";
+  }, [restaurants, selectedRestaurant]);
+
+  const C = useMemo(() => THEMES[themeKey], [themeKey]);
+  const S = useMemo(() => buildStyles(C), [C]);
 
   // Fetch restaurants on mount
   useEffect(() => {
@@ -327,24 +322,27 @@ export default function Home() {
   };
 
 
-  // Цвет триггера корзины: зелёный если есть заказы
+  // Цвет триггера корзины: зелёный если есть товары, оранжевый если пуст
   const triggerBg = cartCount > 0 ? C.greenGradient : C.accentGradient;
   const triggerShadow = cartCount > 0
-    ? "0 6px 16px rgba(34,197,94,0.40), 0 14px 32px -8px rgba(22,163,74,0.50), inset 0 1px 0 rgba(255,255,255,0.4)"
+    ? "0 6px 16px rgba(34,197,94,0.35), 0 14px 32px -8px rgba(22,163,74,0.45), inset 0 1px 0 rgba(255,255,255,0.4)"
     : "0 6px 16px rgba(255,107,53,0.35), 0 14px 32px -8px rgba(224,78,27,0.45), inset 0 1px 0 rgba(255,255,255,0.4)";
 
   if (loading) {
     return (
-      <div style={S.page}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "20px" }}>
-          <div style={{ fontSize: 48, marginBottom: 20 }}>⏳</div>
-          <div style={{ color: C.muted, fontSize: 16 }}>Loading menu...</div>
+      <ThemeProvider theme={themeKey}>
+        <div style={S.page}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "20px" }}>
+            <div style={{ fontSize: 48, marginBottom: 20 }}>⏳</div>
+            <div style={{ color: C.muted, fontSize: 16 }}>Loading menu...</div>
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     );
   }
 
   return (
+    <ThemeProvider theme={themeKey}>
     <div style={S.page}>
       <style>{`
         @keyframes lfp-swipe {
@@ -495,8 +493,10 @@ export default function Home() {
       >
         <ShoppingCart size={22} style={{ lineHeight: 1 }} />
         {cartCount > 0 && (
-          <span style={S.sideTriggerBadge}>{cartCount}</span>
-        )}
+        <span style={{ ...S.sideTriggerBadge, color: "black" }}>
+          {cartCount}
+        </span>
+                )}
       </button>
 
       {/* Затемнение */}
@@ -524,7 +524,7 @@ export default function Home() {
 
         <div style={S.sidePanelBody}>
           {cart.length === 0 ? (
-            <CartPlaceholder />
+            <CartPlaceholder S={S} />
           ) : (
             <div style={S.sideCartList}>
               {cart.map((l) => (
@@ -567,7 +567,7 @@ export default function Home() {
 
       {/* ============ MAIN ============ */}
       <main style={S.main}>
-        <HeroCarousel heroes={heroes} onChoose={(id) => setOpenCategory(id)} onActiveChange={(id) => setActiveHeroId(id)} />
+        <HeroCarousel heroes={heroes} onChoose={(id) => setOpenCategory(id)} onActiveChange={(id) => setActiveHeroId(id)} S={S} />
         {/* отступ под нижнее меню иконок */}
         <div style={{ height: 96 }} />
       </main>
@@ -583,6 +583,8 @@ export default function Home() {
           photoTimestamp={photoTimestamp}
           cartCount={cartCount}
           cartTotal={cartTotal}
+          S={S}
+          C={C}
         />
       )}
 
@@ -590,6 +592,7 @@ export default function Home() {
       <CircularNav
         categories={categories}
         activeId={activeHeroId}
+        S={S}
         onChoose={(id) => {
           setOpenCategory(id);
           // Scroll hero to selected category
@@ -630,13 +633,14 @@ export default function Home() {
         restaurant={restaurants.find(r => r.id === selectedRestaurant) || null}
       />
     </div>
+    </ThemeProvider>
   );
 }
 
 /* ============================================================
    ПЛЕЙСХОЛДЕР ПУСТОЙ КОРЗИНЫ
    ============================================================ */
-function CartPlaceholder() {
+function CartPlaceholder({ S }: { S: Record<string, CSSProperties> }) {
   return (
     <div style={S.cartPlaceholder}>
     <div style={S.cartPlaceholderEmoji}><ShoppingCart size={48} /></div>
@@ -667,10 +671,12 @@ function HeroCarousel({
   heroes,
   onChoose,
   onActiveChange,
+  S,
 }: {
   heroes: Hero[];
   onChoose: (id: string) => void;
   onActiveChange: (id: string) => void;
+  S: Record<string, CSSProperties>;
 }) {
   const [index, setIndex] = useState(0);
   const [hintVisible, setHintVisible] = useState(true);
@@ -735,7 +741,7 @@ function HeroCarousel({
               <h2 style={S.heroNameOnImg}>{h.name}</h2>
               <div style={S.heroRowOnImg}>
                 <div>
-                  <div style={S.heroPriceLabel}>от</div>
+                  <div style={S.heroPriceLabel}>from</div>
                   <div style={S.heroPriceOnImg}>{h.price} ฿</div>
                 </div>
               </div>
@@ -780,10 +786,12 @@ function CircularNav({
   categories,
   activeId,
   onChoose,
+  S,
 }: {
   categories: Category[];
   activeId: string | null;
   onChoose: (id: string) => void;
+  S: Record<string, CSSProperties>;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const jumpRef = useRef(false);
@@ -885,6 +893,8 @@ function BottomSheet({
   photoTimestamp,
   cartCount,
   cartTotal,
+  S,
+  C,
 }: {
   category: Category | null;
   items: MenuItem[];
@@ -894,6 +904,8 @@ function BottomSheet({
   photoTimestamp: number;
   cartCount: number;
   cartTotal: number;
+  S: Record<string, CSSProperties>;
+  C: ThemeColors;
 }) {
   const [selectedIngs, setSelectedIngs] = useState<Record<string, string[]>>({});
 
@@ -983,7 +995,7 @@ function BottomSheet({
                     </div>
                   )}
                   <button onClick={() => handleAdd(item)} style={S.addBtn}>
-                    Add to cart · {total} ฿
+                    add to cart
                   </button>
                 </div>
               </div>
@@ -996,9 +1008,10 @@ function BottomSheet({
 }
 
 /* ============================================================
-   СТИЛИ
+   СТИЛИ — функция, чтобы подставлять токены из темы
    ============================================================ */
-const S: Record<string, CSSProperties> = {
+function buildStyles(C: ThemeColors): Record<string, CSSProperties> {
+  return {
   page: {
     minHeight: "100vh",
     background: C.bg,
@@ -1015,16 +1028,16 @@ const S: Record<string, CSSProperties> = {
     scrollbarWidth: "none",
     WebkitOverflowScrolling: "touch",
     padding: "10px 16px",
-    background: "#FFFFFF",
-    borderBottom: "1px solid #F0EBE3",
+    background: C.bg,
+    borderBottom: `1px solid ${C.borderLight}`,
   },
   valueBadge: {
     display: "flex",
     alignItems: "center",
     gap: 6,
     padding: "6px 12px",
-    background: "#F7F4F0",
-    border: "1px solid #EDE8E0",
+    background: C.soft,
+    border: `1px solid ${C.borderLight}`,
     borderRadius: 99,
     whiteSpace: "nowrap",
     flexShrink: 0,
@@ -1033,7 +1046,7 @@ const S: Record<string, CSSProperties> = {
   valueBadgeText: {
     fontSize: 12,
     fontWeight: 700,
-    color: "#3D2E1E",
+    color: C.textSoft,
     letterSpacing: 0.1,
   },
 
@@ -1042,10 +1055,10 @@ const S: Record<string, CSSProperties> = {
     position: "sticky",
     top: 0,
     zIndex: 50,
-    background: "rgba(255, 255, 255, 0.95)",
+    background: C.headerBg,
     backdropFilter: "saturate(180%) blur(14px)",
     WebkitBackdropFilter: "saturate(180%) blur(14px)",
-    borderBottom: "1px solid #F0EBE3",
+    borderBottom: `1px solid ${C.headerBorder}`,
     boxShadow: "0 1px 0 rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)",
   },
   headerInner: {
@@ -1156,8 +1169,8 @@ const S: Record<string, CSSProperties> = {
     bottom: 0,
     width: 288,
     zIndex: 68,
-    background: "#FFFFFF",
-    borderLeft: "1px solid #EDE8E0",
+    background: C.sidePanelBg,
+    borderLeft: `1px solid ${C.sidePanelBorder}`,
     boxShadow:
       "-4px 0 20px rgba(0,0,0,0.08), -16px 0 50px rgba(0,0,0,0.12)",
     transition: "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)",
@@ -1198,8 +1211,8 @@ const S: Record<string, CSSProperties> = {
     gap: 10,
     padding: "10px 12px",
     borderRadius: 14,
-    background: "#F7F4F0",
-    border: "1px solid #EDE8E0",
+    background: C.soft,
+    border: `1px solid ${C.borderLight}`,
     boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
   },
   sideCartLineName: { fontWeight: 800, fontSize: 14, color: C.text },
@@ -1220,8 +1233,8 @@ const S: Record<string, CSSProperties> = {
   },
   sidePanelFooter: {
     padding: "12px 14px 24px",
-    borderTop: "1px solid #EDE8E0",
-    background: "#FAFAF8",
+    borderTop: `1px solid ${C.borderLight}`,
+    background: C.cream,
     display: "flex",
     flexDirection: "column",
     gap: 10,
@@ -1241,7 +1254,7 @@ const S: Record<string, CSSProperties> = {
   },
   sidePanelTotalValue: { fontSize: 22, fontWeight: 900, color: C.text },
   sideCheckoutBtn: {
-    background: C.accentGradient,
+    background: C.greenGradient,
     color: C.white,
     border: "none",
     padding: "14px 20px",
@@ -1251,7 +1264,7 @@ const S: Record<string, CSSProperties> = {
     letterSpacing: 0.4,
     cursor: "pointer",
     boxShadow:
-      "0 6px 16px rgba(255,107,53,0.45), 0 14px 32px -8px rgba(224,78,27,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+      "0 6px 16px rgba(34,197,94,0.45), 0 14px 32px -8px rgba(22,163,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
     width: "100%",
   },
 
@@ -1419,16 +1432,16 @@ const S: Record<string, CSSProperties> = {
     textTransform: "uppercase" as const,
   },
 
-  /* КНОПКА «ЗАКАЗАТЬ ЕДУ» — текстовая */
+  /* КНОПКА «ЗАКАЗАТЬ ЕДУ» — желтоватый градиент */
   swipeUpHint: {
     position: "absolute",
     bottom: 22,
     left: "50%",
     transform: "translateX(-50%)",
-    background: "#FFA500",
+    background: "linear-gradient(135deg, #FFD54F 0%, #FFB300 50%, #FF8F00 100%)",
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
-    border: "1px solid rgba(144, 128, 25, 0.5)",
+    border: "1px solid rgba(255,179,0,0.5)",
     borderRadius: 99,
     padding: "12px 24px",
     display: "flex",
@@ -1436,10 +1449,10 @@ const S: Record<string, CSSProperties> = {
     justifyContent: "center",
     cursor: "pointer",
     animation: "lfp-swipe-up 2.2s ease-in-out infinite",
-    boxShadow: "0 6px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.35)",
+    boxShadow: "0 6px 20px rgba(224,78,27,0.35), inset 0 1px 0 rgba(255,255,255,0.35)",
     fontSize: 15,
     fontWeight: 800,
-    color: "#3D2E1E",
+    color: "#FFFFFF",
     letterSpacing: 0.3,
     whiteSpace: "nowrap",
   },
@@ -1486,10 +1499,10 @@ const S: Record<string, CSSProperties> = {
     left: 0,
     right: 0,
     zIndex: 45,
-    background: "rgba(255, 255, 255, 0.97)",
+    background: C.bottomNavBg,
     backdropFilter: "saturate(180%) blur(20px)",
     WebkitBackdropFilter: "saturate(180%) blur(20px)",
-    borderTop: "1px solid #EDE8E0",
+    borderTop: `1px solid ${C.bottomNavBorder}`,
     boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
   },
   bottomNavScroll: {
@@ -1520,7 +1533,7 @@ const S: Record<string, CSSProperties> = {
     scrollSnapAlign: "center",
   },
   bottomNavBtnActive: {
-    background: "rgba(255, 107, 53, 0.10)",
+    background: C.accentSoft,
   },
   bottomNavIcon: {
     display: "flex",
@@ -1544,7 +1557,7 @@ const S: Record<string, CSSProperties> = {
     position: "fixed",
     left: 0, right: 0, bottom: 0,
     maxHeight: "85vh",
-    background: "linear-gradient(180deg, #FFFAF2 0%, #FFF1DC 100%)",
+    background: C.sheetBg,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     zIndex: 100,
@@ -1575,14 +1588,14 @@ const S: Record<string, CSSProperties> = {
 
   /* ITEM CARD */
   itemCard: {
-    background: "#FFFFFF",
+    background: C.bg,
     borderRadius: 18, padding: 14, display: "flex", gap: 14,
-    border: "1px solid #EDE8E0",
+    border: `1px solid ${C.borderLight}`,
     boxShadow: "0 1px 4px rgba(0,0,0,0.05), 0 6px 18px rgba(0,0,0,0.07)",
   },
   itemImg: {
     width: 100, height: 100, objectFit: "contain",
-    background: "#F5F0EA",
+    background: C.soft,
     borderRadius: 14, flexShrink: 0, padding: 6,
     filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.18))",
   },
@@ -1616,10 +1629,16 @@ const S: Record<string, CSSProperties> = {
   ingPrice: { color: C.muted, fontWeight: 600 },
   addBtn: {
     marginTop: 12,
-    background: C.accentGradient, color: C.white, border: "none",
-    padding: "11px 14px", borderRadius: 12, fontWeight: 800, fontSize: 13,
-    letterSpacing: 0.3, cursor: "pointer",
-    boxShadow:
-      "0 6px 14px rgba(255,107,53,0.35), 0 12px 24px -8px rgba(224,78,27,0.40), inset 0 1px 0 rgba(255,255,255,0.4)",
+    background: "linear-gradient(135deg, #FFD54F 0%, #FFB300 50%, #FF8F00 100%)",
+    color: "#FFFFFF",
+    border: "1px solid rgba(255,179,0,0.5)",
+    borderRadius: 99,
+    padding: "11px 20px",
+    fontWeight: 800,
+    fontSize: 13,
+    letterSpacing: 0.3,
+    cursor: "pointer",
+    boxShadow: "0 4px 14px rgba(224,78,27,0.35), inset 0 1px 0 rgba(255,255,255,0.35)",
   },
-};
+  };
+}

@@ -1,0 +1,14 @@
+{
+  "restaurant_id": "rosyam_bar",
+  "name": "Rosyam Bar",
+  "address": "Chiang mai",
+  "phone": "3637363",
+  "logo": "restaurant_logos/rosyam_bar_logo.jpg",
+  "created_at": "2026-04-25T14:39:15.492178",
+  "id": "rosyam_bar",
+  "description": "Asian Fusion Cooking",
+  "info_text": "",
+  "payment_qr_url": "",
+  "admin_ids": [],
+  "manager_username": ""
+}

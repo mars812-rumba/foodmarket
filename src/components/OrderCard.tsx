@@ -1,9 +1,8 @@
-import { useState, type CSSProperties } from "react";
+import { useState, useMemo, type CSSProperties } from "react";
 import {
   Clock,
   CheckCircle2,
   XCircle,
-  QrCode,
   Truck,
   Wallet,
   Utensils,
@@ -13,7 +12,9 @@ import {
   Banknote,
   User,
   Phone,
+  Check,
 } from "lucide-react";
+import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
 
 /* ============================================================
    TYPES
@@ -41,6 +42,9 @@ export type DashboardOrder = {
 type Props = {
   order: DashboardOrder;
   restaurantName?: string;
+  selectMode?: boolean;
+  selected?: boolean;
+  onToggleSelect?: (orderId: string) => void;
   onConfirm?: (orderId: string) => void;
   onReject?: (orderId: string) => void;
   onMarkPaid?: (orderId: string) => void;
@@ -59,41 +63,47 @@ const STATUS_CFG: Record<DashboardOrderStatus, {
   bg: string;
   borderColor: string;
   icon: React.ReactNode;
+  action: string;
 }> = {
   NEW: {
-    label: "НОВЫЙ",
+    label: "NEW",
     color: "#D97706",
-    bg: "#FFFBEB",
-    borderColor: "#F59E0B",
+    bg: "#FFF7EA",
+    borderColor: "#F5C77A",
     icon: <Clock size={16} />,
+    action: "Confirm or reject the order",
   },
   CONFIRMED: {
-    label: "ПОДТВЕРЖДЁН",
+    label: "CONFIRMED",
     color: "#2563EB",
     bg: "#EFF6FF",
-    borderColor: "#3B82F6",
+    borderColor: "#93C5FD",
     icon: <CheckCircle2 size={16} />,
+    action: "Waiting for payment from customer",
   },
   PAID: {
-    label: "ОПЛАЧЕН",
+    label: "PAID",
     color: "#16A34A",
     bg: "#F0FDF4",
-    borderColor: "#22C55E",
+    borderColor: "#86EFAC",
     icon: <Banknote size={16} />,
+    action: "Prepare order for pickup",
   },
   DONE: {
-    label: "ВЫПОЛНЕН",
+    label: "COMPLETED",
     color: "#0891B2",
     bg: "#ECFEFF",
-    borderColor: "#06B6D4",
+    borderColor: "#67E8F9",
     icon: <CheckCircle2 size={16} />,
+    action: "Order completed",
   },
   CANCELLED: {
-    label: "ОТМЕНЁН",
+    label: "CANCELLED",
     color: "#DC2626",
     bg: "#FEF2F2",
-    borderColor: "#EF4444",
+    borderColor: "#FCA5A5",
     icon: <XCircle size={16} />,
+    action: "Order cancelled",
   },
 };
 
@@ -126,6 +136,9 @@ function fmtDate(iso: string): string {
 export default function OrderCard({
   order,
   restaurantName,
+  selectMode = false,
+  selected = false,
+  onToggleSelect,
   onConfirm,
   onReject,
   onMarkPaid,
@@ -133,20 +146,62 @@ export default function OrderCard({
   onDismiss,
   loading = false,
 }: Props) {
+  const C = useTheme();
+  const s = useMemo(() => buildOrderCardStyles(C), [C]);
   const [expanded, setExpanded] = useState(false);
   const cfg = STATUS_CFG[order.status] || STATUS_CFG.NEW;
-
   const isTerminal = order.status === "DONE" || order.status === "CANCELLED";
+
+  // Checkbox state for each item
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(() => new Set());
+
+  const toggleItem = (idx: number) => {
+    setCheckedItems((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) {
+        next.delete(idx);
+      } else {
+        next.add(idx);
+      }
+      return next;
+    });
+  };
+
+  const allChecked = order.items.length > 0 && checkedItems.size === order.items.length;
+
+  // Reset checkboxes when order changes
+  // (simple approach: we don't persist across re-renders from parent)
 
   return (
     <div
       style={{
         ...s.card,
         borderLeft: `4px solid ${cfg.color}`,
+        backgroundColor: selected
+          ? C.accentSoft
+          : allChecked
+            ? C.cream
+            : C.bg,
       }}
     >
+      {/* ── Select mode checkbox ── */}
+      {selectMode && (
+        <div style={s.selectRow} onClick={() => onToggleSelect?.(order.order_id)}>
+          <div style={{
+            ...s.selectCheckbox,
+            backgroundColor: selected ? C.accent : "transparent",
+            borderColor: selected ? C.accent : C.borderLight,
+          }}>
+            {selected ? <Check size={14} style={{ color: C.white }} /> : null}
+          </div>
+          <span style={s.selectLabel}>
+            {selected ? "Selected" : "Select"}
+          </span>
+        </div>
+      )}
+
       {/* ── Header row ── */}
-      <div style={s.header} onClick={() => setExpanded(!expanded)}>
+      <div style={s.header} onClick={() => !selectMode && setExpanded(!expanded)}>
         <div style={s.headerLeft}>
           <span
             style={{
@@ -163,7 +218,7 @@ export default function OrderCard({
         </div>
         <div style={s.headerRight}>
           <span style={s.time}>{fmtDate(order.created_at)} {fmtTime(order.created_at)}</span>
-          {expanded ? <ChevronUp size={16} color="#9A8A78" /> : <ChevronDown size={16} color="#9A8A78" />}
+          {expanded ? <ChevronUp size={16} color={C.muted} /> : <ChevronDown size={16} color={C.muted} />}
         </div>
       </div>
 
@@ -172,11 +227,11 @@ export default function OrderCard({
         <span style={s.total}>{order.total.toLocaleString()} ฿</span>
         <span style={s.dot}>·</span>
         <span style={s.meta}>
-          {order.delivery_type === "delivery" ? "Доставка" : "Самовывоз"}
+          {order.delivery_type === "delivery" ? "Delivery" : "Pickup"}
         </span>
         <span style={s.dot}>·</span>
         <span style={s.meta}>
-          {order.payment_method === "cash" ? "Наличные" : "QR Pay"}
+          {order.payment_method === "cash" ? "Cash" : "QR Pay"}
         </span>
         {restaurantName && (
           <>
@@ -189,53 +244,52 @@ export default function OrderCard({
             <span style={s.dot}>·</span>
             <span style={s.paymentSentBadge}>
               <AlertCircle size={12} />
-              Клиент отметил оплату
+              Customer marked payment sent
             </span>
           </>
         )}
       </div>
 
+      {/* ── Action description line ── */}
+      {!isTerminal && (
+        <div style={s.actionLine}>
+          <AlertCircle size={13} style={{ color: cfg.color, flexShrink: 0 }} />
+          <span style={{ ...s.actionText, color: cfg.color }}>{cfg.action}</span>
+        </div>
+      )}
+
+      {/* ── All items checked indicator ── */}
+      {allChecked && expanded && (
+        <div style={s.allCheckedLine}>
+          <CheckCircle2 size={14} style={{ color: C.green }} />
+          <span style={s.allCheckedText}>All items packed</span>
+        </div>
+      )}
+
       {/* ── Expanded details ── */}
       {expanded && (
         <div style={s.details}>
-          {/* Items */}
-          <div style={s.section}>
-            <div style={s.sectionLabel}>
-              <Utensils size={12} />
-              Состав заказа
-            </div>
-            {order.items.map((item, idx) => (
-              <div key={idx} style={s.itemRow}>
-                <span style={s.itemName}>{item.name}</span>
-                <span style={s.itemQty}>×{item.qnt}</span>
-                <span style={s.itemPrice}>
-                  {(item.price * item.qnt).toLocaleString()} ฿
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Delivery & Payment */}
+          {/* Delivery & Payment — ABOVE items */}
           <div style={s.infoGrid}>
             <div style={s.infoItem}>
-              <Truck size={14} style={{ color: "#EA580C", flexShrink: 0 }} />
+              <Truck size={14} style={{ color: C.accent, flexShrink: 0 }} />
               <span style={s.infoLabel}>
-                {order.delivery_type === "delivery" ? "Доставка" : "Самовывоз"}
+                {order.delivery_type === "delivery" ? "Delivery" : "Pickup"}
               </span>
             </div>
             <div style={s.infoItem}>
-              <Wallet size={14} style={{ color: "#16A34A", flexShrink: 0 }} />
+              <Wallet size={14} style={{ color: C.green, flexShrink: 0 }} />
               <span style={s.infoLabel}>
-                {order.payment_method === "cash" ? "Наличные" : "QR PromptPay"}
+                {order.payment_method === "cash" ? "Cash" : "QR PromptPay"}
               </span>
             </div>
           </div>
 
-          {/* Customer info */}
+          {/* Customer info — ABOVE items */}
           <div style={s.section}>
             <div style={s.sectionLabel}>
               <User size={12} />
-              Клиент
+              Customer
             </div>
             <div style={s.customerRow}>
               <span style={s.customerName}>{order.customer_name || "—"}</span>
@@ -251,12 +305,60 @@ export default function OrderCard({
             )}
           </div>
 
+          {/* Items with checkboxes */}
+          <div style={s.section}>
+            <div style={s.sectionLabel}>
+              <Utensils size={12} />
+              Order Items
+            </div>
+            {order.items.map((item, idx) => {
+              const isChecked = checkedItems.has(idx);
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    ...s.itemRow,
+                    backgroundColor: isChecked ? C.cream : C.soft,
+                  }}
+                  onClick={() => toggleItem(idx)}
+                >
+                  <div style={{
+                    ...s.checkboxWrap,
+                    backgroundColor: isChecked ? C.green : "transparent",
+                    borderColor: isChecked ? C.green : C.borderLight,
+                  }}>
+                    {isChecked ? (
+                      <Check size={14} style={{ color: C.white }} />
+                    ) : null}
+                  </div>
+                  <span style={{
+                    ...s.itemName,
+                    textDecoration: isChecked ? "line-through" : "none",
+                    color: isChecked ? C.muted : C.text,
+                  }}>
+                    {item.name}
+                  </span>
+                  <span style={{
+                    ...s.itemQty,
+                    color: isChecked ? C.muted : C.textSoft,
+                  }}>×{item.qnt}</span>
+                  <span style={{
+                    ...s.itemPrice,
+                    color: isChecked ? C.muted : C.text,
+                  }}>
+                    {(item.price * item.qnt).toLocaleString()} ฿
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
           {/* Payment sent indicator */}
           {order.payment_sent && (
             <div style={s.paymentSentBox}>
-              <AlertCircle size={16} style={{ color: "#2563EB", flexShrink: 0 }} />
+              <AlertCircle size={16} style={{ color: C.accent, flexShrink: 0 }} />
               <div>
-                <div style={s.paymentSentTitle}>Клиент отметил оплату</div>
+                <div style={s.paymentSentTitle}>Customer marked payment sent</div>
                 {order.payment_sent_at && (
                   <div style={s.paymentSentTime}>
                     {fmtTime(order.payment_sent_at)}
@@ -266,9 +368,9 @@ export default function OrderCard({
             </div>
           )}
 
-          {/* Total */}
+          {/* Total — clean, no black bg */}
           <div style={s.totalBox}>
-            <span style={s.totalLabel}>Итого</span>
+            <span style={s.totalLabel}>TOTAL</span>
             <span style={s.totalValue}>{order.total.toLocaleString()} ฿</span>
           </div>
 
@@ -283,7 +385,7 @@ export default function OrderCard({
                     disabled={loading}
                   >
                     <CheckCircle2 size={16} />
-                    Подтвердить
+                    Confirm
                   </button>
                   <button
                     style={s.btnReject}
@@ -291,7 +393,7 @@ export default function OrderCard({
                     disabled={loading}
                   >
                     <XCircle size={16} />
-                    Отклонить
+                    Reject
                   </button>
                 </>
               )}
@@ -303,7 +405,7 @@ export default function OrderCard({
                     disabled={loading}
                   >
                     <Banknote size={16} />
-                    Оплата получена
+                    Payment Received
                   </button>
                   <button
                     style={s.btnReject}
@@ -311,7 +413,7 @@ export default function OrderCard({
                     disabled={loading}
                   >
                     <XCircle size={16} />
-                    Отклонить
+                    Reject
                   </button>
                 </>
               )}
@@ -322,7 +424,7 @@ export default function OrderCard({
                   disabled={loading}
                 >
                   <CheckCircle2 size={16} />
-                  Заказ выполнен
+                  Order Complete
                 </button>
               )}
             </div>
@@ -336,7 +438,7 @@ export default function OrderCard({
                 onClick={() => onDismiss(order.order_id)}
                 disabled={loading}
               >
-                Убрать из списка
+                Remove from list
               </button>
             </div>
           )}
@@ -347,316 +449,377 @@ export default function OrderCard({
 }
 
 /* ============================================================
-   STYLES
+   STYLES — theme-aware builder
    ============================================================ */
 
-const BORDER = "rgba(120, 80, 30, 0.16)";
+function buildOrderCardStyles(C: ThemeColors): Record<string, CSSProperties> {
+  const BORDER = C.borderLight;
 
-const s: Record<string, CSSProperties> = {
-  card: {
-    background: "#FFFFFF",
-    borderRadius: 14,
-    border: `1px solid ${BORDER}`,
-    overflow: "hidden",
-    marginBottom: 10,
-    boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
-  },
-  header: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "12px 16px 8px",
-    cursor: "pointer",
-  },
-  headerLeft: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-  },
-  headerRight: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-  },
-  badge: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: 2,
-    padding: "4px 10px",
-    borderRadius: 8,
-    border: "1px solid",
-    fontSize: 11,
-    fontWeight: 800,
-    letterSpacing: 0.6,
-  },
-  orderId: {
-    fontSize: 14,
-    fontWeight: 800,
-    color: "#1A1208",
-    letterSpacing: -0.3,
-  },
-  time: {
-    fontSize: 12,
-    color: "#9A8A78",
-    fontVariantNumeric: "tabular-nums",
-  },
-  summary: {
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    padding: "0 16px 10px",
-    cursor: "pointer",
-    flexWrap: "wrap" as const,
-  },
-  total: {
-    fontSize: 15,
-    fontWeight: 900,
-    color: "#E04E1B",
-  },
-  dot: {
-    color: "#D4C8B8",
-    fontSize: 12,
-  },
-  meta: {
-    fontSize: 12,
-    color: "#7A6650",
-    fontWeight: 600,
-  },
-  paymentSentBadge: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: 4,
-    fontSize: 11,
-    fontWeight: 700,
-    color: "#2563EB",
-    backgroundColor: "#EFF6FF",
-    padding: "2px 8px",
-    borderRadius: 6,
-  },
+  return {
+    card: {
+      background: C.bg,
+      borderRadius: 12,
+      border: `1px solid ${BORDER}`,
+      overflow: "hidden",
+      marginBottom: 8,
+      boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+      transition: "background-color 0.2s",
+    },
+    selectRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "8px 14px 0",
+      cursor: "pointer",
+    },
+    selectCheckbox: {
+      width: 20,
+      height: 20,
+      borderRadius: 6,
+      border: `2px solid ${C.borderLight}`,
+      display: "grid",
+      placeItems: "center",
+      flexShrink: 0,
+      transition: "all 0.15s",
+    },
+    selectLabel: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: C.muted,
+    },
+    header: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "12px 14px 6px",
+      cursor: "pointer",
+    },
+    headerLeft: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+    },
+    headerRight: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+    },
+    badge: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 2,
+      padding: "4px 10px",
+      borderRadius: 8,
+      border: "1px solid",
+      fontSize: 11,
+      fontWeight: 800,
+      letterSpacing: 0.6,
+    },
+    orderId: {
+      fontSize: 14,
+      fontWeight: 800,
+      color: C.text,
+      letterSpacing: -0.3,
+    },
+    time: {
+      fontSize: 12,
+      color: C.muted,
+      fontVariantNumeric: "tabular-nums",
+    },
+    summary: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      padding: "0 14px 8px",
+      cursor: "pointer",
+      flexWrap: "wrap" as const,
+    },
+    actionLine: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      padding: "0 14px 8px",
+    },
+    actionText: {
+      fontSize: 12,
+      fontWeight: 700,
+      letterSpacing: 0.2,
+    },
+    total: {
+      fontSize: 15,
+      fontWeight: 900,
+      color: C.text,
+    },
+    dot: {
+      color: C.borderLight,
+      fontSize: 12,
+    },
+    meta: {
+      fontSize: 12,
+      color: C.muted,
+      fontWeight: 600,
+    },
+    paymentSentBadge: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 4,
+      fontSize: 11,
+      fontWeight: 700,
+      color: C.accent,
+      backgroundColor: C.accentSoft,
+      padding: "2px 8px",
+      borderRadius: 6,
+    },
 
-  /* Details (expanded) */
-  details: {
-    padding: "0 16px 14px",
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-    borderTop: `1px solid ${BORDER}`,
-    paddingTop: 10,
-  },
-  section: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-  },
-  sectionLabel: {
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    fontSize: 10,
-    fontWeight: 900,
-    letterSpacing: 1.2,
-    textTransform: "uppercase" as const,
-    color: "#7A6650",
-    marginBottom: 2,
-  },
-  itemRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    padding: "4px 8px",
-    borderRadius: 8,
-    background: "#F7F4F0",
-  },
-  itemName: {
-    flex: 1,
-    fontSize: 13,
-    fontWeight: 600,
-    color: "#1A1208",
-  },
-  itemQty: {
-    fontSize: 12,
-    color: "#7A6650",
-    fontWeight: 600,
-  },
-  itemPrice: {
-    fontSize: 13,
-    fontWeight: 800,
-    color: "#E04E1B",
-    minWidth: 60,
-    textAlign: "right" as const,
-  },
-  infoGrid: {
-    display: "flex",
-    gap: 10,
-  },
-  infoItem: {
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    padding: "8px 10px",
-    borderRadius: 10,
-    background: "#F7F4F0",
-  },
-  infoLabel: {
-    fontSize: 12,
-    fontWeight: 700,
-    color: "#3D2E1E",
-  },
-  customerRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    padding: "6px 8px",
-    borderRadius: 8,
-    background: "#F7F4F0",
-  },
-  customerName: {
-    fontSize: 13,
-    fontWeight: 700,
-    color: "#1A1208",
-  },
-  customerContact: {
-    display: "flex",
-    alignItems: "center",
-    gap: 4,
-    fontSize: 12,
-    color: "#7A6650",
-  },
-  userIdRow: {
-    fontSize: 11,
-    color: "#9A8A78",
-    padding: "2px 8px",
-  },
+    allCheckedLine: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      padding: "4px 14px 6px",
+    },
+    allCheckedText: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: C.green,
+    },
 
-  /* Payment sent box */
-  paymentSentBox: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    padding: "10px 12px",
-    borderRadius: 10,
-    background: "#EFF6FF",
-    border: "1px solid #BFDBFE",
-  },
-  paymentSentTitle: {
-    fontSize: 13,
-    fontWeight: 700,
-    color: "#2563EB",
-  },
-  paymentSentTime: {
-    fontSize: 11,
-    color: "#60A5FA",
-  },
+    /* Details (expanded) */
+    details: {
+      padding: "0 14px 14px",
+      display: "flex",
+      flexDirection: "column",
+      gap: 10,
+      borderTop: `1px solid ${BORDER}`,
+      paddingTop: 10,
+    },
+    section: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 4,
+    },
+    sectionLabel: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      fontSize: 10,
+      fontWeight: 900,
+      letterSpacing: 1.2,
+      textTransform: "uppercase" as const,
+      color: C.muted,
+      marginBottom: 2,
+    },
+    itemRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "6px 8px",
+      borderRadius: 8,
+      cursor: "pointer",
+      transition: "background-color 0.15s",
+    },
+    checkboxWrap: {
+      width: 20,
+      height: 20,
+      borderRadius: 6,
+      border: `2px solid ${C.borderLight}`,
+      display: "grid",
+      placeItems: "center",
+      flexShrink: 0,
+      backgroundColor: "transparent",
+      transition: "all 0.15s",
+    },
+    itemName: {
+      flex: 1,
+      fontSize: 13,
+      fontWeight: 600,
+      transition: "all 0.15s",
+    },
+    itemQty: {
+      fontSize: 12,
+      fontWeight: 600,
+      transition: "color 0.15s",
+    },
+    itemPrice: {
+      fontSize: 13,
+      fontWeight: 800,
+      minWidth: 60,
+      textAlign: "right" as const,
+      transition: "color 0.15s",
+    },
+    infoGrid: {
+      display: "flex",
+      gap: 8,
+    },
+    infoItem: {
+      flex: 1,
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      padding: "8px 10px",
+      borderRadius: 10,
+      background: C.soft,
+    },
+    infoLabel: {
+      fontSize: 12,
+      fontWeight: 700,
+      color: C.textSoft,
+    },
+    customerRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      padding: "6px 8px",
+      borderRadius: 8,
+      background: C.soft,
+    },
+    customerName: {
+      fontSize: 13,
+      fontWeight: 700,
+      color: C.text,
+    },
+    customerContact: {
+      display: "flex",
+      alignItems: "center",
+      gap: 4,
+      fontSize: 12,
+      color: C.muted,
+    },
+    userIdRow: {
+      fontSize: 11,
+      color: C.muted,
+      padding: "2px 8px",
+    },
 
-  /* Total */
-  totalBox: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "10px 14px",
-    borderRadius: 12,
-    background: "#1A1208",
-  },
-  totalLabel: {
-    fontSize: 11,
-    fontWeight: 800,
-    letterSpacing: 1,
-    textTransform: "uppercase" as const,
-    color: "#C4B8A8",
-  },
-  totalValue: {
-    fontSize: 20,
-    fontWeight: 900,
-    color: "#FFFFFF",
-  },
+    /* Payment sent box */
+    paymentSentBox: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      padding: "10px 12px",
+      borderRadius: 10,
+      background: C.accentSoft,
+      border: `1px solid ${C.borderLight}`,
+    },
+    paymentSentTitle: {
+      fontSize: 13,
+      fontWeight: 700,
+      color: C.accent,
+    },
+    paymentSentTime: {
+      fontSize: 11,
+      color: C.accent,
+    },
 
-  /* Actions */
-  actions: {
-    display: "flex",
-    gap: 8,
-    marginTop: 4,
-  },
-  btnConfirm: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    flex: 1,
-    background: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "12px 16px",
-    borderRadius: 12,
-    fontWeight: 800,
-    fontSize: 14,
-    cursor: "pointer",
-    fontFamily: "inherit",
-    boxShadow: "0 2px 8px rgba(34,197,94,0.3)",
-  },
-  btnPaid: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    flex: 1,
-    background: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "12px 16px",
-    borderRadius: 12,
-    fontWeight: 800,
-    fontSize: 14,
-    cursor: "pointer",
-    fontFamily: "inherit",
-    boxShadow: "0 2px 8px rgba(59,130,246,0.3)",
-  },
-  btnDone: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    flex: 1,
-    background: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)",
-    color: "#FFFFFF",
-    border: "none",
-    padding: "12px 16px",
-    borderRadius: 12,
-    fontWeight: 800,
-    fontSize: 14,
-    cursor: "pointer",
-    fontFamily: "inherit",
-    boxShadow: "0 2px 8px rgba(6,182,212,0.3)",
-  },
-  btnReject: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    background: "transparent",
-    color: "#DC2626",
-    border: "1px solid #FCA5A5",
-    padding: "12px 16px",
-    borderRadius: 12,
-    fontWeight: 700,
-    fontSize: 13,
-    cursor: "pointer",
-    fontFamily: "inherit",
-  },
-  btnDismiss: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    flex: 1,
-    background: "transparent",
-    color: "#9A8A78",
-    border: "1px solid #D4C8B8",
-    padding: "10px 16px",
-    borderRadius: 12,
-    fontWeight: 700,
-    fontSize: 13,
-    cursor: "pointer",
-    fontFamily: "inherit",
-  },
-};
+    /* Total */
+    totalBox: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "10px 12px",
+      borderRadius: 10,
+      background: C.soft,
+      border: `1px solid ${BORDER}`,
+    },
+    totalLabel: {
+      fontSize: 12,
+      fontWeight: 800,
+      letterSpacing: 0.8,
+      textTransform: "uppercase" as const,
+      color: C.muted,
+    },
+    totalValue: {
+      fontSize: 18,
+      fontWeight: 900,
+      color: C.text,
+    },
+
+    /* Actions */
+    actions: {
+      display: "flex",
+      gap: 8,
+      marginTop: 4,
+    },
+    btnConfirm: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      flex: 1,
+      background: C.greenGradient,
+      color: C.white,
+      border: "none",
+      padding: "12px 16px",
+      borderRadius: 12,
+      fontWeight: 800,
+      fontSize: 14,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      boxShadow: "0 2px 8px rgba(34,197,94,0.25)",
+    },
+    btnPaid: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      flex: 1,
+      background: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
+      color: C.white,
+      border: "none",
+      padding: "12px 16px",
+      borderRadius: 12,
+      fontWeight: 800,
+      fontSize: 14,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      boxShadow: "0 2px 8px rgba(59,130,246,0.25)",
+    },
+    btnDone: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      flex: 1,
+      background: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)",
+      color: C.white,
+      border: "none",
+      padding: "12px 16px",
+      borderRadius: 12,
+      fontWeight: 800,
+      fontSize: 14,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      boxShadow: "0 2px 8px rgba(6,182,212,0.25)",
+    },
+    btnReject: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      background: "transparent",
+      color: "#DC2626",
+      border: "1px solid #FCA5A5",
+      padding: "12px 16px",
+      borderRadius: 12,
+      fontWeight: 700,
+      fontSize: 13,
+      cursor: "pointer",
+      fontFamily: "inherit",
+    },
+    btnDismiss: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      flex: 1,
+      background: "transparent",
+      color: C.muted,
+      border: `1px solid ${C.borderLight}`,
+      padding: "10px 16px",
+      borderRadius: 12,
+      fontWeight: 700,
+      fontSize: 13,
+      cursor: "pointer",
+      fontFamily: "inherit",
+    },
+  };
+}

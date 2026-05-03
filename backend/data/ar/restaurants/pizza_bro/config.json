@@ -1,0 +1,15 @@
+{
+  "restaurant_id": "pizza_bro",
+  "name": "PIZZA BRO",
+  "address": "Phuket",
+  "phone": "+666777888",
+  "logo": "restaurant_logos/pizza_bro_logo.png",
+  "created_at": "2026-04-25T18:09:37.378602",
+  "id": "pizza_bro",
+  "description": "& BURGERS",
+  "info_text": "",
+  "payment_qr_url": "",
+  "admin_ids": [],
+  "manager_username": "",
+  "theme": "dark"
+}

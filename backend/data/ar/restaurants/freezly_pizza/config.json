@@ -1,0 +1,15 @@
+{
+  "restaurant_id": "freezly_pizza",
+  "name": "Freezly Pizza",
+  "address": "",
+  "phone": "+66 96 690 0096",
+  "logo": "restaurant_logos/freezly_pizza_logo.jpg",
+  "created_at": "2026-04-25T13:31:01.418492",
+  "id": "freezly_pizza",
+  "description": "Chiang Mai",
+  "info_text": "",
+  "payment_qr_url": "",
+  "admin_ids": [],
+  "dashboard_token" : "freezly",
+  "manager_username": ""
+}
