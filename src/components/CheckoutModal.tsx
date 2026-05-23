@@ -3,8 +3,10 @@ import { useCart } from "@/contexts/CartContext";
 import { useTelegramContext } from "@/contexts/TelegramContext";
 import { useOrder, type ClientOrderStatus } from "@/contexts/OrderContext";
 import { toast } from "sonner";
-import { CreditCard, Banknote, CheckCircle2, Send, Truck, MapPin } from "lucide-react";
+import { CreditCard, Banknote, CheckCircle2, Send, Truck, MapPin, ChevronDown, Navigation } from "lucide-react";
 import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
+
+const API_URL = import.meta.env.VITE_API_URL || "https://weldwood.sunny-rentals.online";
 
 type Props = {
   open: boolean;
@@ -14,6 +16,22 @@ type Props = {
 
 type Delivery = "pickup" | "delivery";
 type Payment = "qr_prompt_pay" | "cash";
+
+type DeliveryZone = {
+  id: string;
+  name: string;
+  price: number;
+};
+
+type RestaurantConfig = {
+  delivery_settings?: {
+    enabled_types?: string[];
+    zones?: DeliveryZone[];
+  };
+  payment_settings?: {
+    enabled_methods?: string[];
+  };
+};
 
 export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
   const C = useTheme();
@@ -25,14 +43,40 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
   const isTg = isTelegramEnvironment && !!tgUser;
   const tgUsername = tgUser?.username ? `@${tgUser.username}` : "";
 
+  const [config, setConfig] = useState<RestaurantConfig>({});
+  const [loadingConfig, setLoadingConfig] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [delivery, setDelivery] = useState<Delivery>("pickup");
+  const [district, setDistrict] = useState("");
   const [address, setAddress] = useState("");
+  const [selectedZone, setSelectedZone] = useState<DeliveryZone | null>(null);
   const [payment, setPayment] = useState<Payment>("qr_prompt_pay");
   const [submitting, setSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [successOrderId, setSuccessOrderId] = useState("");
+
+  // Загрузка конфига ресторана
+  useEffect(() => {
+    if (!open || !restaurantId) return;
+    setLoadingConfig(true);
+    fetch(`${API_URL}/api/restaurants/${restaurantId}/config`)
+      .then(res => res.json())
+      .then(data => {
+        setConfig(data || {});
+        // Устанавливаем значения по умолчанию из конфига
+        const enabledTypes = data?.delivery_settings?.enabled_types;
+        if (enabledTypes && !enabledTypes.includes('pickup') && enabledTypes.includes('delivery')) {
+          setDelivery("delivery");
+        }
+        const enabledMethods = data?.payment_settings?.enabled_methods;
+        if (enabledMethods && enabledMethods.length > 0) {
+          setPayment(enabledMethods[0] as Payment);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoadingConfig(false));
+  }, [open, restaurantId]);
 
   // Auto-fill from Telegram when modal opens
   useEffect(() => {
@@ -48,28 +92,56 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  // Фильтры из конфига
+  const enabledDeliveryTypes = config?.delivery_settings?.enabled_types || ["pickup", "delivery"];
+  const deliveryZones = config?.delivery_settings?.zones || [];
+  const enabledPaymentMethods = config?.payment_settings?.enabled_methods || ["qr_prompt_pay", "cash"];
+
+  // Показывать только разрешенные типы доставки
+  const showPickup = enabledDeliveryTypes.includes("pickup");
+  const showDelivery = enabledDeliveryTypes.includes("delivery");
+
+  // Вычисляем эффективный тип доставки (без useEffect, чтобы избежать бесконечного рендера)
+  const effectiveDelivery: Delivery =
+    (!showPickup && delivery === "pickup") ? "delivery" :
+    (!showDelivery && delivery === "delivery") ? "pickup" :
+    delivery;
+
   if (!open) return null;
 
-  // Validation is informational only — order submits regardless
+  // Цена доставки
+  const deliveryPrice = effectiveDelivery === "delivery" && selectedZone ? selectedZone.price : 0;
+  const finalTotal = cartTotal + deliveryPrice;
+
+  // Validation
+  const needsZone = delivery === "delivery" && deliveryZones.length > 0;
   const isValid =
     cart.length > 0 &&
     name.trim().length >= 2 &&
     (isTg || phone.trim().length >= 6) &&
-    (delivery === "pickup" || address.trim().length >= 3);
+    (delivery === "pickup" || (!needsZone || selectedZone) && district.trim().length >= 2 && address.trim().length >= 3);
 
   const handleSubmit = async () => {
     if (submitting) return;
     setSubmitting(true);
-    const res = await submitOrder(
-      {
-        name: name.trim(),
-        phone: phone.trim(),
-        delivery_type: delivery,
-        address: delivery === "delivery" ? address.trim() : undefined,
-        payment,
-      },
-      restaurantId
-    );
+    
+    // Данные заказа с дополнительной информацией о доставке
+    const orderData = {
+      name: name.trim(),
+      phone: phone.trim(),
+      delivery_type: delivery,
+      district: delivery === "delivery" ? district.trim() : undefined,
+      address: delivery === "delivery" ? address.trim() : undefined,
+      payment,
+      // Дополнительные данные о доставке для бэкенда
+      ...(delivery === "delivery" && selectedZone ? {
+        delivery_zone_id: selectedZone.id,
+        delivery_zone_name: selectedZone.name,
+        delivery_price: selectedZone.price,
+      } : {}),
+    };
+    
+    const res = await submitOrder(orderData, restaurantId);
     setSubmitting(false);
 
     if (res.ok) {
@@ -87,14 +159,17 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
           name: l.item.name,
           price: l.item.price + l.selectedIngredients.reduce((s, i) => s + i.price, 0),
           qnt: l.qty,
+          ...(l.selectedIngredients.length > 0
+            ? { modifiers: l.selectedIngredients.map((i) => ({ name: i.name, price: i.price })) }
+            : {}),
         })),
-        total: cartTotal,
+        total: finalTotal,
         paymentMethod: payment,
         deliveryType: delivery,
         createdAt: new Date().toISOString(),
       });
     } else {
-      toast.error("Failed to place order", { description: res.error });
+      toast.error("Не удалось оформить заказ", { description: res.error });
     }
   };
 
@@ -108,18 +183,18 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
   return (
     <>
       <div style={s.overlay} onClick={onClose} />
-      <div style={s.modal} role="dialog" aria-modal="true" aria-label="Checkout">
+      <div style={s.modal} role="dialog" aria-modal="true" aria-label="Оформление заказа">
         <div style={s.header}>
-          <h2 style={s.title}>Checkout</h2>
+          <h2 style={s.title}>Оформление</h2>
           <button onClick={onClose} style={s.close} aria-label="Close">✕</button>
         </div>
 
         <div style={s.body}>
           {/* Cart lines */}
           <section style={s.section}>
-            <div style={s.sectionLabel}>Your Order</div>
+            <div style={s.sectionLabel}>Ваш заказ</div>
             {cart.length === 0 ? (
-              <div style={s.emptyCart}>Cart is empty</div>
+              <div style={s.emptyCart}>Корзина пуста</div>
             ) : (
               <div style={s.lines}>
                 {cart.map((l) => (
@@ -145,10 +220,10 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
 
           {/* Customer */}
           <section style={s.section}>
-            <div style={s.sectionLabel}>Contacts</div>
+            <div style={s.sectionLabel}>Контакты</div>
             {isTg && (
               <div style={s.tgContactBadge}>
-                <Send size={14} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Contact via Telegram
+                <Send size={14} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Через Telegram
                 {tgUsername && <span style={s.tgContactName}>{tgUsername}</span>}
               </div>
             )}
@@ -170,67 +245,174 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
           </section>
 
           {/* Delivery */}
-          <section style={s.section}>
-            <div style={s.sectionLabel}>Pickup</div>
-            <div style={s.segmented}>
-              <button
-                style={{ ...s.segBtn, ...(delivery === "pickup" ? s.segBtnActive : {}) }}
-                onClick={() => setDelivery("pickup")}
-                type="button"
-              >
-                <MapPin size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Pickup
-              </button>
-              <button
-                style={{ ...s.segBtn, ...(delivery === "delivery" ? s.segBtnActive : {}) }}
-                onClick={() => setDelivery("delivery")}
-                type="button"
-              >
-                <Truck size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Delivery (Grab)
-              </button>
-            </div>
-            {delivery === "delivery" && (
-              <input
-                style={{ ...s.input, marginTop: 8 }}
-                placeholder="Delivery address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            )}
-          </section>
+          {(showPickup || showDelivery) && (
+            <section style={s.section}>
+              <div style={s.sectionLabel}>
+                {showDelivery ? "Delivery" : "Pickup"}
+              </div>
+              <div style={s.segmented}>
+                {showPickup && (
+                  <button
+                    style={{ ...s.segBtn, ...(delivery === "pickup" ? s.segBtnActive : {}) }}
+                    onClick={() => { setDelivery("pickup"); setSelectedZone(null); setDistrict(""); setAddress(""); }}
+                    type="button"
+                  >
+                    <MapPin size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Pickup
+                  </button>
+                )}
+                {showDelivery && (
+                  <button
+                    style={{ ...s.segBtn, ...(delivery === "delivery" ? s.segBtnActive : {}) }}
+                    onClick={() => setDelivery("delivery")}
+                    type="button"
+                  >
+                    <Truck size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Delivery
+                  </button>
+                )}
+              </div>
+              
+              {delivery === "delivery" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                  {/* Zone selector */}
+                  {deliveryZones.length > 0 ? (
+                    <div style={{ position: "relative" }}>
+                      <select
+                        value={selectedZone?.id || ""}
+                        onChange={(e) => {
+                          const zone = deliveryZones.find(z => z.id === e.target.value);
+                          setSelectedZone(zone || null);
+                        }}
+                        style={{
+                          ...s.input,
+                          appearance: "none",
+                          cursor: "pointer",
+                          paddingRight: 36,
+                        }}
+                      >
+                        <option value="">Выберите зону доставки / Район</option>
+                        {deliveryZones.map(zone => (
+                          <option key={zone.id} value={zone.id}>
+                            {zone.name} — {zone.price} ฿
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown size={16} style={{
+                        position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
+                        pointerEvents: "none", color: C.muted
+                      }} />
+                    </div>
+                  ) : (
+                    <>
+                      {/* District field when no zones */}
+                      <div style={{ position: "relative" }}>
+                        <Navigation size={16} style={{
+                          position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
+                          pointerEvents: "none", color: C.muted
+                        }} />
+                        <input
+                          style={{ ...s.input, paddingLeft: 36 }}
+                          placeholder="Район"
+                          value={district}
+                          onChange={(e) => setDistrict(e.target.value)}
+                        />
+                      </div>
+                      <input
+                        style={s.input}
+                        placeholder="Адрес доставки"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                      />
+                    </>
+                  )}
+                  
+                  {selectedZone && (
+                    <div style={{
+                      padding: "8px 12px",
+                      borderRadius: 10,
+                      background: C.accentSoft || "#FFF3CD",
+                      border: `1px solid ${C.accentDeep || "#856404"}`,
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: C.accentDeep || "#856404",
+                    }}>
+                      Доставка: +{selectedZone.price} ฿ ({selectedZone.name})
+                    </div>
+                  )}
+                  
+                  {/* District + Address fields when zones are configured */}
+                  {deliveryZones.length > 0 && (
+                    <>
+                      <div style={{ position: "relative" }}>
+                        <Navigation size={16} style={{
+                          position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
+                          pointerEvents: "none", color: C.muted
+                        }} />
+                        <input
+                          style={{ ...s.input, paddingLeft: 36 }}
+                          placeholder="Район"
+                          value={district}
+                          onChange={(e) => setDistrict(e.target.value)}
+                        />
+                      </div>
+                      <input
+                        style={s.input}
+                        placeholder="Полный адрес (си soi, улица и т.д.)"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                      />
+                    </>
+                  )}
+                </div>
+              )}
+            </section>
+          )}
 
           {/* Payment */}
-          <section style={s.section}>
-            <div style={s.sectionLabel}>Payment</div>
-            <div style={s.segmented}>
-              <button
-                style={{ ...s.segBtn, ...(payment === "qr_prompt_pay" ? s.segBtnActive : {}) }}
-                onClick={() => setPayment("qr_prompt_pay")}
-                type="button"
-              >
-                <CreditCard size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> QR Prompt Pay
-              </button>
-              <button
-                style={{ ...s.segBtn, ...(payment === "cash" ? s.segBtnActive : {}) }}
-                onClick={() => setPayment("cash")}
-                type="button"
-              >
-                <Banknote size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Cash
-              </button>
-            </div>
-          </section>
+          {enabledPaymentMethods.length > 0 && (
+            <section style={s.section}>
+              <div style={s.sectionLabel}>Оплата</div>
+              <div style={s.segmented}>
+                {enabledPaymentMethods.includes("qr_prompt_pay") && (
+                  <button
+                    style={{ ...s.segBtn, ...(payment === "qr_prompt_pay" ? s.segBtnActive : {}) }}
+                    onClick={() => setPayment("qr_prompt_pay")}
+                    type="button"
+                  >
+                    <CreditCard size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> QR Prompt Pay
+                  </button>
+                )}
+                {enabledPaymentMethods.includes("cash") && (
+                  <button
+                    style={{ ...s.segBtn, ...(payment === "cash" ? s.segBtnActive : {}) }}
+                    onClick={() => setPayment("cash")}
+                    type="button"
+                  >
+                    <Banknote size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Наличные
+                  </button>
+                )}
+              </div>
+            </section>
+          )}
         </div>
 
         <div style={s.footer}>
           <div style={s.totalRow}>
-            <span style={s.totalLabel}>Total</span>
-            <span style={s.totalValue}>{cartTotal} ฿</span>
+            <span style={s.totalLabel}>Итого</span>
+            <span style={s.totalValue}>
+              {finalTotal} ฿
+              {deliveryPrice > 0 && (
+                <span style={{ fontSize: 12, fontWeight: 600, color: C.muted, marginLeft: 8 }}>
+                  (вкл. {deliveryPrice} ฿ доставка)
+                </span>
+              )}
+            </span>
           </div>
           <button
             onClick={handleSubmit}
             disabled={submitting}
             style={{ ...s.submit, opacity: submitting ? 0.55 : 1, cursor: submitting ? "not-allowed" : "pointer" }}
           >
-            {submitting ? "Submitting..." : "Place Order"}
+            {submitting ? "Отправка..." : "Оформить заказ"}
           </button>
         </div>
       </div>
@@ -239,23 +421,23 @@ export default function CheckoutModal({ open, onClose, restaurantId }: Props) {
       {showSuccess && (
         <>
           <div style={s.overlay} onClick={handleCloseSuccess} />
-          <div style={s.successModal} role="dialog" aria-modal="true" aria-label="Order placed">
+          <div style={s.successModal} role="dialog" aria-modal="true" aria-label="Заказ оформлен">
             <div style={s.successIcon}><CheckCircle2 size={48} style={{color:"#16A34A"}} /></div>
-            <h2 style={s.successTitle}>Order Placed!</h2>
+            <h2 style={s.successTitle}>Заказ оформлен!</h2>
             {successOrderId && (
               <div style={s.successOrderId}>Order #: <strong>{successOrderId}</strong></div>
             )}
             <div style={s.successInfo}>
-              Waiting for restaurant confirmation!<br />
-              Cooking time ~15 minutes after confirmation.
+              Ожидаем подтверждение ресторана!<br />
+              Готовность ~15 минут после подтверждения.
             </div>
             {payment === "cash" && (
               <div style={s.successCash}>
-                <Banknote size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Cash payment — click "Chat with Manager" in Telegram
+                <Banknote size={16} style={{display:"inline",verticalAlign:"middle",marginRight:4}} /> Оплата наличными — напишите менеджеру в Telegram
               </div>
             )}
             <button style={s.successBtn} onClick={handleCloseSuccess}>
-              Got it!
+              Понятно!
             </button>
           </div>
         </>

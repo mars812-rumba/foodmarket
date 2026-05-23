@@ -77,6 +77,21 @@ interface MenuItem {
   updated_at?: string;
 }
 
+interface DeliveryZone {
+  id: string;
+  name: string;
+  price: number;
+}
+
+interface DeliverySettings {
+  enabled_types: string[]; // "pickup", "delivery"
+  zones?: DeliveryZone[]; // Опционально
+}
+
+interface PaymentSettings {
+  enabled_methods: string[]; // "qr_prompt_pay", "cash"
+}
+
 interface Restaurant {
   id: string;
   restaurant_id?: string;
@@ -91,6 +106,10 @@ interface Restaurant {
   manager_username?: string;
   theme?: string;
   created_at?: string;
+  // Новые настройки
+  dashboard_token?: string;
+  delivery_settings?: DeliverySettings;
+  payment_settings?: PaymentSettings;
 }
 
 export default function MenuManager() {
@@ -555,7 +574,11 @@ export default function MenuManager() {
                           payment_qr_url: config.payment_qr_url || '',
                           admin_ids: config.admin_ids || [],
                           manager_username: config.manager_username || '',
+                          theme: config.theme || 'warm',
                           created_at: config.created_at || '',
+                          dashboard_token: config.dashboard_token || '',
+                          delivery_settings: config.delivery_settings || { enabled_types: ['pickup', 'delivery'], zones: [] },
+                          payment_settings: config.payment_settings || { enabled_methods: ['qr_prompt_pay', 'cash'] },
                         };
                         setEditingRestaurant(restaurant);
                         setRestaurantFormData(restaurant);
@@ -618,7 +641,7 @@ export default function MenuManager() {
                 )}
                 <SelectValue placeholder="Категория" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="max-h-[200px]">
                 <SelectItem value="all">Все блюда</SelectItem>
                 {Object.entries(CATEGORY_ICONS).map(([k, v]) => (
                   <SelectItem key={k} value={k} className="flex items-center gap-2">
@@ -754,7 +777,7 @@ export default function MenuManager() {
                         )}
                         {!formData.category && <SelectValue />}
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-h-[200px]">
                         {Object.entries(CATEGORY_ICONS).map(([k, v]) => (
                           <SelectItem key={k} value={k} className="flex items-center gap-2">
                             <div className="flex items-center gap-2">
@@ -1071,6 +1094,187 @@ export default function MenuManager() {
                 className="h-12 rounded-xl bg-slate-50 border-none text-lg font-bold focus-visible:ring-orange-500"
                 onChange={(e) => setRestaurantFormData(prev => ({ ...prev, manager_username: e.target.value }))}
               />
+            </div>
+
+            {/* Токен дашборда */}
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-slate-500 ml-1">ТОКЕН ДАШБОРДА (для доступа к панели заказов)</Label>
+              <Input
+                value={restaurantFormData.dashboard_token || ''}
+                placeholder="my_restaurant_token"
+                className="h-12 rounded-xl bg-slate-50 border-none text-lg font-bold focus-visible:ring-orange-500"
+                onChange={(e) => setRestaurantFormData(prev => ({ ...prev, dashboard_token: e.target.value }))}
+              />
+              <p className="text-xs text-slate-400 ml-1">Ссылка для дашборда: /dashboard?token=ВАШ_ТОКЕН</p>
+            </div>
+
+            {/* === НАСТРОЙКИ ДОСТАВКИ === */}
+            <div className="bg-blue-50/50 p-4 rounded-2xl border border-blue-100 space-y-4">
+              <h4 className="text-xs font-black text-blue-800 flex items-center gap-2 uppercase tracking-widest">
+                🚚 НАСТРОЙКИ ДОСТАВКИ
+              </h4>
+              
+              {/* Типы доставки */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-bold text-slate-600 ml-1">ТИПЫ ДОСТАВКИ</Label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={restaurantFormData.delivery_settings?.enabled_types?.includes('pickup') ?? true}
+                      onChange={(e) => {
+                        const current = restaurantFormData.delivery_settings?.enabled_types || ['pickup', 'delivery'];
+                        const newTypes = e.target.checked
+                          ? [...current.filter(t => t !== 'pickup'), 'pickup']
+                          : current.filter(t => t !== 'pickup');
+                        setRestaurantFormData(prev => ({
+                          ...prev,
+                          delivery_settings: { ...(prev.delivery_settings || {}), enabled_types: newTypes }
+                        }));
+                      }}
+                      className="w-4 h-4 rounded accent-blue-600"
+                    />
+                    <span className="text-sm font-bold text-slate-700">Самовывоз</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={restaurantFormData.delivery_settings?.enabled_types?.includes('delivery') ?? true}
+                      onChange={(e) => {
+                        const current = restaurantFormData.delivery_settings?.enabled_types || ['pickup', 'delivery'];
+                        const newTypes = e.target.checked
+                          ? [...current.filter(t => t !== 'delivery'), 'delivery']
+                          : current.filter(t => t !== 'delivery');
+                        setRestaurantFormData(prev => ({
+                          ...prev,
+                          delivery_settings: { ...prev.delivery_settings, enabled_types: newTypes }
+                        }));
+                      }}
+                      className="w-4 h-4 rounded accent-blue-600"
+                    />
+                    <span className="text-sm font-bold text-slate-700">Доставка на адрес</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Зоны доставки */}
+              {(restaurantFormData.delivery_settings?.enabled_types?.includes('delivery')) && (
+                <div className="space-y-1.5">
+                  <Label className="text-xs font-bold text-slate-600 ml-1">ЗОНЫ И ЦЕНЫ ДОСТАВКИ</Label>
+                  <div className="space-y-2">
+                    {(restaurantFormData.delivery_settings?.zones || []).map((zone, idx) => (
+                      <div key={zone.id} className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200">
+                        <Input
+                          value={zone.name}
+                          placeholder="Район / зона"
+                          className="flex-1 h-9 rounded-lg bg-white border-slate-200 text-sm font-bold"
+                          onChange={(e) => {
+                            const newZones = [...(restaurantFormData.delivery_settings?.zones || [])];
+                            newZones[idx] = { ...newZones[idx], name: e.target.value };
+                            setRestaurantFormData(prev => ({
+                              ...prev,
+                              delivery_settings: { ...prev.delivery_settings, zones: newZones }
+                            }));
+                          }}
+                        />
+                        <div className="relative w-24">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">฿</span>
+                          <Input
+                            type="number"
+                            value={zone.price}
+                            className="h-9 pl-7 rounded-lg bg-white border-slate-200 text-sm font-bold"
+                            onChange={(e) => {
+                              const newZones = [...(restaurantFormData.delivery_settings?.zones || [])];
+                              newZones[idx] = { ...newZones[idx], price: Number(e.target.value) };
+                              setRestaurantFormData(prev => ({
+                                ...prev,
+                                delivery_settings: { ...prev.delivery_settings, zones: newZones }
+                              }));
+                            }}
+                          />
+                        </div>
+                        <Button
+                          size="icon"
+                          variant="destructive"
+                          className="h-9 w-9 flex-shrink-0"
+                          onClick={() => {
+                            const newZones = (restaurantFormData.delivery_settings?.zones || []).filter((_, i) => i !== idx);
+                            setRestaurantFormData(prev => ({
+                              ...prev,
+                              delivery_settings: { ...prev.delivery_settings, zones: newZones }
+                            }));
+                          }}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full rounded-xl border-slate-300"
+                      onClick={() => {
+                        const newZones = [...(restaurantFormData.delivery_settings?.zones || []), { id: `zone_${Date.now()}`, name: '', price: 0 }];
+                        setRestaurantFormData(prev => ({
+                          ...prev,
+                          delivery_settings: { ...prev.delivery_settings, zones: newZones }
+                        }));
+                      }}
+                    >
+                      <Plus className="h-4 w-4 mr-2" /> Добавить зону
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* === НАСТРОЙКИ ОПЛАТЫ === */}
+            <div className="bg-green-50/50 p-4 rounded-2xl border border-green-100 space-y-4">
+              <h4 className="text-xs font-black text-green-800 flex items-center gap-2 uppercase tracking-widest">
+                💳 НАСТРОЙКИ ОПЛАТЫ
+              </h4>
+              
+              <div className="space-y-1.5">
+                <Label className="text-xs font-bold text-slate-600 ml-1">СПОСОБЫ ОПЛАТЫ В ЧЕКАУТЕ</Label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={restaurantFormData.payment_settings?.enabled_methods?.includes('qr_prompt_pay') ?? true}
+                      onChange={(e) => {
+                        const current = restaurantFormData.payment_settings?.enabled_methods || ['qr_prompt_pay', 'cash'];
+                        const newMethods = e.target.checked
+                          ? [...current.filter(m => m !== 'qr_prompt_pay'), 'qr_prompt_pay']
+                          : current.filter(m => m !== 'qr_prompt_pay');
+                        setRestaurantFormData(prev => ({
+                          ...prev,
+                          payment_settings: { ...prev.payment_settings, enabled_methods: newMethods }
+                        }));
+                      }}
+                      className="w-4 h-4 rounded accent-green-600"
+                    />
+                    <span className="text-sm font-bold text-slate-700">QR Prompt Pay</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={restaurantFormData.payment_settings?.enabled_methods?.includes('cash') ?? true}
+                      onChange={(e) => {
+                        const current = restaurantFormData.payment_settings?.enabled_methods || ['qr_prompt_pay', 'cash'];
+                        const newMethods = e.target.checked
+                          ? [...current.filter(m => m !== 'cash'), 'cash']
+                          : current.filter(m => m !== 'cash');
+                        setRestaurantFormData(prev => ({
+                          ...prev,
+                          payment_settings: { ...prev.payment_settings, enabled_methods: newMethods }
+                        }));
+                      }}
+                      className="w-4 h-4 rounded accent-green-600"
+                    />
+                    <span className="text-sm font-bold text-slate-700">Наличные</span>
+                  </label>
+                </div>
+              </div>
             </div>
 
             {/* Тема оформления */}

@@ -7,6 +7,7 @@ import {
   Package,
   Receipt,
 } from "lucide-react";
+import CartAddedModal from "@/components/CartAddedModal";
 
 import logo_pizza_loft from "@/assets/logo_pizza_loft.png";
 import ProductDetail from "@/components/ProductDetail";
@@ -27,6 +28,14 @@ import sushi from "@/assets/hero_menu/susi.png";
 import carbonara from "@/assets/hero_menu/pasta.png";
 import drinks from "@/assets/hero_menu/drinks.png";
 import steak from "@/assets/hero_menu/steak.png";
+import hero_soup from "@/assets/hero_menu/soup.png";
+import hero_salad from "@/assets/hero_menu/salad.png";
+import hero_garnir from "@/assets/hero_menu/garnir.png";
+import hero_hot_dishes from "@/assets/hero_menu/hot_dishes.png";
+import hero_bakery from "@/assets/hero_menu/cake.png";
+import hero_sauce from "@/assets/hero_menu/souce.png";
+import hero_for_order from "@/assets/hero_menu/for_order.png";
+import hero_mors from "@/assets/hero_menu/mors.png";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://weldwood.sunny-rentals.online";
 
@@ -84,6 +93,14 @@ const HERO_IMAGES: Record<string, string> = {
   potato_chicken: potato_chicken,
   drinks: drinks,
   steak: steak,
+  soup: hero_soup,
+  salad: hero_salad,
+  hot_dishes: hero_hot_dishes,
+  garnir: hero_garnir,
+  mors: hero_mors,
+  bakery: hero_bakery,
+  sauce: hero_sauce,
+  for_order: hero_for_order,
 };
 
 
@@ -122,6 +139,7 @@ export default function Home() {
   const [openItem, setOpenItem] = useState<MenuItem | null>(null);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [addedItemName, setAddedItemName] = useState<string | null>(null);
   
   // API State
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -168,7 +186,7 @@ export default function Home() {
     };
 
     if (cartCount > 0) {
-      webApp.MainButton.setText(`Checkout (${cartCount})`);
+      webApp.MainButton.setText(`Оформить (${cartCount})`);
       webApp.MainButton.show();
       webApp.MainButton.onClick(handleMainButtonClick);
     } else {
@@ -257,7 +275,7 @@ export default function Home() {
           image: HERO_IMAGES[catId] || hero_pizza,
         }))
         .sort((a, b) => {
-          const order = ["pizza", "burger", "steak", "pasta", "sushi", "drinks", "potato_chicken"];
+          const order = ["pizza", "burger", "steak", "pasta", "sushi", "drinks", "potato_chicken", "soup", "salad", "hot_dishes", "garnir", "mors", "bakery", "sauce", "for_order"];
           return order.indexOf(a.id) - order.indexOf(b.id);
         });
 
@@ -319,6 +337,7 @@ export default function Home() {
 
   const addToCartLocal = (item: MenuItem, ings: Ingredient[]) => {
     addToCart(item as CartMenuItem, ings as CartIngredient[]);
+    setAddedItemName(item.name);
   };
 
 
@@ -334,7 +353,7 @@ export default function Home() {
         <div style={S.page}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "20px" }}>
             <div style={{ fontSize: 48, marginBottom: 20 }}>⏳</div>
-            <div style={{ color: C.muted, fontSize: 16 }}>Loading menu...</div>
+            <div style={{ color: C.muted, fontSize: 16 }}>Загрузка меню...</div>
           </div>
         </div>
       </ThemeProvider>
@@ -389,7 +408,7 @@ export default function Home() {
           <div style={S.logoBox}>
             <img
               src={getImageUrl(restaurants.find(r => r.id === selectedRestaurant)?.logo, photoTimestamp)}
-              alt={restaurants.find(r => r.id === selectedRestaurant)?.name || "Restaurant Logo"}
+              alt={restaurants.find(r => r.id === selectedRestaurant)?.name || "Логотип ресторана"}
               style={S.logoImg}
               key={`logo-${selectedRestaurant}-${photoTimestamp}`}
               onError={(e) => {
@@ -430,7 +449,7 @@ export default function Home() {
                     ? "0 0 12px rgba(245,158,11,0.4)"
                     : "none",
                 }}
-                aria-label="Order status"
+                aria-label="Статус заказа"
               >
                 <Receipt
                   size={20}
@@ -453,7 +472,7 @@ export default function Home() {
               </button>
             )}
             {/* Бургер-меню */}
-            <button style={S.burgerBtn} aria-label="Menu" onClick={() => setAboutOpen(true)}>
+            <button style={S.burgerBtn} aria-label="Меню" onClick={() => setAboutOpen(true)}>
               <span style={S.burgerLine} />
               <span style={S.burgerLine} />
               <span style={S.burgerLine} />
@@ -465,10 +484,10 @@ export default function Home() {
       {/* ============ VALUE PROPS STRIP ============ */}
       <div style={S.valueStrip}>
         {[
-          { icon: <Zap size={14} />, text: "Pick up in 15 min", key: "zap", color: "#006400"},
-          { icon: <Rocket size={14} />, text: "Order without call", key: "rocket", color: "#D2691E"},
-          { icon: <Clock size={14} />, text: "No waiting", key: "clock", color: "#7B68EE"},
-          { icon: <Package size={14} />, text: "Pickup / Grab", key: "package", color: "#E9967A"},
+          { icon: <Zap size={14} />, text: "Доставка по острову", key: "zap", color: "#006400"},
+          { icon: <Rocket size={14} />, text: "Заказ без звонка", key: "rocket", color: "#D2691E"},
+          { icon: <Clock size={14} />, text: "Без ожидания", key: "clock", color: "#7B68EE"},
+          { icon: <Package size={14} />, text: "Онлайн меню", key: "package", color: "#E9967A"},
         ].map((b) => (
           <div key={b.key} style={S.valueBadge}>
             <span style={{ ...S.valueBadgeIcon, color: b.color, borderRadius: 6, padding: "2px 4px" }}>{b.icon}</span>
@@ -480,7 +499,7 @@ export default function Home() {
       {/* ============ ТРИГГЕР КОРЗИНЫ (правый край) ============ */}
       <button
         onClick={() => setSideOpen((v) => !v)}
-        aria-label={sideOpen ? "Close cart" : "Open cart"}
+        aria-label={sideOpen ? "Закрыть корзину" : "Открыть корзину"}
         style={{
           ...S.sideTrigger,
           right: sideOpen ? 288 : 0,
@@ -518,8 +537,8 @@ export default function Home() {
         aria-hidden={!sideOpen}
       >
         <div style={S.sidePanelHeader}>
-          <span style={S.sidePanelTitle}>Cart</span>
-          <button onClick={() => setSideOpen(false)} style={S.sidePanelClose} aria-label="Close">✕</button>
+          <span style={S.sidePanelTitle}>Корзина</span>
+          <button onClick={() => setSideOpen(false)} style={S.sidePanelClose} aria-label="Закрыть">✕</button>
         </div>
 
         <div style={S.sidePanelBody}>
@@ -541,7 +560,7 @@ export default function Home() {
                   <button
                     onClick={() => removeFromCart(l.uid)}
                     style={S.sideCartLineDel}
-                    aria-label="Remove"
+                    aria-label="Удалить"
                   >✕</button>
                 </div>
               ))}
@@ -552,14 +571,14 @@ export default function Home() {
         {cart.length > 0 && (
           <div style={S.sidePanelFooter}>
             <div style={S.sidePanelTotal}>
-              <span style={S.sidePanelTotalLabel}>Total</span>
+              <span style={S.sidePanelTotalLabel}>Итого</span>
               <span style={S.sidePanelTotalValue}>{cartTotal} ฿</span>
             </div>
             <button
               style={S.sideCheckoutBtn}
               onClick={() => { setSideOpen(false); setCheckoutOpen(true); }}
             >
-              Checkout
+              Оформить заказ
             </button>
           </div>
         )}
@@ -611,6 +630,7 @@ export default function Home() {
         item={openItem}
         onClose={() => setOpenItem(null)}
         imageSrc={openItem ? getImageUrl(openItem.image, photoTimestamp) : undefined}
+        onAdded={(name) => setAddedItemName(name)}
       />
 
       {/* ============ МОДАЛКА ОФОРМЛЕНИЯ ЗАКАЗА ============ */}
@@ -624,6 +644,13 @@ export default function Home() {
       <ClientOrderModal
         paymentQrUrl={restaurants.find(r => r.id === selectedRestaurant)?.payment_qr_url}
         managerUsername={restaurants.find(r => r.id === selectedRestaurant)?.manager_username}
+      />
+
+      {/* ============ МОДАЛКА «ДОБАВЛЕНО В КОРЗИНУ» ============ */}
+      <CartAddedModal
+        addedItemName={addedItemName}
+        onClose={() => setAddedItemName(null)}
+        onCheckout={() => setCheckoutOpen(true)}
       />
 
       {/* ============ МОДАЛКА О РЕСТОРАНЕ ============ */}
@@ -644,15 +671,15 @@ function CartPlaceholder({ S }: { S: Record<string, CSSProperties> }) {
   return (
     <div style={S.cartPlaceholder}>
     <div style={S.cartPlaceholderEmoji}><ShoppingCart size={48} /></div>
-    <div style={S.cartPlaceholderTitle}>Cart is empty</div>
-    <p style={S.cartPlaceholderText}>Choose a dish from the menu and add it to your cart.</p>
+    <div style={S.cartPlaceholderTitle}>Корзина пуста</div>
+    <p style={S.cartPlaceholderText}>Выберите блюдо из меню и добавьте в корзину.</p>
       <div style={S.cartPlaceholderDivider} />
       <div style={S.cartPlaceholderHow}>
         {[
-          { n: "1", text: <>Build your order and click <b>«Checkout»</b></> },
-          { n: "2", text: <>Get <b>order number</b> and payment QR code — valid for 15 minutes</> },
-          { n: "3", text: <>Choose a seat and pay</> },
-          { n: "4", text: <>Get notification — order is ready. Pick it up 🔥</> },
+          { n: "1", text: <>Соберите заказ и нажмите <b>«Оформить заказ»</b></> },
+          { n: "2", text: <>Получите <b>номер заказа</b> и QR-код для оплаты — действует 15 минут</> },
+          { n: "3", text: <>Выберите место и оплатите</> },
+          { n: "4", text: <>Получите уведомление — заказ готов. Заберите 🔥</> },
         ].map(({ n, text }) => (
           <div key={n} style={S.cartPlaceholderStep}>
             <span style={S.cartPlaceholderStepNum}>{n}</span>
@@ -734,14 +761,14 @@ function HeroCarousel({
               <span style={S.heroRatingStar}>★</span>
               <span style={S.heroRatingText}>4.8</span>
               <span style={S.heroRatingDot}>·</span>
-              <span style={S.heroRatingSource}>Google maps</span>
+              <span style={S.heroRatingSource}>Google Карты</span>
             </div>
 
             <div style={S.heroOverlay}>
               <h2 style={S.heroNameOnImg}>{h.name}</h2>
               <div style={S.heroRowOnImg}>
                 <div>
-                  <div style={S.heroPriceLabel}>from</div>
+                  <div style={S.heroPriceLabel}>от</div>
                   <div style={S.heroPriceOnImg}>{h.price} ฿</div>
                 </div>
               </div>
@@ -750,9 +777,9 @@ function HeroCarousel({
             <button
               onClick={() => onChoose(h.id)}
               style={S.swipeUpHint}
-              aria-label={`Order: ${h.name}`}
+              aria-label={`Заказать: ${h.name}`}
             >
-              Order food&nbsp;→
+              Заказать еду&nbsp;→
             </button>
           </article>
         ))}
@@ -763,7 +790,7 @@ function HeroCarousel({
           <button
             key={h.id}
             onClick={() => goTo(i)}
-            aria-label={`Slide ${i + 1}`}
+            aria-label={`Слайд ${i + 1}`}
             style={{ ...S.dot, ...(i === index ? S.dotActive : null) }}
           />
         ))}
@@ -771,7 +798,7 @@ function HeroCarousel({
 
       {hintVisible && heroes.length > 1 && index === 0 && (
         <div style={S.swipeHint}>
-          <span>swipe</span>
+          <span>листайте</span>
           <span style={S.swipeHintArrow}>→</span>
         </div>
       )}
@@ -936,15 +963,15 @@ function BottomSheet({
             <h3 style={S.sheetTitle}>{category?.label ?? "Меню"}</h3>
             {cartCount > 0 && (
               <div style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>
-                In cart: {cartCount} items · {cartTotal} ฿
+                В корзине: {cartCount} шт · {cartTotal} ฿
               </div>
             )}
           </div>
-          <button onClick={onClose} style={S.sheetClose} aria-label="Close">✕</button>
+          <button onClick={onClose} style={S.sheetClose} aria-label="Закрыть">✕</button>
         </div>
         <div style={S.sheetBody}>
           {items.length === 0 && (
-            <div style={S.empty}>Dishes coming soon</div>
+            <div style={S.empty}>Блюда скоро появятся</div>
           )}
           {items.map((item) => {
             const chosen = selectedIngs[item.id] ?? [];
@@ -971,7 +998,7 @@ function BottomSheet({
                       >
                         {item.name}
                       </div>
-                      {item.hot && <span style={S.hotBadge}>🔥 Popular</span>}
+                      {item.hot && <span style={S.hotBadge}>🔥 Популярное</span>}
                     </div>
                     <div style={S.itemPrice}>{total} ฿</div>
                   </div>
@@ -995,7 +1022,7 @@ function BottomSheet({
                     </div>
                   )}
                   <button onClick={() => handleAdd(item)} style={S.addBtn}>
-                    add to cart
+                    в корзину
                   </button>
                 </div>
               </div>

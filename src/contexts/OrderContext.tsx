@@ -20,11 +20,13 @@ export type ActiveOrder = {
   orderId: string;
   restaurantId: string;
   status: ClientOrderStatus;
-  items: Array<{ name: string; price: number; qnt: number }>;
+  items: Array<{ name: string; price: number; qnt: number; modifiers?: Array<{ name: string; price: number }> }>;
   total: number;
   paymentMethod: "qr_prompt_pay" | "cash";
   deliveryType: "pickup" | "delivery";
   createdAt: string; // ISO string
+  /** Optional comment from restaurant (e.g. delivery time info) */
+  comment?: string;
 };
 
 type OrderContextValue = {
@@ -207,6 +209,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
             order_id?: string;
             status?: string;
             payment_method?: string;
+            comment?: string;
           };
         };
         const backendOrder = data.order;
@@ -223,8 +226,9 @@ export function OrderProvider({ children }: { children: ReactNode }) {
           return;
         }
 
-        if (newStatus !== activeOrder.status) {
-          setActiveOrder({ ...activeOrder, status: newStatus });
+        const newComment = backendOrder.comment || activeOrder.comment;
+        if (newStatus !== activeOrder.status || newComment !== activeOrder.comment) {
+          setActiveOrder({ ...activeOrder, status: newStatus, comment: newComment });
         }
       } catch {
         // Network error — silently retry next interval

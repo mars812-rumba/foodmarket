@@ -3,6 +3,7 @@
 
 import os
 import json
+import asyncio
 import threading
 import shutil
 import requests
@@ -33,6 +34,7 @@ from pydantic import BaseModel, Field, validator
 from urllib.parse import unquote
 from menu_api import create_menu_router
 from order_api import create_order_router
+
 
 
 # ============================================
@@ -271,7 +273,7 @@ print(f"🔧 DEMO_MODE: {DEMO_MODE}")
 ADMIN_USERNAME = "sunny_admin"
 ADMIN_PASSWORD = "Marseloid812$$"
 AUTH_TOKEN = os.getenv("AUTH_TOKEN", "secret-auth-token-for-sunny-rentals")
-TG_WEBHOOK_URL = os.getenv("TG_WEBHOOK_URL","http://localhost:5001")
+TG_WEBHOOK_URL = os.getenv("TG_WEBHOOK_URL","http://localhost:5003")
 # Load cars JSON
 try:
     with open(CARS_JSON, "r", encoding="utf-8") as f:
@@ -3097,8 +3099,8 @@ def get_crm_users(status: str = None, period: str = "all", has_confirmed_booking
             if u_id.startswith("web_session") and u_status != "pre_booking":
                 continue
 
-            # Остальные - только если user_id числовой ИЛИ food-order (web_/phone_/order_ prefix)
-            if not u_id.startswith("web_session") and not u_id.startswith("web_") and not u_id.startswith("phone_") and not u_id.startswith("order_"):
+            # Остальные - только если user_id числовой ИЛИ food-order (web_/phone_/order_/avito_ prefix)
+            if not u_id.startswith("web_session") and not u_id.startswith("web_") and not u_id.startswith("phone_") and not u_id.startswith("order_") and not u_id.startswith("avito_"):
                 try:
                     int(u_id)
                 except ValueError:
@@ -3225,8 +3227,8 @@ def get_crm_stats(period: str = Query("all")):
             if user_id.startswith("web_session") and user_status != "pre_booking":
                 continue
 
-            # Пропускаем нечисловые user_id (кроме pre_booking)
-            if not user_id.startswith("web_session"):
+            # Пропускаем нечисловые user_id, КРОМЕ известных префиксов (web_session, web_, phone_, order_, avito_)
+            if not user_id.startswith("web_session") and not user_id.startswith("web_") and not user_id.startswith("phone_") and not user_id.startswith("order_") and not user_id.startswith("avito_"):
                 try:
                     int(user_id)
                 except ValueError:
@@ -4200,10 +4202,69 @@ async def api_get_active_dialogs():
 
 @app.post(API_PREFIX + "/crm/send_message")
 async def send_message_to_user(msg_request: SendMessageRequest):
-    """Отправить сообщение пользователю через Telegram бота"""
+    """Отправить сообщение пользователю через Telegram бота или Avito API"""
     try:
-        print(f"[send_message] user_id={msg_request.user_id}, text={msg_request.text[:50]}...")
+        user_id_str = str(msg_request.user_id)
+        is_avito = user_id_str.startswith("avito_")
+        print(f"[send_message] user_id={msg_request.user_id}, is_avito={is_avito}, text={msg_request.text[:50]}...")
         
+        # ── Avito: send_manager_message() уже логирует чат, события и обновляет статус ──
+        # Поэтому для Avito мы НЕ логируем здесь — иначе будет дублирование в CRMPage
+        if is_avito:
+            try:
+                integration = get_avito_integration()
+                if integration is None:
+                    # Avito integration не доступна — логируем как fallback
+                    try:
+                        chat_log_entry = {
+                            "timestamp": msg_request.timestamp or datetime.utcnow().isoformat(),
+                            "user_id": msg_request.user_id,
+                            "role": "manager",
+                            "text": msg_request.text,
+                            "content": {"text": msg_request.text},
+                            "source": "avito"
+                        }
+                        with open(CHAT_LOGS_JSONL, "a", encoding="utf-8") as f:
+                            f.write(json.dumps(chat_log_entry, ensure_ascii=False) + "\n")
+                    except Exception:
+                        pass
+                    return {
+                        "status": "partial_success",
+                        "message": "Message logged but Avito integration not configured",
+                        "logged_to_history": True,
+                        "sent_via_avito": False,
+                        "avito_error": "Avito integration not configured"
+                    }
+                
+                result = await integration.send_manager_message(user_id_str, msg_request.text)
+                if result.get("status") == "ok":
+                    print(f"✅ Message sent to Avito user {user_id_str}")
+                    return {
+                        "status": "ok",
+                        "message": "Message sent successfully via Avito",
+                        "logged_to_history": True,
+                        "sent_via_avito": True
+                    }
+                else:
+                    print(f"⚠️ Avito send failed: {result}")
+                    return {
+                        "status": "partial_success",
+                        "message": "Message logged but failed to send via Avito",
+                        "logged_to_history": True,
+                        "sent_via_avito": False,
+                        "avito_error": result.get("message", str(result))
+                    }
+            except Exception as e:
+                print(f"⚠️ Avito send error: {e}")
+                return {
+                    "status": "partial_success",
+                    "message": "Message logged but Avito send failed",
+                    "logged_to_history": True,
+                    "sent_via_avito": False,
+                    "avito_error": str(e)
+                }
+        
+        # ── Telegram: логируем здесь, бот логирует отдельно в свой формат ──
         # 1. Логируем сообщение в CHAT_LOGS_JSONL с ролью "manager"
         try:
             chat_log_entry = {
@@ -4211,6 +4272,7 @@ async def send_message_to_user(msg_request: SendMessageRequest):
                 "user_id": msg_request.user_id,
                 "role": "manager",
                 "text": msg_request.text,
+                "content": {"text": msg_request.text},
                 "source": "crm_panel"
             }
             
@@ -4219,7 +4281,6 @@ async def send_message_to_user(msg_request: SendMessageRequest):
             print(f"✅ Message logged to chat history for user {msg_request.user_id}")
         except Exception as log_error:
             print(f"⚠️ Failed to log message to chat history: {log_error}")
-            # Продолжаем выполнение даже если логирование не удалось
         log_dialog_event(msg_request.user_id, "manager_message_sent", {
             "message_length": len(msg_request.text),
             "timestamp": msg_request.timestamp
@@ -4231,7 +4292,7 @@ async def send_message_to_user(msg_request: SendMessageRequest):
         except Exception as update_error:
             print(f"⚠️ Failed to update dialog status: {update_error}")
         
-        # 3. Отправляем сообщение через внутренний endpoint telegram бота
+        # ── Telegram: отправляем через внутренний endpoint telegram бота ──
         try:
             # Определяем URL внутреннего endpoint'а бота
             bot_internal_url = os.getenv("TG_WEBHOOK_URL", "http://localhost:5001")
@@ -5759,6 +5820,342 @@ def get_active_dialogs():
         print(f"❌ Error getting active dialogs: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+# ============================================
+# AVITO INTEGRATION ENDPOINTS (прямая интеграция, без n8n)
+# ============================================
+
+# Инициализируем AvitoCRMIntegration (лениво — при первом обращении)
+_avito_integration = None
+_avito_token_refresh_task = None
+
+def get_avito_integration():
+    """Ленивая инициализация AvitoCRMIntegration"""
+    global _avito_integration
+    if _avito_integration is None:
+        try:
+            from avito_integration import AvitoCRMIntegration
+            _avito_integration = AvitoCRMIntegration(data_path=str(DATA))
+            print("✅ AvitoCRMIntegration initialized")
+        except Exception as e:
+            print(f"⚠️ Failed to initialize AvitoCRMIntegration: {e}")
+    return _avito_integration
+
+
+async def _avito_token_refresh_loop():
+    """
+    Фоновая задача: обновляет Avito access_token каждые 23 часа.
+    Заменяет n8n Schedule Trigger.
+    """
+    REFRESH_INTERVAL = 23 * 3600  # 23 часа в секундах
+    while True:
+        try:
+            await asyncio.sleep(REFRESH_INTERVAL)
+            integration = get_avito_integration()
+            if integration is None:
+                print("⚠️ Avito integration not available, skipping token refresh")
+                continue
+
+            print("🔄 [Avito Token Refresh] Refreshing Avito access token...")
+            token = await integration.avito.get_access_token()
+            if token:
+                print("✅ [Avito Token Refresh] Avito token refreshed successfully")
+            else:
+                print("❌ [Avito Token Refresh] Failed to refresh Avito token")
+        except Exception as e:
+            print(f"❌ [Avito Token Refresh] Error: {e}")
+
+
+@app.post("/api/avito/webhook")
+async def avito_webhook(request: Request):
+    """
+    Приём вебхуков напрямую от Авито (без n8n).
+
+    Авито отправляет уведомления о новых сообщениях на этот эндпоинт.
+    Вся бизнес-логика — в AvitoCRMIntegration.
+    """
+    try:
+        body = await request.json()
+        event = body.get('event', 'unknown')
+        print(f"📩 Avito webhook received: {event}")
+        # DEBUG: логируем полный payload для диагностики
+        print(f"🔍 Avito webhook RAW: {json.dumps(body, ensure_ascii=False)[:500]}")
+
+        integration = get_avito_integration()
+        if integration is None:
+            print("❌ Avito integration not available")
+            return JSONResponse(
+                status_code=503,
+                content={"status": "error", "message": "Avito integration not configured"}
+            )
+
+        # ВАЖНО: отвечаем Авито 200 OK СРАЗУ, чтобы не было таймаута (499)
+        # Обработку вебхука запускаем в фоне
+        asyncio.create_task(integration.handle_webhook(body))
+        return JSONResponse(content={"status": "ok", "action": "accepted"})
+
+    except Exception as e:
+        print(f"❌ Avito webhook error: {e}")
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "message": str(e)}
+        )
+
+
+@app.post("/api/avito/send_message")
+async def avito_send_message(request: Request):
+    """
+    Отправка сообщения менеджером через CRM UI.
+
+    Body: {"user_id": "avito_12345", "text": "Здравствуйте! ..."}
+    """
+    try:
+        body = await request.json()
+        user_id = body.get("user_id", "")
+        text = body.get("text", "")
+
+        if not user_id or not text:
+            raise HTTPException(400, "user_id and text are required")
+
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        result = await integration.send_manager_message(user_id, text)
+        return JSONResponse(content=result)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Avito send message error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/api/avito/dialog/{avito_user_id}/status")
+async def avito_dialog_status(avito_user_id: str):
+    """Получить статус диалога с пользователем Авито"""
+    try:
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        result = await integration.get_dialog_info(avito_user_id)
+        return JSONResponse(content={"status": "ok", "data": result})
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Avito dialog status error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/api/avito/dialog/{avito_user_id}/bot/{action}")
+async def avito_bot_control(avito_user_id: str, action: str):
+    """
+    Управление ботом для пользователя Авито.
+
+    Actions: start, stop, pause, resume
+    При action=start — запускает Claude с приветственным сообщением
+    """
+    try:
+        if action not in ("start", "stop", "pause", "resume"):
+            raise HTTPException(400, f"Invalid action: {action}. Use: start, stop, pause, resume")
+
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        if action == "start":
+            # Запуск Claude с приветствием (как в Telegram)
+            result = await integration.start_with_greeting(avito_user_id)
+        else:
+            result = await integration.control_bot(avito_user_id, action)
+        return JSONResponse(content=result)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Avito bot control error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/api/avito/claude/send_message")
+async def avito_claude_send_message(request: Request):
+    """
+    Отправка сообщения через Claude для пользователя Авито из CRM чата.
+
+    Body: {"user_id": "avito_12345", "message": "Привет, подскажи по мангалам"}
+    """
+    try:
+        body = await request.json()
+        user_id = body.get("user_id", "")
+        message = body.get("message", "")
+
+        if not user_id or not message:
+            raise HTTPException(400, "user_id and message are required")
+
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        result = await integration.send_claude_message(user_id, message)
+        return JSONResponse(content=result)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Avito Claude send message error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/api/avito/dialogs")
+async def avito_all_dialogs():
+    """Получить список всех диалогов Авито"""
+    try:
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        result = await integration.get_all_avito_dialogs()
+        return JSONResponse(content={"status": "ok", "dialogs": result, "total": len(result)})
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Avito dialogs list error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/api/avito/token")
+async def avito_set_token(request: Request):
+    """
+    Установить Avito access_token вручную (опционально, для отладки).
+
+    Body: {"access_token": "xxx", "ttl": 86400}
+    """
+    try:
+        body = await request.json()
+        token = body.get("access_token", "")
+        ttl = body.get("ttl", 86400)
+
+        if not token:
+            raise HTTPException(400, "access_token is required")
+
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        integration.avito.set_access_token(token, ttl)
+        return JSONResponse(content={"status": "ok", "message": "Token updated"})
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Avito token set error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/api/avito/register-webhook")
+async def avito_register_webhook():
+    """
+    Зарегистрировать вебхук в Авито для текущего сервера.
+    Заменяет ручной запуск в n8n (Manual Trigger → Register Avito Webhook).
+
+    URL вебхука формируется из BACKEND_URL или запрашивается у Авито.
+    """
+    try:
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        # Формируем URL вебхука на основе BACKEND_URL
+        backend_url = os.getenv("WEBAPP_URL", os.getenv("BACKEND_URL", "https://weldwood.sunny-rentals.online"))
+        if backend_url.endswith('/'):
+            backend_url = backend_url[:-1]
+        webhook_url = f"{backend_url}/api/avito/webhook"
+
+        print(f"🔗 Registering Avito webhook: {webhook_url}")
+        result = await integration.avito.register_webhook(webhook_url)
+        print(f"✅ Avito webhook registered: {result}")
+        return JSONResponse(content={"status": "ok", "webhook_url": webhook_url, "result": result})
+
+    except Exception as e:
+        print(f"❌ Avito webhook registration error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(500, str(e))
+
+
+@app.get("/api/avito/webhook-info")
+async def avito_webhook_info():
+    """Получить информацию о текущем зарегистрированном вебхуке Авито"""
+    try:
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        result = await integration.avito.get_webhook_info()
+        return JSONResponse(content={"status": "ok", "data": result})
+
+    except Exception as e:
+        print(f"❌ Avito webhook info error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/api/avito/delete-webhook")
+async def avito_delete_webhook():
+    """Удалить зарегистрированный вебхук Авито"""
+    try:
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        result = await integration.avito.delete_webhook()
+        return JSONResponse(content={"status": "ok", "result": result})
+
+    except Exception as e:
+        print(f"❌ Avito webhook deletion error: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/api/avito/sync-chats")
+async def avito_sync_chats(request: Request):
+    """
+    Синхронизация чатов с Авито: загружает последние N чатов
+    и по M сообщений из каждого в CRM.
+
+    Body (optional): {"chats_limit": 10, "messages_limit": 20}
+    """
+    try:
+        integration = get_avito_integration()
+        if integration is None:
+            raise HTTPException(503, "Avito integration not configured")
+
+        body = {}
+        try:
+            body = await request.json()
+        except Exception:
+            pass
+
+        chats_limit = body.get("chats_limit", 10)
+        messages_limit = body.get("messages_limit", 20)
+
+        result = await integration.sync_chats(
+            chats_limit=chats_limit,
+            messages_limit=messages_limit,
+        )
+        return JSONResponse(content={"status": "ok", "data": result})
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Avito sync error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(500, str(e))
+
+
 @app.post(API_PREFIX + "/admin/upload-photos")
 async def upload_photos(
     photos: List[UploadFile] = File(...),
@@ -5812,13 +6209,34 @@ async def upload_photos(
     return {"success": True, "uploaded": uploaded, "count": len(uploaded)}
 
 # ============================================
-# АВТОЗАПУСК АРХИВАЦИИ ПРИ СТАРТЕ
+# АВТОЗАПУСК АРХИВАЦИИ ПРИ СТАРТЕ + AVITO INIT
 # ============================================
 @app.on_event("startup")
 async def startup_event():
     """Запускается при старте сервера"""
     print("🚀 Starting CRM auto-archive...")
     # ... (original startup logic)
+
+    # ── Avito: инициализация, первый токен, фоновое обновление ──
+    try:
+        integration = get_avito_integration()
+        if integration is not None:
+            # Получаем первый токен сразу при старте
+            print("🔑 [Avito Startup] Requesting initial access token...")
+            token = await integration.avito.get_access_token()
+            if token:
+                print("✅ [Avito Startup] Initial Avito token obtained")
+            else:
+                print("⚠️ [Avito Startup] Failed to get initial token, will retry in background")
+
+            # Запускаем фоновую задачу обновления токена каждые 23 часа
+            global _avito_token_refresh_task
+            _avito_token_refresh_task = asyncio.create_task(_avito_token_refresh_loop())
+            print("✅ [Avito Startup] Background token refresh task started (every 23h)")
+        else:
+            print("⚠️ [Avito Startup] Avito integration not available (missing config?)")
+    except Exception as e:
+        print(f"⚠️ [Avito Startup] Error during Avito init: {e}")
 
 # ==============================
 # МУЛЬТИМЕДИА API ENDPOINTS

@@ -42,6 +42,7 @@ const T = {
   statusBook_title: "order.statusBook.title",
   statusBook_desc: "order.statusBook.desc",
   statusBook_cooking: "order.statusBook.cooking",
+  statusBook_comment: "order.statusBook.comment",
   statusDone_title: "order.statusDone.title",
   statusDone_desc: "order.statusDone.desc",
   deliveryPickup: "order.delivery.pickup",
@@ -58,36 +59,37 @@ const T = {
    ============================================================ */
 
 const RU: Record<string, string> = {
-  [T.orderNumber]: "Order",
-  [T.orderStatus]: "Status",
-  [T.orderItems]: "Order Items",
-  [T.orderTotal]: "Total",
-  [T.btnClose]: "Close",
-  [T.btnContactManager]: "Contact Manager",
-  [T.btnGotIt]: "Got it",
-  [T.btnPaymentSent]: "Sent",
-  [T.btnPaymentSentDone]: "Payment Confirmed",
-  [T.btnCompleteOrder]: "Order Complete",
-  [T.statusWork_title]: "Awaiting Confirmation",
-  [T.statusWork_desc]: "Contact the manager to confirm your order",
-  [T.statusWork_action]: "Click the button below to have the manager confirm your order",
-  [T.statusPbook_title]: "Awaiting Payment",
-  [T.statusPbook_desc]: "Pay for your order to start cooking",
-  [T.statusPbook_timer]: "Time to pay",
-  [T.statusPbook_qrHint]: "Scan the QR code to pay",
-  [T.statusPbook_paymentSentNote]: "You marked payment as sent. The manager will verify and confirm your order.",
-  [T.statusBook_title]: "Order Confirmed",
-  [T.statusBook_desc]: "Your order is being prepared!",
-  [T.statusBook_cooking]: "We usually finish in 15–20 minutes. We'll let you know when it's ready.",
-  [T.statusDone_title]: "Order Ready",
-  [T.statusDone_desc]: "Pick it up! Your order is ready for pickup!",
-  [T.deliveryPickup]: "Pickup",
-  [T.deliveryDelivery]: "Delivery",
-  [T.paymentCash]: "Cash",
+  [T.orderNumber]: "Заказ",
+  [T.orderStatus]: "Статус",
+  [T.orderItems]: "Позиции заказа",
+  [T.orderTotal]: "Итого",
+  [T.btnClose]: "Закрыть",
+  [T.btnContactManager]: "Написать менеджеру",
+  [T.btnGotIt]: "Понятно",
+  [T.btnPaymentSent]: "Отправить",
+  [T.btnPaymentSentDone]: "Оплата подтверждена",
+  [T.btnCompleteOrder]: "Заказ выполнен",
+  [T.statusWork_title]: "Ожидание подтверждения",
+  [T.statusWork_desc]: "Свяжитесь с менеджером для подтверждения заказа",
+  [T.statusWork_action]: "Нажмите кнопку ниже, чтобы менеджер подтвердил ваш заказ",
+  [T.statusPbook_title]: "Ожидание оплаты",
+  [T.statusPbook_desc]: "Оплатите заказ, чтобы мы начали готовить",
+  [T.statusPbook_timer]: "Время оплаты",
+  [T.statusPbook_qrHint]: "Сканируйте QR-код для оплаты",
+  [T.statusPbook_paymentSentNote]: "Вы отметили оплату. Менеджер проверит и подтвердит заказ.",
+  [T.statusBook_title]: "Заказ подтверждён",
+  [T.statusBook_desc]: "Ваш заказ готовят!",
+  [T.statusBook_cooking]: "Обычно готовим за 15–20 минут. Когда будет готово — сообщим.",
+  [T.statusBook_comment]: "Комментарий менеджера",
+  [T.statusDone_title]: "Заказ готов",
+  [T.statusDone_desc]: "Заберите заказ! Он готов к выдаче!",
+  [T.deliveryPickup]: "Самовывоз",
+  [T.deliveryDelivery]: "Доставка",
+  [T.paymentCash]: "Наличные",
   [T.paymentQr]: "QR Prompt Pay",
-  [T.timerExpired]: "Time expired",
-  [T.btnCancelOrder]: "Cancel Order",
-  [T.cancelConfirm]: "Are you sure you want to cancel this order?",
+  [T.timerExpired]: "Время вышло",
+  [T.btnCancelOrder]: "Отменить заказ",
+  [T.cancelConfirm]: "Вы уверены, что хотите отменить заказ?",
 };
 
 function t(key: string): string {
@@ -112,28 +114,28 @@ const STATUS_CONFIG: Record<ClientOrderStatus, StatusConfig> = {
     color: "#D97706",
     bg: "#FFFBEB",
     borderColor: "#F59E0B",
-    label: "WORK",
+    label: "ОЖИДАНИЕ",
   },
   Pbook: {
     icon: <QrCode size={28} />,
     color: "#EA580C",
     bg: "#FFF7ED",
     borderColor: "#F97316",
-    label: "PBOOK",
+    label: "ОПЛАТА",
   },
   Book: {
     icon: <CheckCircle2 size={28} />,
     color: "#16A34A",
     bg: "#F0FDF4",
     borderColor: "#22C55E",
-    label: "BOOK",
+    label: "ГОТОВ",
   },
   Done: {
     icon: <CheckCircle2 size={28} />,
     color: "#0891B2",
     bg: "#ECFEFF",
     borderColor: "#06B6D4",
-    label: "DONE",
+    label: "ГОТОВО",
   },
 };
 
@@ -324,7 +326,7 @@ export default function ClientOrderModal({
               s={s}
             />
           )}
-          {activeOrder.status === "Book" && <BookContent s={s} />}
+          {activeOrder.status === "Book" && <BookContent s={s} comment={activeOrder.comment} />}
           {activeOrder.status === "Done" && <DoneContent s={s} />}
 
           {/* ── Order items ── */}
@@ -336,7 +338,18 @@ export default function ClientOrderModal({
             <div style={s.itemsList}>
               {activeOrder.items.map((item, idx) => (
                 <div key={idx} style={s.itemRow}>
-                  <span style={s.itemName}>{item.name}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <span style={s.itemName}>{item.name}</span>
+                    {item.modifiers && item.modifiers.length > 0 && (
+                      <div style={s.modifiersList}>
+                        {item.modifiers.map((m, mi) => (
+                          <span key={mi} style={s.modifierTag}>
+                            +{m.name}{m.price > 0 ? ` ${m.price}฿` : ""}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <span style={s.itemQty}>×{item.qnt}</span>
                   <span style={s.itemPrice}>
                     {(item.price * item.qnt).toLocaleString()} ฿
@@ -513,7 +526,7 @@ function PbookContent({
   );
 }
 
-function BookContent({ s }: { s: Record<string, CSSProperties> }) {
+function BookContent({ s, comment }: { s: Record<string, CSSProperties>; comment?: string }) {
   return (
     <div style={{ ...s.statusBlock, borderColor: STATUS_CONFIG.Book.borderColor }}>
       <div style={s.statusIconWrap}>
@@ -522,6 +535,12 @@ function BookContent({ s }: { s: Record<string, CSSProperties> }) {
       <h3 style={s.statusTitle}>{t(T.statusBook_title)}</h3>
       <p style={s.statusDesc}>{t(T.statusBook_desc)}</p>
       <p style={s.cookingNote}>{t(T.statusBook_cooking)}</p>
+      {comment && (
+        <div style={s.commentBox}>
+          <span style={s.commentLabel}>{t(T.statusBook_comment)}</span>
+          <p style={s.commentText}>{comment}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -755,6 +774,22 @@ function buildClientOrderStyles(C: ThemeColors): Record<string, CSSProperties> {
       minWidth: 60,
       textAlign: "right" as const,
     },
+    modifiersList: {
+      display: "flex",
+      flexWrap: "wrap" as const,
+      gap: 4,
+      marginTop: 2,
+    },
+    modifierTag: {
+      display: "inline-block",
+      fontSize: 10,
+      fontWeight: 700,
+      color: C.accent,
+      backgroundColor: C.accentSoft,
+      padding: "1px 6px",
+      borderRadius: 4,
+      lineHeight: "16px",
+    },
 
     /* Info grid */
     infoGrid: {
@@ -900,6 +935,32 @@ function buildClientOrderStyles(C: ThemeColors): Record<string, CSSProperties> {
       color: C.green,
       fontWeight: 600,
       textAlign: "center" as const,
+      lineHeight: 1.5,
+    },
+    commentBox: {
+      marginTop: 8,
+      padding: "10px 14px",
+      borderRadius: 12,
+      background: C.white,
+      border: `1px solid ${C.borderLight}`,
+      textAlign: "left" as const,
+      width: "100%",
+      boxSizing: "border-box" as const,
+    },
+    commentLabel: {
+      fontSize: 11,
+      fontWeight: 800,
+      letterSpacing: 1,
+      textTransform: "uppercase" as const,
+      color: C.muted,
+      display: "block",
+      marginBottom: 4,
+    },
+    commentText: {
+      margin: 0,
+      fontSize: 14,
+      color: C.text,
+      fontWeight: 600,
       lineHeight: 1.5,
     },
     btnComplete: {

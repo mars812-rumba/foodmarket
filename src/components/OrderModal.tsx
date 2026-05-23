@@ -29,10 +29,10 @@ type Props = {
 };
 
 const STATUS_LABELS: Record<string, { label: string; color: string; bg: string }> = {
-  new: { label: "NEW", color: "#64748b", bg: "#f1f5f9" },
-  pre_booking: { label: "PBOOK", color: "#ea580c", bg: "#fff7ed" },
-  confirmed: { label: "BOOK", color: "#16a34a", bg: "#f0fdf4" },
-  cancelled: { label: "CANCELLED", color: "#dc2626", bg: "#fef2f2" },
+  new: { label: "НОВЫЙ", color: "#64748b", bg: "#f1f5f9" },
+  pre_booking: { label: "ОЖИДАНИЕ", color: "#ea580c", bg: "#fff7ed" },
+  confirmed: { label: "ПОДТВЕРЖДЁН", color: "#16a34a", bg: "#f0fdf4" },
+  cancelled: { label: "ОТМЕНЁН", color: "#dc2626", bg: "#fef2f2" },
 };
 
 export default function OrderModal({ open, onClose, booking }: Props) {
@@ -59,14 +59,14 @@ export default function OrderModal({ open, onClose, booking }: Props) {
   return (
     <>
       <div style={s.overlay} onClick={onClose} />
-      <div style={s.modal} role="dialog" aria-modal="true" aria-label="Order Details">
+      <div style={s.modal} role="dialog" aria-modal="true" aria-label="Детали заказа">
         {/* Header */}
         <div style={s.header}>
           <div style={s.headerLeft}>
             <ShoppingBag size={18} style={{ color: C.accent }} />
-            <span style={s.headerTitle}>Order #{booking.booking_id}</span>
+            <span style={s.headerTitle}>Заказ #{booking.booking_id}</span>
           </div>
-          <button onClick={onClose} style={s.closeBtn} aria-label="Close">✕</button>
+          <button onClick={onClose} style={s.closeBtn} aria-label="Закрыть">✕</button>
         </div>
 
         <div style={s.body}>
@@ -93,7 +93,7 @@ export default function OrderModal({ open, onClose, booking }: Props) {
           {/* Date */}
           {fd?.dates?.start && (
             <div style={s.dateRow}>
-              <span style={s.dateLabel}>📅 Created:</span>
+              <span style={s.dateLabel}>📅 Создан:</span>
               <span style={s.dateValue}>{dayjs(fd.dates.start).format("DD.MM.YY HH:mm")}</span>
             </div>
           )}
@@ -103,14 +103,14 @@ export default function OrderModal({ open, onClose, booking }: Props) {
             <div style={s.section}>
               <div style={s.sectionLabel}>
                 <Utensils size={12} />
-                Order Items
+                Позиции заказа
               </div>
               <table style={s.table}>
                 <thead>
                   <tr style={s.tableHeadRow}>
-                    <th style={{ ...s.tableHeadCell, textAlign: "left" }}>Dish</th>
-                    <th style={{ ...s.tableHeadCell, textAlign: "center", width: 50 }}>Qty</th>
-                    <th style={{ ...s.tableHeadCell, textAlign: "right", width: 70 }}>Price</th>
+                    <th style={{ ...s.tableHeadCell, textAlign: "left" }}>Название</th>
+                    <th style={{ ...s.tableHeadCell, textAlign: "center", width: 50 }}>Кол-во</th>
+                    <th style={{ ...s.tableHeadCell, textAlign: "right", width: 70 }}>Цена</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -131,18 +131,18 @@ export default function OrderModal({ open, onClose, booking }: Props) {
             <div style={s.infoItem}>
               <Truck size={14} style={{ color: C.accent, flexShrink: 0 }} />
               <div>
-                <div style={s.infoLabel}>Pickup</div>
+                <div style={s.infoLabel}>Получение</div>
                 <div style={s.infoValue}>
-                  {fd?.delivery_type === "delivery" ? "🛵 Delivery" : "🚶 Pickup"}
+                  {fd?.delivery_type === "delivery" ? "🛵 Доставка" : "🚶 Самовывоз"}
                 </div>
               </div>
             </div>
             <div style={s.infoItem}>
               <Wallet size={14} style={{ color: C.green, flexShrink: 0 }} />
               <div>
-                <div style={s.infoLabel}>Payment</div>
+                <div style={s.infoLabel}>Оплата</div>
                 <div style={s.infoValue}>
-                  {fd?.payment_method === "cash" ? "💵 Cash" : "💳 QR Prompt Pay"}
+                  {fd?.payment_method === "cash" ? "💵 Наличные" : "💳 QR Prompt Pay"}
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function OrderModal({ open, onClose, booking }: Props) {
           <div style={s.section}>
             <div style={s.sectionLabel}>
               <User size={12} />
-              Contact
+              Контакт
             </div>
             <div style={s.contactBox}>
               {fd?.contact?.name && (
@@ -160,7 +160,7 @@ export default function OrderModal({ open, onClose, booking }: Props) {
               )}
               {isTelegramUser ? (
                 <div style={s.contactMethod}>
-                  <span style={s.tgIcon}>✈️</span> Contact via Telegram
+                  <span style={s.tgIcon}>✈️</span> Через Telegram
                 </div>
               ) : (
                 fd?.contact?.value && (
@@ -172,7 +172,7 @@ export default function OrderModal({ open, onClose, booking }: Props) {
 
           {/* Total */}
           <div style={{...s.totalBox, background: C.soft, border: `1px solid ${C.borderLight}`}}>
-            <span style={{...s.totalLabel, color: C.muted}}>Total</span>
+            <span style={{...s.totalLabel, color: C.muted}}>Итого</span>
             <span style={{...s.totalValue, color: C.text}}>{total.toLocaleString()} ฿</span>
           </div>
         </div>

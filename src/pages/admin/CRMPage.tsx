@@ -20,6 +20,9 @@ import {
   CirclePlus, CircleDollarSign, CircleMinus, CircleCheckBig, Paperclip, Image, FileText, Download,
   Clock, FileQuestion, Info, Check, AlertCircle, ShoppingBag, Utensils, Truck, Wallet
 } from 'lucide-react';
+import telegramIcon from '@/assets/source_icons/telegram.png';
+import avitoIcon from '@/assets/source_icons/avito.png';
+import webIcon from '@/assets/source_icons/web.png';
 import type { MarkerType } from "@/data/crm";
 import { BookingFormDialog } from '@/components/BookingFormDialog';
 import { CRMTutorialSheet } from '@/components/CRMTutorialSheet';
@@ -84,15 +87,23 @@ interface User {
   last_booking?: any;  // Last booking data (rental or food order)
   archived?: boolean;
   dialog?: any;
+
+  // Источник: telegram, avito, web
+  source?: string;
+
+  // Avito metadata
+  avito_item_id?: number;
+  avito_item_title?: string;
+  avito_item_price?: string;
 }
 
 const MAIN_STATUSES = ['new', 'in_work', 'pre_booking', 'confirmed', 'archive'];
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
-  'new': { label: 'NEW', color: '#64748b', bg: 'bg-slate-100' },
-  'in_work': { label: 'WORK', color: '#7c3aed', bg: 'bg-green-50' },
-  'pre_booking': { label: 'PBOOK', color: '#ea580c', bg: 'bg-orange-50' },
-  'confirmed': { label: 'BOOK', color: '#16a34a', bg: 'bg-green-100' },
-  'archive': { label: 'ARCHIVE', color: '#94a3b8', bg: 'bg-slate-200' }
+  'new': { label: 'новые', color: '#64748b', bg: 'bg-slate-100' },
+  'in_work': { label: 'в работе', color: '#7c3aed', bg: 'bg-green-50' },
+  'pre_booking': { label: 'готов', color: '#ea580c', bg: 'bg-orange-50' },
+  'confirmed': { label: 'купил', color: '#16a34a', bg: 'bg-green-100' },
+  'archive': { label: 'архив', color: '#94a3b8', bg: 'bg-slate-200' }
 };
 
 const CRMPage: React.FC = () => {
@@ -115,6 +126,7 @@ const CRMPage: React.FC = () => {
   const [autoRefreshEnabled, setAutoRefreshEnabled] = useState(true);
   const [isAutoRefreshing, setIsAutoRefreshing] = useState(false);
   const [dialogFilter, setDialogFilter] = useState<'all' | 'new' | 'ai-on' | 'ai-off'>('all');
+  const [sourceFilter, setSourceFilter] = useState<'all' | 'telegram' | 'avito'>('all');
   const [activeTab, setActiveTab] = useState('info'); // По умолчанию 'info'
   const [editingNote, setEditingNote] = useState<{id: string, text: string} | null>(null);
   const [editingNoteId, setEditingNoteId] = useState(null); // ID юзера, чью заметку правим
@@ -122,6 +134,7 @@ const CRMPage: React.FC = () => {
   const [markerFilter, setMarkerFilter] = useState<string>('all');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isAvitoSyncing, setIsAvitoSyncing] = useState(false);
   // Состояние для диалога создания/редактирования заявки
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
   const [editingBooking, setEditingBooking] = useState<any | null>(null);
@@ -209,24 +222,53 @@ const CRMPage: React.FC = () => {
     return users.filter(user => {
       const dialog = user.dialog_status || user.dialog;
 
+      // Фильтр по источнику (Telegram / Avito)
+      if (sourceFilter !== 'all') {
+        const userSource = user.source || (String(user.user_id).startsWith('avito_') ? 'avito' : 'telegram');
+        if (userSource !== sourceFilter) return false;
+      }
+
       // Фильтр по диалогам
       if (dialogFilter === 'new') {
-        return dialog?.has_new_messages;
+        if (!dialog?.has_new_messages) return false;
       }
       if (dialogFilter === 'ai-on') {
-        return dialog?.claude_status === 'active';
+        if (dialog?.claude_status !== 'active') return false;
       }
       if (dialogFilter === 'ai-off') {
-        return dialog?.active && dialog?.claude_status !== 'active';
+        if (!dialog?.active || dialog?.claude_status === 'active') return false;
       }
 
       // Фильтр по маркерам
       if (markerFilter !== 'all') {
-        return user.marker === markerFilter;
+        if (user.marker !== markerFilter) return false;
       }
 
       return true;
     });
+  };
+
+  /** Определить источник пользователя */
+  const getUserSource = (user: User): 'telegram' | 'avito' | 'web' => {
+    if (user.source) return user.source as 'telegram' | 'avito' | 'web';
+    if (String(user.user_id).startsWith('avito_')) return 'avito';
+    if (String(user.user_id).startsWith('web_')) return 'web';
+    return 'telegram';
+  };
+
+  /** Иконка источника */
+  const sourceIconMap: Record<string, string> = {
+    telegram: telegramIcon,
+    avito: avitoIcon,
+    web: webIcon,
+  };
+
+  /** Бейдж источника с иконкой */
+  const SourceBadge: React.FC<{ source: string }> = ({ source }) => {
+    const icon = sourceIconMap[source] || sourceIconMap.telegram;
+    return (
+      <img src={icon} alt={source} className="w-4 h-4 shrink-0" />
+    );
   };
 
   const formatRelativeTime = (dateStr: string): string => {
@@ -294,6 +336,29 @@ const CRMPage: React.FC = () => {
     } catch (e) { console.error("Ошибка загрузки:", e); }
     finally { setLoading(false); }
   }, [activeStatus, period]);
+
+  const handleAvitoSync = useCallback(async () => {
+    setIsAvitoSyncing(true);
+    try {
+      const response = await fetch('/api/avito/sync-chats', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chats_limit: 10, messages_limit: 20 }),
+      });
+      const data = await response.json();
+      if (data.status === 'ok') {
+        const { synced_chats, synced_messages, new_leads } = data.data || {};
+        alert(`✅ Синхронизация завершена!\nЧатов: ${synced_chats}\nСообщений: ${synced_messages}\nНовых лидов: ${new_leads}`);
+        loadMainData();
+      } else {
+        alert('❌ Ошибка синхронизации: ' + (data.message || 'Неизвестная ошибка'));
+      }
+    } catch (err: any) {
+      alert('❌ Ошибка синхронизации: ' + (err.message || 'Сеть недоступна'));
+    } finally {
+      setIsAvitoSyncing(false);
+    }
+  }, [loadMainData]);
 
 const fetchChatHistory = async (userId: number | string, silent: boolean = false) => {
   try {
@@ -633,12 +698,18 @@ const handleBookingSuccess = async () => {
   }
 };
 
-  const handleClaudeAction = async (userId: number, action: 'start' | 'pause' | 'resume' | 'stop') => {
+  const handleClaudeAction = async (userId: number | string, action: 'start' | 'pause' | 'resume' | 'stop') => {
     setLoadingAction(prev => ({ ...prev, [`claude_${userId}_${action}`]: true }));
     try {
-      // Используем новые API endpoints
+      // Определяем endpoint в зависимости от источника (Telegram / Avito)
+      const userIdStr = String(userId);
+      const isAvito = userIdStr.startsWith('avito_');
       let endpoint = '';
-      if (action === 'start' || action === 'resume') {
+      
+      if (isAvito) {
+        // Avito users — используем Avito API
+        endpoint = `/api/avito/dialog/${userIdStr}/bot/${action}`;
+      } else if (action === 'start' || action === 'resume') {
         endpoint = `/api/claude/start/${userId}`;
       } else if (action === 'pause') {
         endpoint = `/api/claude/pause/${userId}`;
@@ -652,8 +723,18 @@ const handleBookingSuccess = async () => {
       });
       const result = await response.json();
       
-      if (result.status === 'success') {
-        console.log(`✅ Claude ${action} для пользователя ${userId}:`, result.message);
+      // Avito API возвращает "ok", Telegram API — "success"
+      if (result.status === 'success' || result.status === 'ok') {
+        console.log(`✅ Claude ${action} для пользователя ${userId}:`, result.message || result.claude_status);
+        
+        // Если START для Авито — показываем приветствие Claude в чате CRM
+        if (isAvito && action === 'start' && result.greeting_text) {
+          setChats(prev => [...prev, {
+            role: 'assistant',
+            content: result.greeting_text,
+            timestamp: new Date().toISOString()
+          }]);
+        }
         
         // Получаем актуальный статус и обновляем ОБА списка: users И selectedUser
         const newStatus = await fetchDialogStatus(userId);
@@ -693,10 +774,18 @@ const handleBookingSuccess = async () => {
     }
   };
 
-  const handleClaudeSendMessage = async (userId: number, message: string) => {
+  const handleClaudeSendMessage = async (userId: number | string, message: string) => {
     setLoadingAction(prev => ({ ...prev, [`claude_send_${userId}`]: true }));
     try {
-      const response = await fetch('/api/claude/send_message', {
+      const userIdStr = String(userId);
+      const isAvito = userIdStr.startsWith('avito_');
+      
+      // Выбираем эндпоинт в зависимости от источника
+      const endpoint = isAvito
+        ? '/api/avito/claude/send_message'
+        : '/api/claude/send_message';
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -707,7 +796,7 @@ const handleBookingSuccess = async () => {
       const result = await response.json();
       
       if (result.status === 'success') {
-        console.log('Claude message sent:', result.message);
+        console.log('Claude message sent:', result.message || result.response_text);
         // Обновляем чат с ответом Claude
         if (result.response_text) {
           setChats(prev => [...prev, {
@@ -720,11 +809,11 @@ const handleBookingSuccess = async () => {
         const targetUserIdStr = String(userId);
         setUsers(prev => prev.map(user =>
           String(user.user_id) === targetUserIdStr && (user.dialog_status || user.dialog)
-            ? { 
-                ...user, 
-                dialog_status: { 
-                  ...(user.dialog_status || user.dialog || {}), 
-                  message_count: ((user.dialog_status?.message_count) || (user.dialog?.message_count) || 0) + 1 
+            ? {
+                ...user,
+                dialog_status: {
+                  ...(user.dialog_status || user.dialog || {}),
+                  message_count: ((user.dialog_status?.message_count) || (user.dialog?.message_count) || 0) + 1
                 },
                 dialog: {
                   ...(user.dialog || user.dialog_status || {}),
@@ -1178,7 +1267,7 @@ const handleUpdateNote = async () => {
         {/* Nav */}
         <nav className="bg-white border-b px-4 py-2 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="" className="h-7 w-auto" />
+            <img src={logo} alt="" className="h-10 w-auto" />
             <span className="text-sm font-semibold text-slate-900">CRM</span>
           </div>
           <div className="flex bg-slate-100 p-1 rounded-lg">
@@ -1238,7 +1327,7 @@ const handleUpdateNote = async () => {
               {/* Divider */}
               <div className="w-px h-4 bg-slate-300 shrink-0 mx-0.5"></div>
 
-              {/* Marker filters */}
+              {/* Marker filters 
               <div className="flex gap-0.5">
                 {[
                   { id: 'all', icon: Filter, color: 'text-slate-400' },
@@ -1257,6 +1346,57 @@ const handleUpdateNote = async () => {
                   </Button>
                 ))}
               </div>
+*/}
+              {/* Divider */}
+              <div className="w-px h-4 bg-slate-300 shrink-0 mx-0.5"></div>
+
+              {/* Source filters */}
+
+              <div className="flex gap-0.5">
+                <Button
+                  variant={sourceFilter === 'all' ? 'default' : 'ghost'}
+                  onClick={() => setSourceFilter('all')}
+                  className="h-6 px-1.5 rounded-md shrink-0 transition-all"
+                >
+                  <span className={`text-[9px] font-bold ${sourceFilter === 'all' ? 'text-white' : 'text-slate-400'}`}>
+                    Все
+                  </span>
+                </Button>
+                {[
+                  { id: 'telegram' as const, icon: telegramIcon },
+                  { id: 'avito' as const, icon: avitoIcon },
+                ].map(s => (
+                  <Button
+                    key={s.id}
+                    variant={sourceFilter === s.id ? 'default' : 'ghost'}
+                    onClick={() => setSourceFilter(s.id)}
+                    className="h-6 px-1 rounded-md shrink-0 transition-all"
+                  >
+                    <img
+                      src={s.icon}
+                      alt={s.id}
+                      className={`w-3.5 h-3.5 ${sourceFilter === s.id ? 'brightness-0 invert' : ''}`}
+                    />
+                  </Button>
+                ))}
+              </div>
+
+              {/* Avito sync button */}
+              <div className="w-px h-4 bg-slate-300 shrink-0 mx-0.5"></div>
+              <Button
+                variant="ghost"
+                onClick={handleAvitoSync}
+                disabled={isAvitoSyncing}
+                className="h-6 px-1.5 rounded-md shrink-0 transition-all hover:bg-green-50"
+                title="Синхронизировать чаты Авито"
+              >
+                {isAvitoSyncing ? (
+                  <RefreshCw className="w-3 h-3 animate-spin text-green-600" />
+                ) : (
+                  <RefreshCw className="w-3 h-3 text-green-600" />
+                )}
+                <span className="text-[9px] font-bold text-green-600 ml-0.5">AV</span>
+              </Button>
             </div>
 
             {/* Help button */}
@@ -1309,9 +1449,9 @@ const handleUpdateNote = async () => {
    {/* СТРОКА 1: Заказ/Авто (Слева) | Юзернейм + Инфо (Справа) */}
 <div className="flex justify-between items-center">
   <div className="flex items-center gap-1.5 min-w-0 flex-1">
+    <img src={sourceIconMap[getUserSource(user)] || sourceIconMap.telegram} alt="" className="w-4 h-4 shrink-0" />
     {(user.last_booking?.form_data?.order_type === 'food' || user.order_type === 'food') ? (
       <>
-        <ShoppingBag className="w-3.5 h-3.5 text-orange-500 shrink-0" />
         <span className="font-black text-[11px] text-slate-800 truncate uppercase tracking-tight">
           Заказ #{user.last_booking?.booking_id || user.car_interested?.replace('Заказ #', '') || ''}
         </span>
@@ -1323,12 +1463,11 @@ const handleUpdateNote = async () => {
       </>
     ) : (
       <>
-        <Car className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-        <span className="font-black text-[11px] text-slate-800 truncate uppercase tracking-tight">
+        <span className="font-semibold text-[11px] text-slate-900 truncate">
           {user.car_interested || "не выбрано"}
         </span>
         {user.category_interested && (
-          <span className="text-[7px] font-black text-slate-400 border border-slate-200 px-1 rounded uppercase">
+          <span className="text-[7px] font-semibold text-slate-400 border border-slate-200 px-1 rounded uppercase">
             {user.category_interested}
           </span>
         )}
@@ -1387,17 +1526,16 @@ const handleUpdateNote = async () => {
           </>
         ) : (
           <>
-            <div className="flex items-center gap-1 text-[9px] font-bold">
-              <Calendar className="w-2.5 h-2.5 text-orange-400" />
-              <span>{bookingDates?.start ? dayjs(bookingDates.start).format('DD.MM') : '??'}</span>
-              <span>-</span>
-              <span>{bookingDates?.end ? dayjs(bookingDates.end).format('DD.MM') : '??'}</span>
-              <span className="text-blue-500 ml-1">{days}D</span>
-            </div>
-            <div className="flex items-center gap-1 text-[9px] opacity-70">
-              <MapPin className="w-2.5 h-2.5 text-red-400" />
-              <span className="truncate max-w-[80px]">{user.pickup_location || "Пхукет"}</span>
-            </div>
+            {user.avito_item_id ? (
+              <span className="text-[7px] font-mono italic opacity-60">
+                ID обьявления: {user.avito_item_id}
+              </span>
+            ) : user.pickup_location && user.pickup_location !== "Пхукет" ? (
+              <div className="flex items-center gap-1 text-[9px] opacity-70">
+                <MapPin className="w-2.5 h-2.5 text-red-400" />
+                <span className="truncate max-w-[80px]">{user.pickup_location}</span>
+              </div>
+            ) : null}
           </>
         )}
       </div>
@@ -1584,13 +1722,7 @@ const handleUpdateNote = async () => {
         </div>
 
         {/* 4. Кнопка Telegram (внешняя) */}
-        <Button
-          size="icon"
-          className="h-7 w-7 rounded-md shadow-sm shadow-blue-200 bg-blue-600 text-white hover:bg-blue-700 transition-all"
-          onClick={(e) => { e.stopPropagation(); window.open(`https://t.me/${user.username}`, '_blank'); }}
-        >
-          <Send className="w-3.5 h-3.5 rotate-[-20deg] translate-x-[-1px]" />
-        </Button>
+
       </div>
     </div>
   </CardContent>

@@ -57,7 +57,7 @@ TG_WEBHOOK_URL = os.getenv("TG_WEBHOOK_URL", "http://localhost:5005")
 # === BACKEND URL (web_integration) для отправки сообщений из бота ===
 BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:5005")
 
-URL_WEBAPP =  os.getenv("URL_WEBAPP")
+URL_WEBAPP = os.getenv("URL_WEBAPP") or os.getenv("WEBAPP_URL") or "https://weldwood.sunny-rentals.online"
 KNOWN_USERS_FILE = "known_users.txt"
 FOLLOWUP_DELAY = 20 * 60 * 60  # 24 hours
 FOLLOWUP_LOG_FILE = "followup_responses.log"
@@ -597,7 +597,7 @@ def call_backend_api(endpoint, data=None, method="POST"):
     try:
         backend_url = BACKEND_URL
         url = f"{backend_url}{endpoint}"
-        
+       
         if method == "POST":
             response = requests.post(url, json=data, timeout=10)
         elif method == "GET":
@@ -607,6 +607,7 @@ def call_backend_api(endpoint, data=None, method="POST"):
             
         if response.status_code == 200:
             return response.json()
+        
         else:
             print(f"⚠️ Backend API error {response.status_code}: {response.text}")
             return None
@@ -2323,13 +2324,22 @@ async def notify_order_endpoint(request: Request):
         customer_name = data.get('customer_name', '')
         contacts = data.get('contacts', '')
         user_id = data.get('user_id', '')
+        district = data.get('district', '')
+        address = data.get('address', '')
+        delivery_zone_name = data.get('delivery_zone_name', '')
+        delivery_price = data.get('delivery_price', 0)
 
         # Build items summary string
         items_parts = []
         for it in items:
             name = it.get('name', '?')
             qnt = it.get('qnt', 1)
-            items_parts.append(f"{name} x{qnt}")
+            mods = it.get('modifiers', [])
+            mod_str = ""
+            if mods:
+                mod_names = ", ".join(f"+{m.get('name','')}" for m in mods)
+                mod_str = f" ({mod_names})"
+            items_parts.append(f"{name}{mod_str} x{qnt}")
         items_summary = ", ".join(items_parts)
 
         # Labels for delivery and payment
@@ -2346,6 +2356,15 @@ async def notify_order_endpoint(request: Request):
             f"💰 Итого: <b>{total} ฿</b>\n"
             f"📦 Тип: {delivery_label} | 💳 Оплата: {payment_label}"
         )
+
+        # Добавляем информацию о доставке
+        if delivery_type == "delivery":
+            if district:
+                text += f"\n📍 Район: <b>{district}</b>"
+            elif delivery_zone_name:
+                text += f"\n📍 Район: <b>{delivery_zone_name}</b> (+{delivery_price} ฿)"
+            if address:
+                text += f"\n🏠 Адрес: <code>{address}</code>"
 
         if payment_method == "cash":
             text += "\n\n💵 Оплата наличными — уточните детали с клиентом"
@@ -2377,6 +2396,83 @@ async def notify_order_endpoint(request: Request):
 
     except Exception as e:
         print(f"❌ Error in notify_order: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/botapi/notify_order_status")
+async def notify_order_status_endpoint(request: Request):
+    """
+    Receive order status update from order_api.py and send notification
+    to the customer via Telegram bot message.
+    """
+    try:
+        data = await request.json()
+        order_id = data.get('order_id', '')
+        restaurant_id = data.get('restaurant_id', '')
+        user_id = data.get('user_id', '')
+        status = data.get('status', '')
+        comment = data.get('comment', '')
+        total = data.get('total', 0)
+        items = data.get('items', [])
+
+        if not user_id:
+            return JSONResponse(content={"status": "skipped", "reason": "no user_id"})
+
+        # Status labels in Russian
+        status_labels = {
+            "CONFIRMED": "✅ Заказ принят в работу",
+            "PAID": "💰 Оплата подтверждена",
+            "DONE": "🎉 Заказ готов!",
+            "CANCELLED": "❌ Заказ отменён",
+        }
+        status_label = status_labels.get(status.upper(), f"📋 Статус заказа: {status}")
+
+        # Build items summary
+        items_parts = []
+        for it in items:
+            name = it.get('name', '?')
+            qnt = it.get('qnt', 1)
+            mods = it.get('modifiers', [])
+            mod_str = ""
+            if mods:
+                mod_names = ", ".join(f"+{m.get('name','')}" for m in mods)
+                mod_str = f" ({mod_names})"
+            items_parts.append(f"  • {name}{mod_str} ×{qnt}")
+        items_summary = "\n".join(items_parts) if items_parts else ""
+
+        # Build message
+        text = (
+            f"{status_label}\n\n"
+            f"📋 Заказ #{order_id}\n"
+        )
+        if items_summary:
+            text += f"📦 Состав:\n{items_summary}\n"
+        text += f"💰 Итого: {total} ฿\n"
+
+        if comment:
+            text += f"\n💬 <b>Сообщение от ресторана:</b>\n{comment}\n"
+
+        # Add manager contact hint for CONFIRMED status
+        if status.upper() == "CONFIRMED":
+            text += "\n📞 Менеджер свяжется с вами в течение 15 минут."
+
+        # Send to customer
+        try:
+            chat_id = int(user_id)
+            result = safe_send_message(chat_id, text, parse_mode="HTML")
+            if result:
+                print(f"✅ Order status notification sent to customer {user_id}: {status}")
+            else:
+                print(f"⚠️ Could not send status notification to customer {user_id} (blocked/not found)")
+        except (ValueError, TypeError):
+            print(f"⚠️ Invalid user_id for order status notification: {user_id}")
+
+        return JSONResponse(content={"status": "ok", "order_id": order_id})
+
+    except Exception as e:
+        print(f"❌ Error in notify_order_status: {e}")
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))

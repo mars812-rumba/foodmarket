@@ -117,5 +117,129 @@
     "admin_ids": [],
     "manager_username": "",
     "theme": "dark"
+  },
+  {
+    "restaurant_id": "eda_phuket",
+    "name": "Eda Phuket",
+    "address": "Koh Kaew",
+    "phone": "+66620264045",
+    "logo": "restaurant_logos/eda_phuket_logo.jpg",
+    "created_at": "2026-05-04T15:58:07.753156",
+    "id": "eda_phuket",
+    "description": "На Пхукете с 2020 года",
+    "info_text": "Открыто с 11:00 до 20:00",
+    "payment_qr_url": "",
+    "admin_ids": [],
+    "manager_username": "@edaphuket1",
+    "theme": "warm",
+    "dashboard_token": "eda_phuket",
+    "delivery_settings": {
+      "enabled_types": [
+        "delivery"
+      ],
+      "zones": [
+        {
+          "id": "zone_1778239708202",
+          "name": "Ко-кео",
+          "price": 0
+        },
+        {
+          "id": "zone_1778239776726",
+          "name": "Банг-Тао",
+          "price": 120
+        },
+        {
+          "id": "zone_1778249732164",
+          "name": "Сурин ",
+          "price": 140
+        },
+        {
+          "id": "zone_1778249752342",
+          "name": "Аэропорт  ",
+          "price": 250
+        },
+        {
+          "id": "zone_1778249825337",
+          "name": "Найтон ",
+          "price": 220
+        },
+        {
+          "id": "zone_1778249840516",
+          "name": "Майкао ",
+          "price": 290
+        },
+        {
+          "id": "zone_1778249866410",
+          "name": "Найянг",
+          "price": 240
+        },
+        {
+          "id": "zone_1778249922922",
+          "name": "Лаян",
+          "price": 150
+        },
+        {
+          "id": "zone_1778249944665",
+          "name": "Камала",
+          "price": 170
+        },
+        {
+          "id": "zone_1778249976550",
+          "name": "Патонг",
+          "price": 180
+        },
+        {
+          "id": "zone_1778250015615",
+          "name": "Карон",
+          "price": 185
+        },
+        {
+          "id": "zone_1778250031508",
+          "name": "Ката",
+          "price": 190
+        },
+        {
+          "id": "zone_1778250070377",
+          "name": "Ката-ной",
+          "price": 200
+        },
+        {
+          "id": "zone_1778250082663",
+          "name": "Найхарн",
+          "price": 220
+        },
+        {
+          "id": "zone_1778250132202",
+          "name": "Равай ",
+          "price": 220
+        },
+        {
+          "id": "zone_1778250167129",
+          "name": "Катху",
+          "price": 120
+        },
+        {
+          "id": "zone_1778250184122",
+          "name": "Панва ",
+          "price": 250
+        },
+        {
+          "id": "zone_1778250257098",
+          "name": "Ао-йон",
+          "price": 250
+        },
+        {
+          "id": "zone_1778250302659",
+          "name": "Чалонг ",
+          "price": 160
+        }
+      ]
+    },
+    "payment_settings": {
+      "enabled_methods": [
+        "cash",
+        "qr_prompt_pay"
+      ]
+    }
   }
 ]

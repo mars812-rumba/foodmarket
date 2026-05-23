@@ -1,12 +1,12 @@
 import { useEffect, useMemo, type CSSProperties } from "react";
 import { useCart, type MenuItem } from "@/contexts/CartContext";
 import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
-import { toast } from "sonner";
 
 type Props = {
   item: MenuItem | null;
   onClose: () => void;
   imageSrc?: string; // Ready URL image (with timestamp), formed by Home
+  onAdded?: (name: string) => void; // Callback when item added to cart
 };
 
 /**
@@ -14,7 +14,7 @@ type Props = {
  * photo, name, description (notes), price, "Add to Cart" button.
  * No quantity counter and no ingredient selection — as required.
  */
-export default function ProductDetail({ item, onClose, imageSrc }: Props) {
+export default function ProductDetail({ item, onClose, imageSrc, onAdded }: Props) {
   const C = useTheme();
   const s = useMemo(() => buildProductStyles(C), [C]);
 
@@ -33,7 +33,7 @@ export default function ProductDetail({ item, onClose, imageSrc }: Props) {
 
   const handleAdd = () => {
     addToCart(item, []);
-    toast.success(`${item.name} added to cart`);
+    onAdded?.(item.name);
     onClose();
   };
 

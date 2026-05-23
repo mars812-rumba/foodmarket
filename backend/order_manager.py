@@ -103,6 +103,11 @@ def create_order(
     items: List[Dict[str, Any]],
     delivery_type: str = "pickup",
     payment_method: str = "qr_prompt_pay",
+    district: str = None,
+    address: str = None,
+    delivery_price: float = 0,
+    delivery_zone_id: str = None,
+    delivery_zone_name: str = None,
     data_path: str = "./data/ar",
 ) -> Dict[str, Any]:
     """
@@ -110,24 +115,42 @@ def create_order(
     `items` = [{"name": str, "price": number, "qnt": number}, ...]
     `delivery_type` = "pickup" | "delivery"
     `payment_method` = "qr_prompt_pay" | "cash"
+    `district` = район доставки
+    `address` = адрес доставки
+    `delivery_price` = стоимость доставки (добавляется к total)
     Returns the full order dict.
     """
-    total = sum(it.get("price", 0) * it.get("qnt", 0) for it in items)
+    items_total = sum(it.get("price", 0) * it.get("qnt", 0) for it in items)
+    total = round(items_total + delivery_price, 2)
     now = datetime.now().isoformat()
-    order = {
+    order: Dict[str, Any] = {
         "order_id": _gen_order_id(),
         "restaurant_id": restaurant_id,
         "user_id": user_id,
         "customer_name": customer_name,
         "contacts": contacts,
         "items": items,
-        "total": round(total, 2),
+        "items_total": round(items_total, 2),
+        "total": total,
         "delivery_type": delivery_type,
         "payment_method": payment_method,
         "status": "NEW",
         "created_at": now,
         "updated_at": now,
     }
+    # Добавляем информацию о районе и адресе доставки
+    if district:
+        order["district"] = district
+    if address:
+        order["address"] = address
+    # Добавляем информацию о зоне доставки, если есть
+    if delivery_zone_id:
+        order["delivery_zone_id"] = delivery_zone_id
+    if delivery_zone_name:
+        order["delivery_zone_name"] = delivery_zone_name
+    if delivery_price > 0:
+        order["delivery_price"] = delivery_price
+    
     save_order_event(order, data_path)
     return order
 
@@ -179,11 +202,13 @@ def update_status(
     restaurant_id: str,
     order_id: str,
     new_status: str,
+    comment: str = "",
     data_path: str = "./data/ar",
 ) -> Dict[str, Any]:
     """
     Transition an order to `new_status`.
     Reads the latest state, validates, appends a new line.
+    Optionally stores a `comment` (manager message to customer).
     Returns the updated order dict.
     Raises ValueError if order not found or status invalid.
     """
@@ -196,5 +221,7 @@ def update_status(
         raise ValueError(f"Order {order_id} not found")
 
     updated = {**current, "status": new_status, "updated_at": datetime.now().isoformat()}
+    if comment:
+        updated["comment"] = comment
     save_order_event(updated, data_path)
     return updated

@@ -7182,7 +7182,7 @@
     "status": "confirmed",
     "order_type": "food",
     "created_at": "2026-05-02T13:01:56.610085",
-    "updated_at": "2026-05-02T13:03:46.382559",
+    "updated_at": "2026-05-09T09:02:56.450872",
     "form_data": {
       "car": {
         "name": "Заказ #ORD-QT4WZ",
@@ -7216,6 +7216,1877 @@
       "delivery_type": "pickup",
       "payment_method": "cash",
       "restaurant_id": "black_box_pizza"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777854022",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-04T00:20:22.311989",
+    "updated_at": "2026-05-04T00:20:22.312012",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777854022",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-04T00:20:22.311989",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "kin_burger"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1777854557",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-04T00:29:17.255454",
+    "updated_at": "2026-05-04T00:29:17.255477",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1777854557",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-04T00:29:17.255454",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-H3D9Z",
+    "user_id": "web_79219959164",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-05-04T00:31:36.946835",
+    "updated_at": "2026-05-04T00:33:02.784851",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-H3D9Z",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-04T00:31:36.946835",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 750.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "4 сыра",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Чизбургер",
+          "price": 100.0,
+          "qnt": 1
+        },
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лимонады 0,5л",
+          "price": 50.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778000588",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-05T17:03:08.935256",
+    "updated_at": "2026-05-05T17:03:08.935267",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778000588",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-05T17:03:08.935256",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778000997",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-05T17:09:57.147677",
+    "updated_at": "2026-05-05T17:09:57.147691",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778000997",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-05T17:09:57.147677",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-JWSQ2",
+    "user_id": "web_666666666",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-05T17:10:47.313554",
+    "updated_at": "2026-05-08T14:05:05.296400",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-JWSQ2",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-05T17:10:47.313554",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": "666666666"
+      },
+      "pricing": {
+        "totalRental": 677.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суп Харчо",
+          "price": 179.0,
+          "qnt": 1
+        },
+        {
+          "name": "Солянка мясная",
+          "price": 210.0,
+          "qnt": 1
+        },
+        {
+          "name": "Борщ с говядиной",
+          "price": 189.0,
+          "qnt": 1
+        },
+        {
+          "name": "Суп куриный с лапшой ",
+          "price": 99.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-IWYG2",
+    "user_id": "web_ORD-IWYG2",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T08:08:38.301744",
+    "updated_at": "2026-05-08T08:08:58.711634",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-IWYG2",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T08:08:38.301744",
+        "end": null
+      },
+      "contact": {
+        "name": "",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 210.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Солянка мясная",
+          "price": 210.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-0VEG5",
+    "user_id": "web_79219959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T12:04:46.421768",
+    "updated_at": "2026-05-08T14:05:08.081068",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-0VEG5",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T12:04:46.421768",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel",
+        "value": "+79219959164"
+      },
+      "pricing": {
+        "totalRental": 299.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Борщ с куриным бедром",
+          "price": 209.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-XF7WB",
+    "user_id": "web_66666666",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-05-08T12:32:39.064236",
+    "updated_at": "2026-05-08T12:34:15.729298",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-XF7WB",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T12:32:39.064236",
+        "end": null
+      },
+      "contact": {
+        "name": "Дыдя федеор",
+        "value": "66666666"
+      },
+      "pricing": {
+        "totalRental": 380.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Шаверма на тарелке по-питерски",
+          "price": 280.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-33FPF",
+    "user_id": "web_9999999",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T12:39:22.598268",
+    "updated_at": "2026-05-08T13:24:41.722196",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-33FPF",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T12:39:22.598268",
+        "end": null
+      },
+      "contact": {
+        "name": "Любитель Гречки",
+        "value": "9999999"
+      },
+      "pricing": {
+        "totalRental": 169.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Греча отварная ",
+          "price": 89.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-N3G81",
+    "user_id": "web_79602655660",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T13:25:03.164171",
+    "updated_at": "2026-05-08T14:04:58.808981",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-N3G81",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T13:25:03.164171",
+        "end": null
+      },
+      "contact": {
+        "name": "Мистер залупа",
+        "value": "+79602655660"
+      },
+      "pricing": {
+        "totalRental": 844.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суп Харчо",
+          "price": 179.0,
+          "qnt": 1
+        },
+        {
+          "name": "Оливье с курицей",
+          "price": 285.0,
+          "qnt": 1
+        },
+        {
+          "name": "Шаверма на тарелке по-питерски",
+          "price": 280.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-ZWQ7V",
+    "user_id": "web_0842039140",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T13:56:05.129218",
+    "updated_at": "2026-05-08T14:04:55.364699",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-ZWQ7V",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T13:56:05.129218",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 380.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Солянка мясная",
+          "price": 280.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-QL64X",
+    "user_id": "web_68494949",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T14:03:05.262386",
+    "updated_at": "2026-05-08T14:04:53.564742",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-QL64X",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T14:03:05.262386",
+        "end": null
+      },
+      "contact": {
+        "name": "Sgsbb",
+        "value": "68494949"
+      },
+      "pricing": {
+        "totalRental": 380.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Солянка мясная",
+          "price": 280.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-SA8WS",
+    "user_id": "web_0620264045",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T14:09:21.309302",
+    "updated_at": "2026-05-08T14:10:10.665145",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-SA8WS",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T14:09:21.309302",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "0620264045"
+      },
+      "pricing": {
+        "totalRental": 608.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суп Харчо",
+          "price": 179.0,
+          "qnt": 1
+        },
+        {
+          "name": "Солянка мясная",
+          "price": 210.0,
+          "qnt": 1
+        },
+        {
+          "name": "Суп куриный с лапшой ",
+          "price": 139.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-NG0IC",
+    "user_id": "web_0842039140",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-05-08T14:10:45.948151",
+    "updated_at": "2026-05-08T14:11:27.498021",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-NG0IC",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T14:10:45.948151",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 350.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Солянка мясная",
+          "price": 250.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-IRQM1",
+    "user_id": "web_95979499",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-05-08T14:35:32.871655",
+    "updated_at": "2026-05-08T14:36:25.514448",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-IRQM1",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T14:35:32.871655",
+        "end": null
+      },
+      "contact": {
+        "name": "Марс",
+        "value": "95979499"
+      },
+      "pricing": {
+        "totalRental": 475.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Лапша удон",
+          "price": 185.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-ILJMW",
+    "user_id": "web_ORD-ILJMW",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T14:37:54.484691",
+    "updated_at": "2026-05-08T15:28:38.918290",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-ILJMW",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T14:37:54.484691",
+        "end": null
+      },
+      "contact": {
+        "name": "",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 1040.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Солянка мясная",
+          "price": 250.0,
+          "qnt": 1
+        },
+        {
+          "name": "Оливье с курицей",
+          "price": 285.0,
+          "qnt": 1
+        },
+        {
+          "name": "Шаверма на тарелке по-питерски",
+          "price": 280.0,
+          "qnt": 1
+        },
+        {
+          "name": "Морс клюква",
+          "price": 105.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-U4WZY",
+    "user_id": "web_659497979",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T15:01:12.383759",
+    "updated_at": "2026-05-08T15:05:07.635004",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-U4WZY",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T15:01:12.383759",
+        "end": null
+      },
+      "contact": {
+        "name": "Димок Калининр",
+        "value": "659497979"
+      },
+      "pricing": {
+        "totalRental": 560.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Лапша удон",
+          "price": 185.0,
+          "qnt": 1
+        },
+        {
+          "name": "Куриные рубленные котлеты",
+          "price": 125.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-NAVQB",
+    "user_id": "web_6594977",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-08T15:05:51.347295",
+    "updated_at": "2026-05-08T15:05:51.347295",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-NAVQB",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T15:05:51.347295",
+        "end": null
+      },
+      "contact": {
+        "name": "Марс",
+        "value": "6594977"
+      },
+      "pricing": {
+        "totalRental": 580.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Плов куриный",
+          "price": 175.0,
+          "qnt": 1
+        },
+        {
+          "name": "Лапша удон",
+          "price": 185.0,
+          "qnt": 1
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-186I6",
+    "user_id": "web_957679494",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-08T16:15:26.269617",
+    "updated_at": "2026-05-08T16:15:26.269617",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-186I6",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T16:15:26.269617",
+        "end": null
+      },
+      "contact": {
+        "name": "Марсель",
+        "value": "957679494"
+      },
+      "pricing": {
+        "totalRental": 345.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Морс клюква",
+          "price": 105.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-7R6HW",
+    "user_id": "web_0842039140",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-08T16:45:27.968478",
+    "updated_at": "2026-05-08T16:45:27.968478",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-7R6HW",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T16:45:27.968478",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 575.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Оливье с курицей",
+          "price": 285.0,
+          "qnt": 1,
+          "modifiers": [
+            {
+              "name": "С креветками",
+              "price": 100.0
+            },
+            {
+              "name": "Без лука",
+              "price": 0.0
+            }
+          ]
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-ZMD73",
+    "user_id": "web_0620264045",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T18:05:16.021748",
+    "updated_at": "2026-05-08T18:07:30.656303",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-ZMD73",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T18:05:16.021748",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel",
+        "value": "0620264045"
+      },
+      "pricing": {
+        "totalRental": 745.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Оливье",
+          "price": 745.0,
+          "qnt": 1,
+          "modifiers": [
+            {
+              "name": "С курицей",
+              "price": 0.0
+            },
+            {
+              "name": "С докторской колбасой",
+              "price": 280.0
+            },
+            {
+              "name": "С креветками ",
+              "price": 280.0
+            },
+            {
+              "name": "Без лука ",
+              "price": 0.0
+            },
+            {
+              "name": "Майонез отдельно",
+              "price": 0.0
+            }
+          ]
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-G3V9V",
+    "user_id": "web_8929959164",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-08T18:06:25.747786",
+    "updated_at": "2026-05-09T05:33:44.138733",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-G3V9V",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-08T18:06:25.747786",
+        "end": null
+      },
+      "contact": {
+        "name": "Марскль",
+        "value": "8929959164"
+      },
+      "pricing": {
+        "totalRental": 380.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "4 сыра",
+          "price": 380.0,
+          "qnt": 1,
+          "modifiers": [
+            {
+              "name": "Пармезан",
+              "price": 50.0
+            },
+            {
+              "name": "Моцарелла",
+              "price": 80.0
+            }
+          ]
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "cash",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-Q597M",
+    "user_id": "web_0842039140",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-05-09T18:30:28.081730",
+    "updated_at": "2026-05-09T18:34:00.589109",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-Q597M",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-09T18:30:28.081730",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 479.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Блины заварные на молоке",
+          "price": 229.0,
+          "qnt": 1,
+          "modifiers": [
+            {
+              "name": "Сметана",
+              "price": 40.0
+            },
+            {
+              "name": "Вкус пломбира ",
+              "price": 50.0
+            }
+          ]
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-GJA8K",
+    "user_id": "web_0842039140",
+    "status": "cancelled",
+    "order_type": "food",
+    "created_at": "2026-05-11T05:59:24.185391",
+    "updated_at": "2026-05-11T09:59:22.555126",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-GJA8K",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-11T05:59:24.185391",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 335.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Картофельное пюре",
+          "price": 85.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "bk_20260512_003925_752583",
+    "user_id": "123",
+    "status": "pre_booking",
+    "form_data": {
+      "car": {
+        "id": "car1",
+        "name": "",
+        "brand": "",
+        "model": "",
+        "year": "",
+        "color": ""
+      },
+      "dates": {
+        "start": "2026-06-01",
+        "end": "2026-06-05",
+        "days": null
+      },
+      "locations": {
+        "pickupLocation": "airport",
+        "returnLocation": "airport"
+      },
+      "pricing": {
+        "dailyRate": 0,
+        "totalRental": 0,
+        "deposit": 0,
+        "deliveryPickup": 0,
+        "deliveryReturn": 0,
+        "totalDelivery": 0,
+        "grandTotal": 0
+      },
+      "contact": {
+        "value": "123",
+        "type": "telegram"
+      },
+      "timestamp": "2026-05-12T00:39:25.752744"
+    },
+    "source": "offer_page",
+    "created_at": "2026-05-12T00:39:25.752804",
+    "updated_at": "2026-05-12T00:39:25.752810"
+  },
+  {
+    "booking_id": "LEAD-837850841-1778584184",
+    "user_id": "837850841",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:09:44.729777",
+    "updated_at": "2026-05-12T11:09:44.729793",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-837850841-1778584184",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:09:44.729777",
+        "end": null
+      },
+      "contact": {
+        "name": "carphuket",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-XY4WQ",
+    "user_id": "web_0620263980",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:10:40.702111",
+    "updated_at": "2026-05-12T11:10:40.702111",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-XY4WQ",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:10:40.702111",
+        "end": null
+      },
+      "contact": {
+        "name": "Dmitrii",
+        "value": "0620263980"
+      },
+      "pricing": {
+        "totalRental": 429.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суп Харчо",
+          "price": 179.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-804EH",
+    "user_id": "web_6666666",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:11:00.342576",
+    "updated_at": "2026-05-12T11:11:00.342576",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-804EH",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:11:00.342576",
+        "end": null
+      },
+      "contact": {
+        "name": "Хуй в пальто",
+        "value": "6666666"
+      },
+      "pricing": {
+        "totalRental": 105.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Морс клюква",
+          "price": 105.0,
+          "qnt": 1,
+          "modifiers": [
+            {
+              "name": "Малина",
+              "price": 20.0
+            }
+          ]
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778584668",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:17:48.347951",
+    "updated_at": "2026-05-12T11:17:48.347963",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778584668",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:17:48.347951",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-837850841-1778584672",
+    "user_id": "837850841",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:17:52.316845",
+    "updated_at": "2026-05-12T11:17:52.316856",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-837850841-1778584672",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:17:52.316845",
+        "end": null
+      },
+      "contact": {
+        "name": "carphuket",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778584753",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:19:13.969444",
+    "updated_at": "2026-05-12T11:19:13.969461",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778584753",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:19:13.969444",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-ZO4A6",
+    "user_id": "web_649479",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:19:42.659730",
+    "updated_at": "2026-05-12T16:40:39.896107",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-ZO4A6",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:19:42.659730",
+        "end": null
+      },
+      "contact": {
+        "name": "Ыотвьвь",
+        "value": "649479"
+      },
+      "pricing": {
+        "totalRental": 89.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Малосольные огурцы",
+          "price": 89.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778585022",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T11:23:42.654800",
+    "updated_at": "2026-05-12T11:23:42.654821",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778585022",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T11:23:42.654800",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778598521",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T15:08:41.408691",
+    "updated_at": "2026-05-12T15:08:41.408702",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778598521",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T15:08:41.408691",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778598591",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T15:09:51.920237",
+    "updated_at": "2026-05-12T15:09:51.920256",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778598591",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T15:09:51.920237",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778599214",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T15:20:14.282579",
+    "updated_at": "2026-05-12T15:20:14.282596",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778599214",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T15:20:14.282579",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778603929",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T16:38:49.874704",
+    "updated_at": "2026-05-12T16:38:49.874720",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778603929",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T16:38:49.874704",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-J8NDI",
+    "user_id": "web_0842039140",
+    "status": "confirmed",
+    "order_type": "food",
+    "created_at": "2026-05-12T17:15:36.058558",
+    "updated_at": "2026-05-12T17:17:39.555033",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-J8NDI",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T17:15:36.058558",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 339.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суп куриный с лапшой ",
+          "price": 99.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778606875",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T17:27:55.696955",
+    "updated_at": "2026-05-12T17:27:55.696975",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778606875",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T17:27:55.696955",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-BL1K7",
+    "user_id": "web_9494949",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T17:29:16.724563",
+    "updated_at": "2026-05-12T17:29:16.724563",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-BL1K7",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T17:29:16.724563",
+        "end": null
+      },
+      "contact": {
+        "name": "marseloid",
+        "value": "9494949"
+      },
+      "pricing": {
+        "totalRental": 319.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Суп Харчо",
+          "price": 179.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778607181",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T17:33:01.100835",
+    "updated_at": "2026-05-12T17:33:01.100850",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778607181",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T17:33:01.100835",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "LEAD-374897465-1778612722",
+    "user_id": "374897465",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-12T19:05:22.752274",
+    "updated_at": "2026-05-12T19:05:22.752289",
+    "form_data": {
+      "car": {
+        "name": "Заказ #LEAD-374897465-1778612722",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-12T19:05:22.752274",
+        "end": null
+      },
+      "contact": {
+        "name": "Marseloid",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [],
+      "delivery_type": "unknown",
+      "payment_method": "unknown",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-D6L84",
+    "user_id": "web_0842039140",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-13T10:57:31.093718",
+    "updated_at": "2026-05-13T10:57:31.093718",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-D6L84",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-13T10:57:31.093718",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 796.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Греча отварная ",
+          "price": 89.0,
+          "qnt": 1,
+          "modifiers": []
+        },
+        {
+          "name": "Капуста тушеная",
+          "price": 89.0,
+          "qnt": 1,
+          "modifiers": []
+        },
+        {
+          "name": "Макароны спиральки",
+          "price": 59.0,
+          "qnt": 1,
+          "modifiers": []
+        },
+        {
+          "name": "Блины заварные на молоке",
+          "price": 269.0,
+          "qnt": 1,
+          "modifiers": [
+            {
+              "name": "Малиновое варенье",
+              "price": 80.0
+            },
+            {
+              "name": "Вкус пломбира ",
+              "price": 50.0
+            }
+          ]
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-W1D15",
+    "user_id": "web_ORD-W1D15",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-14T20:49:59.069211",
+    "updated_at": "2026-05-14T20:49:59.069211",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-W1D15",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-14T20:49:59.069211",
+        "end": null
+      },
+      "contact": {
+        "name": "",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 358.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Борщ с куриным бедром",
+          "price": 179.0,
+          "qnt": 1,
+          "modifiers": [
+            {
+              "name": "Сметана",
+              "price": 40.0
+            }
+          ]
+        },
+        {
+          "name": "Суп Харчо",
+          "price": 179.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-PBB9I",
+    "user_id": "web_0842039140",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-14T20:50:40.339208",
+    "updated_at": "2026-05-14T20:50:40.339208",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-PBB9I",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-14T20:50:40.339208",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel Khasanov",
+        "value": "0842039140"
+      },
+      "pricing": {
+        "totalRental": 185.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Лапша удон",
+          "price": 185.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "delivery",
+      "payment_method": "cash",
+      "restaurant_id": "eda_phuket"
+    }
+  },
+  {
+    "booking_id": "ORD-OIXXE",
+    "user_id": "web_ORD-OIXXE",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-17T13:03:53.275406",
+    "updated_at": "2026-05-17T13:03:53.275406",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-OIXXE",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-17T13:03:53.275406",
+        "end": null
+      },
+      "contact": {
+        "name": "",
+        "value": ""
+      },
+      "pricing": {
+        "totalRental": 250.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Pasta Balonese",
+          "price": 250.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
+    }
+  },
+  {
+    "booking_id": "ORD-IU0H7",
+    "user_id": "web_89219959164",
+    "status": "pre_booking",
+    "order_type": "food",
+    "created_at": "2026-05-23T10:29:08.439769",
+    "updated_at": "2026-05-23T10:29:08.439769",
+    "form_data": {
+      "car": {
+        "name": "Заказ #ORD-IU0H7",
+        "id": null
+      },
+      "dates": {
+        "start": "2026-05-23T10:29:08.439769",
+        "end": null
+      },
+      "contact": {
+        "name": "Marsel",
+        "value": "89219959164"
+      },
+      "pricing": {
+        "totalRental": 450.0,
+        "deposit": 0,
+        "delivery": 0
+      },
+      "items": [
+        {
+          "name": "Куриные ножки",
+          "price": 450.0,
+          "qnt": 1,
+          "modifiers": []
+        }
+      ],
+      "delivery_type": "pickup",
+      "payment_method": "qr_prompt_pay",
+      "restaurant_id": "pizza_loft"
     }
   }
 ]

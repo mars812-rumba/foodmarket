@@ -1,0 +1,1230 @@
+{
+  "restaurant_id": "eda_phuket",
+  "categories": [
+    "for_order",
+    "mors",
+    "soup",
+    "salad",
+    "hot_dishes",
+    "pizza",
+    "garnir",
+    "bakery",
+    "sauce"
+  ],
+  "items": [
+    {
+      "id": "sup_harcho",
+      "name": "Суп Харчо",
+      "slug": "sup_harcho",
+      "category": "soup",
+      "price": 179.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/sup_harcho_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Суп Харчо - полужидкое блюдо грузинской кухни 🇬🇪 \nМягкая австралийская говядина, рис, овощи и настоящий соус сацебели, который мы варим сами",
+      "photos": {
+        "main": "restaurants/eda_phuket/sup_harcho_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:32:20.761992"
+    },
+    {
+      "id": "solyanka_myasnaya",
+      "name": "Солянка мясная",
+      "slug": "solyanka_myasnaya",
+      "category": "soup",
+      "price": 210.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/solyanka_myasnaya_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1777968480143",
+          "name": "Сметана",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1777968500321",
+          "name": "Майонез",
+          "price": 30.0
+        }
+      ],
+      "available": true,
+      "notes": "Солянка мясная 🥘\nНаваристый суп, с 3мя видами мяса. Варим по классическому рецепту.",
+      "photos": {
+        "main": "restaurants/eda_phuket/solyanka_myasnaya_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T06:58:41.712737"
+    },
+    {
+      "id": "borshch_s_avstraliyskoy_govyadinoy",
+      "name": "Борщ с говядиной",
+      "slug": "borshch_s_avstraliyskoy_govyadinoy",
+      "category": "soup",
+      "price": 189.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/borshch_s_avstraliyskoy_govyadinoy_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1777912658854",
+          "name": "Сметана 70гр",
+          "price": 40.0
+        }
+      ],
+      "available": true,
+      "notes": "Борщ наваристый с австралийской говядиной 🥩 \nВкусный и сытный! Много мяса 💯",
+      "photos": {
+        "main": "restaurants/eda_phuket/borshch_s_avstraliyskoy_govyadinoy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:00:07.529050"
+    },
+    {
+      "id": "sup_kurinyy_s_lapshoy_",
+      "name": "Суп куриный с лапшой ",
+      "slug": "sup_kurinyy_s_lapshoy_",
+      "category": "soup",
+      "price": 99.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/sup_kurinyy_s_lapshoy__0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140196416",
+          "name": "Сметана",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1778140202876",
+          "name": "Майонез",
+          "price": 30.0
+        }
+      ],
+      "available": true,
+      "notes": "Куриный супчик с лапшой. \nРецепт прост: много овощей, мясо птицы (куриные окорочка) и суповая лапша. Вкус детства 💯",
+      "photos": {
+        "main": "restaurants/eda_phuket/sup_kurinyy_s_lapshoy__0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:50:13.773310"
+    },
+    {
+      "id": "rassol_nik_s_govyadinoy",
+      "name": "Рассольник с говядиной",
+      "slug": "rassol_nik_s_govyadinoy",
+      "category": "soup",
+      "price": 199.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/rassol_nik_s_govyadinoy_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1777968531141",
+          "name": "Сметана",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1777968541225",
+          "name": "Майонез ",
+          "price": 30.0
+        }
+      ],
+      "available": true,
+      "notes": "Рассольник с австралийской нежной говядиной 🔥 \nНаваристый говяжий бульон, легкая кислинка за счет наших бочковых огурцов и рассола, рассыпчатая нежная перловка, овощи.",
+      "photos": {
+        "main": "restaurants/eda_phuket/rassol_nik_s_govyadinoy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T06:59:35.365786"
+    },
+    {
+      "id": "borshch_s_kurinym_bedrom",
+      "name": "Борщ с куриным бедром",
+      "slug": "borshch_s_kurinym_bedrom",
+      "category": "soup",
+      "price": 139.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/borshch_s_kurinym_bedrom_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140237838",
+          "name": "Сметана",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1778140253211",
+          "name": "Майонез",
+          "price": 30.0
+        }
+      ],
+      "available": true,
+      "notes": "Борщ с нежным куриным бедром 🥣 \nБезумно вкусный и сытный 😋 \nНатуральный состав, без усилителя вкуса 💯",
+      "photos": {
+        "main": "restaurants/eda_phuket/borshch_s_kurinym_bedrom_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T08:05:28.149028"
+    },
+    {
+      "id": "oliv_e",
+      "name": "Оливье",
+      "slug": "oliv_e",
+      "category": "salad",
+      "price": 185.0,
+      "weight": "300гр",
+      "image": "restaurants/eda_phuket/oliv_e_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778260232603",
+          "name": "С курицей",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778260251822",
+          "name": "С докторской колбасой",
+          "price": 280.0
+        },
+        {
+          "id": "ing_1778260335724",
+          "name": "С креветками ",
+          "price": 280.0
+        },
+        {
+          "id": "ing_1778260370206",
+          "name": "Лук ",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778260419266",
+          "name": "Без лука ",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778260430979",
+          "name": "Майонез отдельно",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Салат столичный 🥙 он же оливье 😍\nСочная куриная грудка, вареный в мундире картофель, свежие огурцы, маринованные огурцы, морковь, яйцо, лук (можно без него), нежный итальянский горошек и домашний майонез 👌🏼",
+      "photos": {
+        "main": "restaurants/eda_phuket/oliv_e_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-08T17:14:15.435487"
+    },
+    {
+      "id": "vitaminnyy_salat",
+      "name": "Витаминный салат",
+      "slug": "vitaminnyy_salat",
+      "category": "salad",
+      "price": 95.0,
+      "weight": "450гр",
+      "image": "restaurants/eda_phuket/vitaminnyy_salat_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Салат витаминный 🥗 \nСочная хрустящая капуста, морковь, щепотка соли, щепотка сахара, пару капель яблочного уксуса и подсолнечное масло.",
+      "photos": {
+        "main": "restaurants/eda_phuket/vitaminnyy_salat_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T06:54:37.184629"
+    },
+    {
+      "id": "krabovyy_salat",
+      "name": "Крабовый салат",
+      "slug": "krabovyy_salat",
+      "category": "salad",
+      "price": 170.0,
+      "weight": "300гр",
+      "image": "restaurants/eda_phuket/krabovyy_salat_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140309422",
+          "name": "Лук",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778140312963",
+          "name": "Без лука",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Крабовый салат 🦀 \nЗнаменитый крабовый салат.\nСалат с крабовыми палочками и кукурузой - изысканная и сытная закуска, которая подойдет как для праздничного стола, так и для будничных трапез. \nСостав: рис, крабовые палочки, нежная кукуруза, яйцо, свежий огурец, рис, лук (можно без него), соль, домашний майонез!",
+      "photos": {
+        "main": "restaurants/eda_phuket/krabovyy_salat_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:51:59.460302"
+    },
+    {
+      "id": "mimoza_s_tuncom",
+      "name": "Мимоза с тунцом",
+      "slug": "mimoza_s_tuncom",
+      "category": "salad",
+      "price": 185.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/mimoza_s_tuncom_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140354047",
+          "name": "Лук",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778140357963",
+          "name": "Без лука",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Мимоза с тунцом 🐟 \nКлассический рецепт, непревзойденный вкус!\nДелаем как с луком, так и без 🙌🏼\nСостав: тунец в собственном соку, картофель, лук, морковь, соль, яйцо и домашний майонез.",
+      "photos": {
+        "main": "restaurants/eda_phuket/mimoza_s_tuncom_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:52:44.288849"
+    },
+    {
+      "id": "lapsha_udon",
+      "name": "Лапша удон",
+      "slug": "lapsha_udon",
+      "category": "hot_dishes",
+      "price": 185.0,
+      "weight": "400гр",
+      "image": "restaurants/eda_phuket/lapsha_udon_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140376004",
+          "name": "Лук",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778140379718",
+          "name": "Без лука",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Лапша Удон с курицей и овощами в азиатском фирменном соусе 🥡🥢\nОчень вкусное и сытное блюдо 💯 \nГотовим на ВОКе \nВ порцию входит:\nЛапша Удон \nОвощи: цукини, перец болгарский, лук и морковь\nНежное куриное бедро\nСоус 🤤",
+      "photos": {
+        "main": "restaurants/eda_phuket/lapsha_udon_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:53:06.534222"
+    },
+    {
+      "id": "shaverma_na_tarelke_po_piterski",
+      "name": "Шаверма на тарелке по-питерски",
+      "slug": "shaverma_na_tarelke_po_piterski",
+      "category": "hot_dishes",
+      "price": 280.0,
+      "weight": "450гр",
+      "image": "restaurants/eda_phuket/shaverma_na_tarelke_po_piterski_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140406254",
+          "name": "Лук",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778140409523",
+          "name": "Без лука",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Шаверма на тарелке по-питерски с фирменным соусом 🤤 \nПорция включает в себя:\n• Обжаренное на гриле маринованное куриное бедро без кожи до хрустящей корочки\n• Айдахо\n• Овощной салатик\n• Капустный салатик\n• Лаваш\n• Фирменный соус «Шаверма»",
+      "photos": {
+        "main": "restaurants/eda_phuket/shaverma_na_tarelke_po_piterski_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T08:06:56.702614"
+    },
+    {
+      "id": "kurinye_rublennye_kotlety",
+      "name": "Куриные рубленные котлеты",
+      "slug": "kurinye_rublennye_kotlety",
+      "category": "hot_dishes",
+      "price": 125.0,
+      "weight": "3шт",
+      "image": "restaurants/eda_phuket/kurinye_rublennye_kotlety_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Куриные рубленные котлеты 🍽️\nСостав простой: рубленое куриное филе, яйцо, Сметана, соль, укроп, мука\nНежные и вкусные. Любят все: дети и взрослые 💯",
+      "photos": {
+        "main": "restaurants/eda_phuket/kurinye_rublennye_kotlety_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:29:45.216425"
+    },
+    {
+      "id": "kurinye_ezhiki_v_slivochno_tomatnom_souse",
+      "name": "Куриные ежики в сливочно-томатном соусе",
+      "slug": "kurinye_ezhiki_v_slivochno_tomatnom_souse",
+      "category": "hot_dishes",
+      "price": 135.0,
+      "weight": "3шт",
+      "image": "restaurants/eda_phuket/kurinye_ezhiki_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Ёжики съедобные \nСостав: куриный фарш, лук репчатый, морковь, рис, соль. \nТушим в сливочно-томатном соусе. Вкус, как детском садике",
+      "photos": {
+        "main": "restaurants/eda_phuket/kurinye_ezhiki_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:06:38.874962"
+    },
+    {
+      "id": "kurinye_krylyshki_teriyake",
+      "name": "Куриные крылышки терияке",
+      "slug": "kurinye_krylyshki_teriyake",
+      "category": "hot_dishes",
+      "price": 170.0,
+      "weight": "10шт",
+      "image": "restaurants/eda_phuket/kurinye_krylyshki_teriyake_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Куриные крылышки в соусе терияке 🤤\nСбалансированный вкус, безумно сочные и нежные. Съедаются моментально 🙌🏼\nМаринуем в соусе терияке, специях и чесноке. Выпекаем в духовке до румяности, сохраняя сочность мяса",
+      "photos": {
+        "main": "restaurants/eda_phuket/kurinye_krylyshki_teriyake_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T08:07:35.580731"
+    },
+    {
+      "id": "kurinye_otbivnye",
+      "name": "Куриные отбивные",
+      "slug": "kurinye_otbivnye",
+      "category": "hot_dishes",
+      "price": 145.0,
+      "weight": "2шт",
+      "image": "restaurants/eda_phuket/kurinye_otbivnye_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Куриная отбивная (он же шницель)🍗\nСочнейшая куриная грудка в панировке. Это очень вкусно, сытно и сочно 🤤 \nСостав: куриная грудь, соль, мука, яйцо, панировочные сухари",
+      "photos": {
+        "main": "restaurants/eda_phuket/kurinye_otbivnye_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:17:04.376047"
+    },
+    {
+      "id": "pozharskie_kotlety",
+      "name": "Пожарские котлеты",
+      "slug": "pozharskie_kotlety",
+      "category": "hot_dishes",
+      "price": 179.0,
+      "weight": "2шт",
+      "image": "restaurants/eda_phuket/pozharskie_kotlety_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Пожарские котлеты 🤌🏼\nНежный куриный фарш, панировка из сухариков. Нежные внутри, хрустящие снаружи. Готовим по классическому рецепту",
+      "photos": {
+        "main": "restaurants/eda_phuket/pozharskie_kotlety_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:10:45.363260"
+    },
+    {
+      "id": "pechen_kurinaya_v_smetannom_souse",
+      "name": "Печень куриная в сметанном соусе",
+      "slug": "pechen_kurinaya_v_smetannom_souse",
+      "category": "hot_dishes",
+      "price": 99.0,
+      "weight": "200гр",
+      "image": "restaurants/eda_phuket/pechen_kurinaya_v_smetannom_souse_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Куриная печень в сметанном соусе 😋\nНежная, мягкая и безумно вкусная. А про пользу и говорить не стоит, ведь в 100 гр куриной печени содержится 90% суточной нормы железа. И это далеко не все, чем богат для человеческого организма данный субпродукт!",
+      "photos": {
+        "main": "restaurants/eda_phuket/pechen_kurinaya_v_smetannom_souse_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:35:38.773733"
+    },
+    {
+      "id": "plov_kurinyy",
+      "name": "Плов куриный",
+      "slug": "plov_kurinyy",
+      "category": "hot_dishes",
+      "price": 175.0,
+      "weight": "300гр",
+      "image": "restaurants/eda_phuket/plov_kurinyy_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Куриный плов 🍲\nКуриное филе, овощи, рис, приправы. Сочное, сытное и вкусное блюдо. Оценят как взрослые, так и детки",
+      "photos": {
+        "main": "restaurants/eda_phuket/plov_kurinyy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:08:43.532657"
+    },
+    {
+      "id": "befstroganov_kurinyy",
+      "name": "Бефстроганов куриный",
+      "slug": "befstroganov_kurinyy",
+      "category": "hot_dishes",
+      "price": 149.0,
+      "weight": "200гр",
+      "image": "restaurants/eda_phuket/befstroganov_kurinyy_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Бефстроганов куриный в сливочном соусе с грибами 🍗\nНежная куриная грудка, лук (если не едите лук, укажите при заказе), шампиньоны, сливки. Тает во рту 🤤",
+      "photos": {
+        "main": "restaurants/eda_phuket/befstroganov_kurinyy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:26:27.048908"
+    },
+    {
+      "id": "govyazh_i_kotlety",
+      "name": "Говяжьи котлеты",
+      "slug": "govyazh_i_kotlety",
+      "category": "hot_dishes",
+      "price": 169.0,
+      "weight": "2шт",
+      "image": "restaurants/eda_phuket/govyazh_i_kotlety_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Котлеты говяжьи 🐮\nФарш из австалийской говядины, который мы делаем сами, лук, молочный мякиш, соль, перец. Вымешиваем не менее 10 минут для максимальной сочности. Очень вкусные, попробуйте и Вы 🙌🏼",
+      "photos": {
+        "main": "restaurants/eda_phuket/govyazh_i_kotlety_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:31:43.030596"
+    },
+    {
+      "id": "zapekanka_kartofel_naya_s_govyadinoy",
+      "name": "Запеканка картофельная с говядиной",
+      "slug": "zapekanka_kartofel_naya_s_govyadinoy",
+      "category": "hot_dishes",
+      "price": 205.0,
+      "weight": "350гр",
+      "image": "restaurants/eda_phuket/zapekanka_kartofel_naya_s_govyadinoy_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Картофельная запеканка с говяжьим фаршем 🔥 \nОчень вкусная и сытная 💯 \nСостав: фарш из австралийской говядины, лук, морковь, картофельное пюре, сметана, твердый сыр 🧀",
+      "photos": {
+        "main": "restaurants/eda_phuket/zapekanka_kartofel_naya_s_govyadinoy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:09:19.879011"
+    },
+    {
+      "id": "gulyash_iz_govyadiny",
+      "name": "Гуляш из говядины",
+      "slug": "gulyash_iz_govyadiny",
+      "category": "hot_dishes",
+      "price": 190.0,
+      "weight": "200гр",
+      "image": "restaurants/eda_phuket/gulyash_iz_govyadiny_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Гуляш из австралийской говядины 🥩 \nМягкая говядина под нежным соусом 🤤 \nСостав: австралийская говядина, овощи, томатный соус\nОтлично сочетается с пюре или гречей 👌🏼",
+      "photos": {
+        "main": "restaurants/eda_phuket/gulyash_iz_govyadiny_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:39:47.070301"
+    },
+    {
+      "id": "makarony_po_flotski",
+      "name": "Макароны по-флотски",
+      "slug": "makarony_po_flotski",
+      "category": "hot_dishes",
+      "price": 175.0,
+      "weight": "300гр",
+      "image": "restaurants/eda_phuket/makarony_po_flotski_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Макароны по-флотски 🍝\nСытное, вкусное и сочное блюдо. Любят как дети, так и взрослые. В фарш добавляем перетертые томаты для еще большей сочности. Перемешиваем с правильно сваренными макаронами для пропитки 🙌🏼",
+      "photos": {
+        "main": "restaurants/eda_phuket/makarony_po_flotski_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:25:52.117109"
+    },
+    {
+      "id": "lenivye_golubcy_s_govyazh_im_farshem",
+      "name": "Ленивые голубцы с говяжьим фаршем",
+      "slug": "lenivye_golubcy_s_govyazh_im_farshem",
+      "category": "hot_dishes",
+      "price": 185.0,
+      "weight": "350гр",
+      "image": "restaurants/eda_phuket/lenivye_golubcy_s_govyazh_im_farshem_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Ленивые голубцы\nСостав: фарш из австралийской говядины, овощи, капуста, рис, фирменный соус",
+      "photos": {
+        "main": "restaurants/eda_phuket/lenivye_golubcy_s_govyazh_im_farshem_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:17:41.796496"
+    },
+    {
+      "id": "zharkoe_iz_govyadiny",
+      "name": "Жаркое из говядины",
+      "slug": "zharkoe_iz_govyadiny",
+      "category": "hot_dishes",
+      "price": 270.0,
+      "weight": "350гр",
+      "image": "restaurants/eda_phuket/zharkoe_iz_govyadiny_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Жаркое с картофелем, овощами и австралийской говядиной 🔥\nТомленое мясо с овощами и картофелем! Это очень вкусно 🤤",
+      "photos": {
+        "main": "restaurants/eda_phuket/zharkoe_iz_govyadiny_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:07:07.196340"
+    },
+    {
+      "id": "befstroganov_iz_govyadiny",
+      "name": "Бефстроганов из говядины",
+      "slug": "befstroganov_iz_govyadiny",
+      "category": "hot_dishes",
+      "price": 285.0,
+      "weight": "200гр",
+      "image": "restaurants/eda_phuket/befstroganov_iz_govyadiny_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Бефстроганов в сливочном соусе 🤤 \nНежная вырезка австралийской говядины тушеная в сливках с шампиньонами.",
+      "photos": {
+        "main": "restaurants/eda_phuket/befstroganov_iz_govyadiny_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:05:43.282232"
+    },
+    {
+      "id": "svinye_kotlety",
+      "name": "Свиные котлеты",
+      "slug": "svinye_kotlety",
+      "category": "hot_dishes",
+      "price": 99.0,
+      "weight": "2шт",
+      "image": "restaurants/eda_phuket/svinye_kotlety_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Сочные свиные домашние котлеты\nВкусные, сочные и сытные! Не используем панировку!\nТолько свиной фарш, лучок, молочный мякиш и соль. Вымешиваем не менее 10 минут для максимальной сочности 😋",
+      "photos": {
+        "main": "restaurants/eda_phuket/svinye_kotlety_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:22:32.267076"
+    },
+    {
+      "id": "zharkoe_so_svininoy",
+      "name": "Жаркое со свининой",
+      "slug": "zharkoe_so_svininoy",
+      "category": "hot_dishes",
+      "price": 199.0,
+      "weight": "350гр",
+      "image": "restaurants/eda_phuket/zharkoe_so_svininoy_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Жаркое со свининой и овощами 🙌🏼\nВсем известное блюдо, которое отлично насыщает на долгое время. Это очень вкусно 🤤 \nСостав: свинина, картофель, лук, морковь, парниковый помидор 🍅 специи",
+      "photos": {
+        "main": "restaurants/eda_phuket/zharkoe_so_svininoy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:13:26.305741"
+    },
+    {
+      "id": "gulyash_svinoy",
+      "name": "Гуляш свиной",
+      "slug": "gulyash_svinoy",
+      "category": "hot_dishes",
+      "price": 149.0,
+      "weight": "220гр",
+      "image": "restaurants/eda_phuket/gulyash_svinoy_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Гуляш из свинины 🤤 \nНежные кусочки свинины, тушеные с овощами под томатным соусом.\nОтлично подойдет любой гарнир: пюре, макароны, греча 💯",
+      "photos": {
+        "main": "restaurants/eda_phuket/gulyash_svinoy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:41:32.406692"
+    },
+    {
+      "id": "myaso_po_francuzski_",
+      "name": "Мясо по-французски ",
+      "slug": "myaso_po_francuzski_",
+      "category": "hot_dishes",
+      "price": 189.0,
+      "weight": "350гр",
+      "image": "restaurants/eda_phuket/myaso_po_francuzski__0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Мясо по-французски 😋 \nНежная свиная вырезка, майонез, лучок (можно без него), парниковые помидоры, сыр 🧀",
+      "photos": {
+        "main": "restaurants/eda_phuket/myaso_po_francuzski__0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:30:11.647609"
+    },
+    {
+      "id": "salat_shuba",
+      "name": "Салат шуба",
+      "slug": "salat_shuba",
+      "category": "salad",
+      "price": 220.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/salat_shuba_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778136651025",
+          "name": "Лук",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778136656581",
+          "name": "Без лука",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Наша Шуба полюбилась уже многим. А ведь секрета нет, просто очень вкусная скумбрия, которую мы солим сами (без добавления уксуса). Просто лук, соль и подсолнечное масло 🙌🏼\nОбязательно попробуйте 🤗\nЕсли не едите лук, укажите это при заказе! Мы сделаем для Вас без него ",
+      "photos": {
+        "main": "restaurants/eda_phuket/salat_shuba_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T08:09:01.177838"
+    },
+    {
+      "id": "grecha_otvarnaya_",
+      "name": "Греча отварная ",
+      "slug": "grecha_otvarnaya_",
+      "category": "garnir",
+      "price": 89.0,
+      "weight": "250гр",
+      "image": "restaurants/eda_phuket/grecha_otvarnaya__0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Соскучились по грече?\nПриготовим её для Вас! Вкусная, рассыпчатая.",
+      "photos": {
+        "main": "restaurants/eda_phuket/grecha_otvarnaya__0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:21:25.006664"
+    },
+    {
+      "id": "kartofel_noe_pyure",
+      "name": "Картофельное пюре",
+      "slug": "kartofel_noe_pyure",
+      "category": "garnir",
+      "price": 85.0,
+      "weight": "250гр",
+      "image": "restaurants/eda_phuket/kartofel_noe_pyure_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Картофельное сливочное пюре 🥔 \nПо-настоящему нежное, сливочное, без комочков 👌🏼 \nСостав: картофель, сливочное масло Anchor, молоко 🥛",
+      "photos": {
+        "main": "restaurants/eda_phuket/kartofel_noe_pyure_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:06:13.789117"
+    },
+    {
+      "id": "zharennaya_grecha_s_ovoshchami",
+      "name": "Жаренная греча с овощами",
+      "slug": "zharennaya_grecha_s_ovoshchami",
+      "category": "garnir",
+      "price": 139.0,
+      "weight": "250гр",
+      "image": "restaurants/eda_phuket/zharennaya_grecha_s_ovoshchami_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Греча с луком, морковкой и грибами 🧅🥕🍄‍🟫 \nНадоела обычная вареная греча? Тогда обязательно попробуйте жареную гречу с овощами и грибами. Сытное блюдо, которое понравится каждому 💯 ",
+      "photos": {
+        "main": "restaurants/eda_phuket/zharennaya_grecha_s_ovoshchami_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:10:18.774073"
+    },
+    {
+      "id": "kartofel_aydaho",
+      "name": "Картофель Айдахо",
+      "slug": "kartofel_aydaho",
+      "category": "garnir",
+      "price": 99.0,
+      "weight": "250гр",
+      "image": "restaurants/eda_phuket/kartofel_aydaho_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140454508",
+          "name": "Кетчуп ",
+          "price": 25.0
+        },
+        {
+          "id": "ing_1778140463271",
+          "name": "Майонез ",
+          "price": 30.0
+        },
+        {
+          "id": "ing_1778140479847",
+          "name": "Шаверма соус",
+          "price": 70.0
+        }
+      ],
+      "available": true,
+      "notes": "Картошка по-деревенски, она же Айдахо 🥔 \nНарезаем дольками очищенный картофель, добавляем немного сладкой паприки, соль, оливковое масло. После этого мы отправляем эту вкуснотищу в духовку, и ждем золотистой корочки 🙏🏼",
+      "photos": {
+        "main": "restaurants/eda_phuket/kartofel_aydaho_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:54:50.079120"
+    },
+    {
+      "id": "kapusta_tushenaya",
+      "name": "Капуста тушеная",
+      "slug": "kapusta_tushenaya",
+      "category": "garnir",
+      "price": 89.0,
+      "weight": "300гр",
+      "image": "restaurants/eda_phuket/kapusta_tushenaya_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Тушеная капуста 🥬 \nКлассический рецепт, непревзойденный вкус. Идеальное сочетание с котлетками (свиные, говяжьи, куриные). Обязательно попробуйте 🫠",
+      "photos": {
+        "main": "restaurants/eda_phuket/kapusta_tushenaya_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:31:03.780382"
+    },
+    {
+      "id": "makarony_spiral_ki",
+      "name": "Макароны спиральки",
+      "slug": "makarony_spiral_ki",
+      "category": "garnir",
+      "price": 59.0,
+      "weight": "250гр",
+      "image": "restaurants/eda_phuket/makarony_spiral_ki_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140521398",
+          "name": "Кетчуп",
+          "price": 25.0
+        }
+      ],
+      "available": true,
+      "notes": "Макароны 🍝\nОдин из любимых гарниров всех людей! Кто-то ест с соусом, кто-то с сыром, но большинство-как дополнение к основному блюду 😃",
+      "photos": {
+        "main": "restaurants/eda_phuket/makarony_spiral_ki_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:55:37.538492"
+    },
+    {
+      "id": "mors_klyukva",
+      "name": "Морс клюква",
+      "slug": "mors_klyukva",
+      "category": "mors",
+      "price": 85.0,
+      "weight": "500мл",
+      "image": "restaurants/eda_phuket/mors_klyukva_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140553448",
+          "name": "Малина",
+          "price": 20.0
+        }
+      ],
+      "available": true,
+      "notes": "Морс клюквенный \nОбязательно попробуйте наш натуральный морс из клюквы. В меру сладкий, в меру кислый. Прохладный и освежающий на 100%.",
+      "photos": {
+        "main": "restaurants/eda_phuket/mors_klyukva_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:56:23.220294"
+    },
+    {
+      "id": "bliny_zavarnye_na_moloke",
+      "name": "Блины заварные на молоке",
+      "slug": "bliny_zavarnye_na_moloke",
+      "category": "bakery",
+      "price": 139.0,
+      "weight": "4шт",
+      "image": "restaurants/eda_phuket/bliny_zavarnye_na_moloke_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1777968417961",
+          "name": "На кокосовом молоке",
+          "price": 20.0
+        },
+        {
+          "id": "ing_1777968739227",
+          "name": "Сгущенка",
+          "price": 25.0
+        },
+        {
+          "id": "ing_1778140618871",
+          "name": "Сметана",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1778140626134",
+          "name": "Нутелла",
+          "price": 80.0
+        },
+        {
+          "id": "ing_1778140633254",
+          "name": "Клубничное варенье",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1778140645321",
+          "name": "Малиновое варенье",
+          "price": 80.0
+        },
+        {
+          "id": "ing_1778140661436",
+          "name": "Варенье чёрная смородина",
+          "price": 70.0
+        },
+        {
+          "id": "ing_1778140697077",
+          "name": "Вкус пломбира ",
+          "price": 50.0
+        }
+      ],
+      "available": true,
+      "notes": "Заварные блинчики на молоке 🥞\nВкусные, нежные, ажурные блины. Готовятся непосредственно перед доставкой. С пылу с жару на Ваш стол 🙌🏼\nЕсли Вы не употребляете молочные продукты, мы приготовим для Вас блины на кокосовом молоке 🥥 \n",
+      "photos": {
+        "main": "restaurants/eda_phuket/bliny_zavarnye_na_moloke_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:58:40.702024"
+    },
+    {
+      "id": "bliny_s_tvorogom",
+      "name": "Блины с творогом",
+      "slug": "bliny_s_tvorogom",
+      "category": "bakery",
+      "price": 179.0,
+      "weight": "2шт",
+      "image": "restaurants/eda_phuket/bliny_s_tvorogom_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140739946",
+          "name": "Изюм",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778140749936",
+          "name": "Без изюма",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Заварные блинчики с творожно-пломбирной начинкой. При желании можем добавить изюм 🍇\nНежные, сытные, как в детстве 🥰",
+      "photos": {
+        "main": "restaurants/eda_phuket/bliny_s_tvorogom_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T16:54:08.103173"
+    },
+    {
+      "id": "syrniki_",
+      "name": "Сырники ",
+      "slug": "syrniki_",
+      "category": "bakery",
+      "price": 155.0,
+      "weight": "3шт",
+      "image": "restaurants/eda_phuket/syrniki__0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Нежные и безумно вкусные сырники из нашего домашнего творога!\nСостав: творог домашний, яйцо, соль, сахар, мука",
+      "photos": {
+        "main": "restaurants/eda_phuket/syrniki__0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:27:30.165201"
+    },
+    {
+      "id": "keksy_na_ryazhenke_s_izyumom",
+      "name": "Кексы на ряженке с изюмом",
+      "slug": "keksy_na_ryazhenke_s_izyumom",
+      "category": "bakery",
+      "price": 189.0,
+      "weight": "6шт",
+      "image": "restaurants/eda_phuket/keksy_na_ryazhenke_s_izyumom_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Домашние кексы с изюмом на ряженке!\nЭто безумно вкусные, ароматные, нежные внутри, хрустящие снаружи кексики 🥮\nДомашние кексы с изюмом на ряженке!\nЭто безумно вкусные, ароматные, нежные внутри, хрустящие снаружи кексики 🥮\nИспользуем только качественные продукты для домашней выпечки. Без использования белого сахара\nИспользуем только качественные продукты для домашней выпечки. Без использования белого сахара ❌",
+      "photos": {
+        "main": "restaurants/eda_phuket/keksy_na_ryazhenke_s_izyumom_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:25:22.223171"
+    },
+    {
+      "id": "klubnichnoe_varen_e",
+      "name": "Клубничное варенье",
+      "slug": "klubnichnoe_varen_e",
+      "category": "sauce",
+      "price": 40.0,
+      "weight": "100гр",
+      "image": "restaurants/eda_phuket/klubnichnoe_varen_e_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1777971407480",
+          "name": "Сметана ",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1777971415719",
+          "name": "Майонез",
+          "price": 30.0
+        },
+        {
+          "id": "ing_1777971424654",
+          "name": "Сгущенка",
+          "price": 25.0
+        },
+        {
+          "id": "ing_1777971452010",
+          "name": "Кетчуп",
+          "price": 25.0
+        },
+        {
+          "id": "ing_1777971471690",
+          "name": "Вкус пломбира",
+          "price": 50.0
+        },
+        {
+          "id": "ing_1777971473409",
+          "name": "Шаверма соус",
+          "price": 70.0
+        },
+        {
+          "id": "ing_1777971523872",
+          "name": "Горчица русская",
+          "price": 40.0
+        },
+        {
+          "id": "ing_1777972660841",
+          "name": "Малиновое варенье",
+          "price": 80.0
+        },
+        {
+          "id": "ing_1778141611085",
+          "name": "Варенье чёрная смородина",
+          "price": 70.0
+        }
+      ],
+      "available": true,
+      "notes": "Домашнее клубничное варенье 🍓 \nВарим сами 🙌🏼\nОчень вкусное, в меру сладкое. Идеальное 🥰",
+      "photos": {
+        "main": "restaurants/eda_phuket/klubnichnoe_varen_e_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T08:13:53.880484"
+    },
+    {
+      "id": "malosol_nye_ogurcy",
+      "name": "Малосольные огурцы",
+      "slug": "malosol_nye_ogurcy",
+      "category": "for_order",
+      "price": 89.0,
+      "weight": "500гр",
+      "image": "restaurants/eda_phuket/malosol_nye_ogurcy_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Малосольные огурцы 🥒 \nВкусные, хрустящие. Очень вкусные! Попробуйте 🤤 \nВ составе ничего лишнего: огурцы, соль, укроп и чеснок 🧄",
+      "photos": {
+        "main": "restaurants/eda_phuket/malosol_nye_ogurcy_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:32:03.373205"
+    },
+    {
+      "id": "shashlyk_iz_svinoy_shei",
+      "name": "Шашлык из свиной шеи",
+      "slug": "shashlyk_iz_svinoy_shei",
+      "category": "for_order",
+      "price": 295.0,
+      "weight": "400гр",
+      "image": "restaurants/eda_phuket/shashlyk_iz_sinoy_shei_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Шашлык из свиной шеи\nМы готовим по-настоящему вкусный, мягкий и сочный шашлык\nПринимаем заказы на шашлык за день. Приготовим на углях для всей Вашей компании!\nТак же можем доставить в сыром виде 🥩 \nЦена за 1 шампур (5 больших кусков) + маринованный лучок + шашлычный соус + лепешка",
+      "photos": {
+        "main": "restaurants/eda_phuket/shashlyk_iz_sinoy_shei_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:08:08.587320"
+    },
+    {
+      "id": "shashlyk_iz_kurinogo_bedra",
+      "name": "Шашлык из куриного бедра",
+      "slug": "shashlyk_iz_kurinogo_bedra",
+      "category": "for_order",
+      "price": 245.0,
+      "weight": "350гр",
+      "image": "restaurants/eda_phuket/shashlyk_iz_kurinogo_bedra_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Шашлык из куриного бедра.\nСочный, мягкий, вкусный. Понравится как взрослым, так и малышам! Отличный белковый обед или ужин для всей семьи 🫶🏼\nСервируем с маринованный лучком, шашлычным сосусом и лепешкой 🫓",
+      "photos": {
+        "main": "restaurants/eda_phuket/shashlyk_iz_kurinogo_bedra_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:28:49.287307"
+    },
+    {
+      "id": "shashlyk_iz_kurinoy_grudki",
+      "name": "Шашлык из куриной грудки",
+      "slug": "shashlyk_iz_kurinoy_grudki",
+      "category": "for_order",
+      "price": 235.0,
+      "weight": "400гр",
+      "image": "restaurants/eda_phuket/shashlyk_iz_kurinoy_grudki_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Шашлык из филе куриной грудки 🐔 \n6 больших сочных кусков, замаринованные в нашем фирменном маринаде. Сочные, нежные, безумно вкусные и сытные 💯 \nСервируем с маринованным лучком, шашлычным соусом и лепешкой 🫓",
+      "photos": {
+        "main": "restaurants/eda_phuket/shashlyk_iz_kurinoy_grudki_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:29:19.918683"
+    },
+    {
+      "id": "losos_s_s",
+      "name": "Лосось с/с",
+      "slug": "losos_s_s",
+      "category": "for_order",
+      "price": 440.0,
+      "weight": "200гр",
+      "image": "restaurants/eda_phuket/losos_s_s_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Лосось с/с 🔥 \nСвежая рыбка, засоленная по фирменному рецепту 🧑‍🍳 \nИдеальный баланс соли 💯",
+      "photos": {
+        "main": "restaurants/eda_phuket/losos_s_s_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T06:51:58.946224"
+    },
+    {
+      "id": "tvorozhnaya_zapekanka",
+      "name": "Творожная запеканка",
+      "slug": "tvorozhnaya_zapekanka",
+      "category": "for_order",
+      "price": 700.0,
+      "weight": "1200гр",
+      "image": "restaurants/eda_phuket/tvorozhnaya_zapekanka_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778140794650",
+          "name": "Изюм",
+          "price": 0.0
+        },
+        {
+          "id": "ing_1778140799472",
+          "name": "Без изюма ",
+          "price": 0.0
+        }
+      ],
+      "available": true,
+      "notes": "Творожная запеканка 😍\nВысокобелковый продукт, без глютена ❌\nПышная, воздушная, по текстуре чизкейка. Вкуснее не ели 💯 \nПо желанию добавим сахар/изюм. \nБез добавления муки/манки. Максимально низкокалорийный продукт, который можно даже есть ночью, без вреда для фигуры ☺️\nСрок хранения в холодильнике - 3 суток\nК/б/ж/у на 100 гр: 106 кал/9,8 белка/6,1 жира/3,5 углеводов",
+      "photos": {
+        "main": "restaurants/eda_phuket/tvorozhnaya_zapekanka_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T08:00:07.663475"
+    },
+    {
+      "id": "farshirovannyy_perec",
+      "name": "Фаршированный перец",
+      "slug": "farshirovannyy_perec",
+      "category": "hot_dishes",
+      "price": 205.0,
+      "weight": "450гр",
+      "image": "restaurants/eda_phuket/farshirovannyy_perec_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Фаршированные перцы со 100% говяжьим фаршем 🫑 \nБольшая порция, безумно вкусный соус-подлива. Фарш из австралийской говядины. В наших перцах больше мяса, чем риса 🙌🏼 2:1.",
+      "photos": {
+        "main": "restaurants/eda_phuket/farshirovannyy_perec_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:48:36.246346"
+    },
+    {
+      "id": "pashtet_iz_kurinoy_pecheni",
+      "name": "Паштет из куриной печени",
+      "slug": "pashtet_iz_kurinoy_pecheni",
+      "category": "salad",
+      "price": 165.0,
+      "weight": "300гр",
+      "image": "restaurants/eda_phuket/pashtet_iz_kurinoy_pecheni_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Паштет из куриной печени 🙌🏼\nВкусная и очень нежная намазка, которая идеально подходит как на завтрак, так и в качестве закуски. Сбалансированный сливочный вкус, максимум пользы 💯\nСостав: Куриная печень, лук, морковь, сливки, специи",
+      "photos": {
+        "main": "restaurants/eda_phuket/pashtet_iz_kurinoy_pecheni_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T08:10:49.471583"
+    },
+    {
+      "id": "ovoshchnoy_salat",
+      "name": "Овощной салат",
+      "slug": "ovoshchnoy_salat",
+      "category": "salad",
+      "price": 69.0,
+      "weight": "300гр",
+      "image": "restaurants/eda_phuket/ovoshchnoy_salat_0.jpeg",
+      "ingredients": [
+        {
+          "id": "ing_1778136766734",
+          "name": "Красный лук",
+          "price": 10.0
+        }
+      ],
+      "available": true,
+      "notes": "Овощной салат 🥗 \nЛегкий салатик, с хрустящими огурчиками и сочными помидорами черри. По запросу добавим красный сладкий лук 🫶🏼\nСостав: огурец, парниковые помидоры черри, укроп, соль, подсолнечное масло",
+      "photos": {
+        "main": "restaurants/eda_phuket/ovoshchnoy_salat_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:49:10.884732"
+    },
+    {
+      "id": "kabachkovaya_ikra",
+      "name": "Кабачковая икра",
+      "slug": "kabachkovaya_ikra",
+      "category": "salad",
+      "price": 160.0,
+      "weight": "400гр",
+      "image": "restaurants/eda_phuket/kabachkovaya_ikra_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Кабачковая икра. Очень вкусная. Отличная закуска, полезный гарнир 🤤 без добавления уксуса ❌",
+      "photos": {
+        "main": "restaurants/eda_phuket/kabachkovaya_ikra_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:20:43.285851"
+    },
+    {
+      "id": "pechen_e_ovsyanoe",
+      "name": "Печенье овсяное",
+      "slug": "pechen_e_ovsyanoe",
+      "category": "bakery",
+      "price": 170.0,
+      "weight": "5шт",
+      "image": "restaurants/eda_phuket/pechen_e_ovsyanoe_0.jpeg",
+      "ingredients": [],
+      "available": true,
+      "notes": "Овсяное домашнее печенье по авторскому рецепту. Свежее, ароматное, безумно вкусное и мягкое.\nИдеально, как с чаем/кофе/молоком, таки полезный и вкусный перекус для детей в школе и детском саду. Наши его обожают 🥰\nИспользуем только качественные ингредиенты, без использования яиц! Обязательно попробуйте 🙌🏼",
+      "photos": {
+        "main": "restaurants/eda_phuket/pechen_e_ovsyanoe_0.jpeg",
+        "gallery": []
+      },
+      "updated_at": "2026-05-07T07:38:48.979341"
+    }
+  ]
+}

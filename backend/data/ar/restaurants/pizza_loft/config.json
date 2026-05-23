@@ -8,7 +8,7 @@
   "address": "Patong, Phuket",
   "payment_qr_url": "/images_web/restaurants/pizza_loft/qr_promptpay.jpg",
   "admin_ids": [
-    "5244326802"
+    "837850841"
   ],
   "dashboard_token": "pl_loft2025",
   "manager_username": "Mars_rent",
@@ -17,7 +17,20 @@
     "time": "30-45 мин",
     "fee": 50
   },
-  "theme": "ocean",
+  "theme": "warm",
   "id": "pizza_loft",
-  "created_at": ""
+  "created_at": "",
+  "delivery_settings": {
+    "enabled_types": [
+      "pickup",
+      "delivery"
+    ],
+    "zones": []
+  },
+  "payment_settings": {
+    "enabled_methods": [
+      "qr_prompt_pay",
+      "cash"
+    ]
+  }
 }

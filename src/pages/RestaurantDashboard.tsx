@@ -23,12 +23,12 @@ type AuthState = {
 type StatusFilter = "ALL" | "NEW" | "CONFIRMED" | "PAID" | "DONE" | "CANCELLED";
 
 const STATUS_TABS: { key: StatusFilter; label: string; color: string; bgColor: string }[] = [
-  { key: "ALL", label: "All", color: "#6B7280", bgColor: "#F3F4F6" },
-  { key: "NEW", label: "New", color: "#D97706", bgColor: "#FFF7EA" },
-  { key: "CONFIRMED", label: "Confirmed", color: "#2563EB", bgColor: "#EFF6FF" },
-  { key: "PAID", label: "Paid", color: "#16A34A", bgColor: "#F0FDF4" },
-  { key: "DONE", label: "Done", color: "#0891B2", bgColor: "#ECFEFF" },
-  { key: "CANCELLED", label: "Cancelled", color: "#DC2626", bgColor: "#FEF2F2" },
+  { key: "ALL", label: "Все", color: "#6B7280", bgColor: "#F3F4F6" },
+  { key: "NEW", label: "Новые", color: "#D97706", bgColor: "#FFF7EA" },
+  { key: "CONFIRMED", label: "Приняты", color: "#2563EB", bgColor: "#EFF6FF" },
+  { key: "PAID", label: "Оплачены", color: "#16A34A", bgColor: "#F0FDF4" },
+  { key: "DONE", label: "Готовы", color: "#0891B2", bgColor: "#ECFEFF" },
+  { key: "CANCELLED", label: "Отменены", color: "#DC2626", bgColor: "#FEF2F2" },
 ];
 
 export default function RestaurantDashboard() {
@@ -63,7 +63,7 @@ export default function RestaurantDashboard() {
         restaurantLogo: "",
         theme: "warm",
         loading: false,
-        error: "Token not provided. Use a link with ?token=... parameter",
+        error: "Токен не предоставлен. Используйте ссылку с параметром ?token=...",
       });
       return;
     }
@@ -74,7 +74,7 @@ export default function RestaurantDashboard() {
           `${API_URL}/api/dashboard/auth?token=${encodeURIComponent(token)}`,
         );
         if (!res.ok) {
-          const data = await res.json().catch(() => ({ detail: "Authorization error" }));
+          const data = await res.json().catch(() => ({ detail: "Ошибка авторизации" }));
           setAuth({
             authenticated: false,
             restaurantId: "",
@@ -82,7 +82,7 @@ export default function RestaurantDashboard() {
             restaurantLogo: "",
             theme: "warm",
             loading: false,
-            error: data.detail || "Invalid token",
+            error: data.detail || "Недействительный токен",
           });
           return;
         }
@@ -117,7 +117,7 @@ export default function RestaurantDashboard() {
           restaurantLogo: "",
           theme: "warm",
           loading: false,
-          error: "Failed to connect to server",
+          error: "Не удалось подключиться к серверу",
         });
       }
     };
@@ -150,7 +150,7 @@ export default function RestaurantDashboard() {
     return () => clearInterval(id);
   }, [auth.authenticated, fetchOrders]);
 
-  const updateStatus = async (orderId: string, status: string) => {
+  const updateStatus = async (orderId: string, status: string, comment?: string) => {
     if (!auth.restaurantId) return;
     setActionLoading(orderId);
     try {
@@ -159,7 +159,7 @@ export default function RestaurantDashboard() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status }),
+          body: JSON.stringify({ status, ...(comment ? { comment } : {}) }),
         },
       );
       if (res.ok) await fetchOrders();
@@ -170,7 +170,7 @@ export default function RestaurantDashboard() {
     }
   };
 
-  const handleConfirm = (orderId: string) => updateStatus(orderId, "CONFIRMED");
+  const handleConfirm = (orderId: string, comment: string) => updateStatus(orderId, "CONFIRMED", comment);
   const handleReject = (orderId: string) => updateStatus(orderId, "CANCELLED");
   const handleMarkPaid = (orderId: string) => updateStatus(orderId, "PAID");
   const handleMarkDone = (orderId: string) => updateStatus(orderId, "DONE");
@@ -312,7 +312,7 @@ function DashboardLoading() {
           size={32}
           style={{ animation: "spin 1s linear infinite", color: C.accent }}
         />
-        <p style={s.loadingText}>Authenticating...</p>
+        <p style={s.loadingText}>Авторизация...</p>
       </div>
     </div>
   );
@@ -325,7 +325,7 @@ function DashboardError({ error }: { error: string }) {
     <div style={s.page}>
       <div style={s.centerBox}>
         <AlertCircle size={40} style={{ color: "#DC2626" }} />
-        <h2 style={s.errorTitle}>Access Denied</h2>
+        <h2 style={s.errorTitle}>Доступ запрещён</h2>
         <p style={s.errorText}>{error}</p>
       </div>
     </div>
@@ -368,7 +368,7 @@ function DashboardContent({
   selectedIds: Set<string>;
   setSelectMode: (m: boolean) => void;
   fetchOrders: () => void;
-  handleConfirm: (id: string) => void;
+  handleConfirm: (id: string, comment: string) => void;
   handleReject: (id: string) => void;
   handleMarkPaid: (id: string) => void;
   handleMarkDone: (id: string) => void;
@@ -409,7 +409,7 @@ function DashboardContent({
           )}
           <div>
             <h1 style={s.title}>{auth.restaurantName}</h1>
-            <p style={s.subtitle}>Orders Dashboard</p>
+            <p style={s.subtitle}>Панель заказов</p>
           </div>
         </div>
         <div style={s.headerRight}>
@@ -459,7 +459,7 @@ function DashboardContent({
       {/* Last refresh indicator */}
       <div style={s.refreshLine}>
         <span style={s.refreshTime}>
-          Updated: {lastRefresh.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
+          Обновлено: {lastRefresh.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" })}
         </span>
       </div>
 
@@ -468,18 +468,18 @@ function DashboardContent({
         <div style={s.batchBar}>
           <button style={s.batchBtn} onClick={selectAll}>
             <CheckSquare size={14} />
-            Select All
+            Выбрать все
           </button>
           {selectedIds.size > 0 && (
             <>
-              <span style={s.batchCount}>Selected: {selectedIds.size}</span>
+              <span style={s.batchCount}>Выбрано: {selectedIds.size}</span>
               <button style={s.batchClearBtn} onClick={clearSelection}>
                 <X size={14} />
-                Clear
+                Очистить
               </button>
               <button style={s.batchDeleteBtn} onClick={dismissSelected}>
                 <Trash2 size={14} />
-                Delete ({selectedIds.size})
+                Удалить ({selectedIds.size})
               </button>
             </>
           )}
@@ -493,8 +493,8 @@ function DashboardContent({
             <Clock size={40} style={{ color: C.muted }} />
             <p style={s.emptyText}>
               {statusFilter === "ALL"
-                ? "No orders yet"
-                : `No orders with status "${STATUS_TABS.find(t => t.key === statusFilter)?.label || statusFilter}"`}
+                ? "Заказов пока нет"
+                : `Нет заказов со статусом «${STATUS_TABS.find(t => t.key === statusFilter)?.label || statusFilter}»`}
             </p>
           </div>
         ) : (

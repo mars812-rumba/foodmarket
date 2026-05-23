@@ -33,13 +33,19 @@ export type OrderPayload = {
     name: string;
     phone: string;
     delivery_type: "delivery" | "pickup";
+    district?: string;
     address?: string;
     payment: "qr_prompt_pay" | "cash";
+    // Опциональные данные о зоне доставки
+    delivery_zone_id?: string;
+    delivery_zone_name?: string;
+    delivery_price?: number;
   };
   items: Array<{
     name: string;
     price: number;
     qnt: number;
+    modifiers?: Array<{ name: string; price: number }>;
   }>;
   total: number;
   created_at: string;
@@ -136,13 +142,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
         name: l.item.name,
         price: l.item.price + l.selectedIngredients.reduce((s, i) => s + i.price, 0),
         qnt: l.qty,
+        ...(l.selectedIngredients.length > 0
+          ? { modifiers: l.selectedIngredients.map((i) => ({ name: i.name, price: i.price })) }
+          : {}),
       }));
 
       // Include Telegram user_id so CRM can match the existing card
       // created at /start deep link entry (instead of creating a duplicate web_* card)
       const tgUserId = isTelegramEnvironment && tgUser ? String(tgUser.id) : "";
 
-      const payload = {
+      const payload: Record<string, unknown> = {
         user_id: tgUserId,
         customer_name: customer.name,
         contacts: customer.phone,
@@ -150,6 +159,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
         delivery_type: customer.delivery_type,
         payment_method: customer.payment,
       };
+
+      // Добавляем информацию о районе и адресе доставки
+      if (customer.district) {
+        payload.district = customer.district;
+      }
+      if (customer.address) {
+        payload.address = customer.address;
+      }
+
+      // Добавляем информацию о зоне доставки, если есть
+      if (customer.delivery_zone_id) {
+        payload.delivery_zone_id = customer.delivery_zone_id;
+        payload.delivery_zone_name = customer.delivery_zone_name;
+        payload.delivery_price = customer.delivery_price;
+      }
 
       // eslint-disable-next-line no-console
       console.log("[order:submit] payload →", payload);

@@ -1,4 +1,4 @@
-import { useState, useMemo, type CSSProperties } from "react";
+import { useState, useMemo, useCallback, type CSSProperties } from "react";
 import {
   Clock,
   CheckCircle2,
@@ -13,6 +13,10 @@ import {
   User,
   Phone,
   Check,
+  MapPin,
+  Navigation,
+  Copy,
+  MessageSquare,
 } from "lucide-react";
 import { useTheme, type ThemeColors } from "@/contexts/ThemeContext";
 
@@ -28,13 +32,18 @@ export type DashboardOrder = {
   user_id: string;
   customer_name: string;
   contacts: string;
-  items: Array<{ name: string; price: number; qnt: number }>;
+  items: Array<{ name: string; price: number; qnt: number; modifiers?: Array<{ name: string; price: number }> }>;
   total: number;
   delivery_type: "pickup" | "delivery";
+  district?: string;
+  address?: string;
+  delivery_zone_name?: string;
+  delivery_price?: number;
   payment_method: "qr_prompt_pay" | "cash";
   status: DashboardOrderStatus;
   payment_sent?: boolean;
   payment_sent_at?: string;
+  comment?: string;
   created_at: string;
   updated_at: string;
 };
@@ -45,7 +54,7 @@ type Props = {
   selectMode?: boolean;
   selected?: boolean;
   onToggleSelect?: (orderId: string) => void;
-  onConfirm?: (orderId: string) => void;
+  onConfirm?: (orderId: string, comment: string) => void;
   onReject?: (orderId: string) => void;
   onMarkPaid?: (orderId: string) => void;
   onMarkDone?: (orderId: string) => void;
@@ -149,8 +158,29 @@ export default function OrderCard({
   const C = useTheme();
   const s = useMemo(() => buildOrderCardStyles(C), [C]);
   const [expanded, setExpanded] = useState(false);
+  const [copiedAddress, setCopiedAddress] = useState(false);
+  const [commentText, setCommentText] = useState("");
   const cfg = STATUS_CFG[order.status] || STATUS_CFG.NEW;
   const isTerminal = order.status === "DONE" || order.status === "CANCELLED";
+
+  const copyToClipboard = useCallback((text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedAddress(true);
+      setTimeout(() => setCopiedAddress(false), 2000);
+    }).catch(() => {
+      // fallback for older browsers / non-HTTPS
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      setCopiedAddress(true);
+      setTimeout(() => setCopiedAddress(false), 2000);
+    });
+  }, []);
 
   // Checkbox state for each item
   const [checkedItems, setCheckedItems] = useState<Set<number>>(() => new Set());
@@ -285,6 +315,45 @@ export default function OrderCard({
             </div>
           </div>
 
+          {/* Delivery address info — for delivery orders */}
+          {order.delivery_type === "delivery" && (order.district || order.address || order.delivery_zone_name) && (
+            <div style={s.section}>
+              <div style={s.sectionLabel}>
+                <MapPin size={12} />
+                Delivery Address
+              </div>
+              {order.district && (
+                <div style={s.deliveryInfoRow}>
+                  <Navigation size={14} style={{ color: C.accent, flexShrink: 0 }} />
+                  <span style={s.deliveryInfoLabel}>District:</span>
+                  <span style={s.deliveryInfoValue}>{order.district}</span>
+                </div>
+              )}
+              {!order.district && order.delivery_zone_name && (
+                <div style={s.deliveryInfoRow}>
+                  <Navigation size={14} style={{ color: C.accent, flexShrink: 0 }} />
+                  <span style={s.deliveryInfoLabel}>Zone:</span>
+                  <span style={s.deliveryInfoValue}>{order.delivery_zone_name}{order.delivery_price ? ` (+${order.delivery_price} ฿)` : ""}</span>
+                </div>
+              )}
+              {order.address && (
+                <div
+                  style={s.addressRow}
+                  onClick={() => copyToClipboard(order.address!)}
+                  title="Click to copy address"
+                >
+                  <MapPin size={14} style={{ color: C.accent, flexShrink: 0 }} />
+                  <span style={s.addressText}>{order.address}</span>
+                  {copiedAddress ? (
+                    <Check size={14} style={{ color: C.green, flexShrink: 0 }} />
+                  ) : (
+                    <Copy size={14} style={{ color: C.muted, flexShrink: 0, cursor: "pointer" }} />
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Customer info — ABOVE items */}
           <div style={s.section}>
             <div style={s.sectionLabel}>
@@ -331,13 +400,24 @@ export default function OrderCard({
                       <Check size={14} style={{ color: C.white }} />
                     ) : null}
                   </div>
-                  <span style={{
-                    ...s.itemName,
-                    textDecoration: isChecked ? "line-through" : "none",
-                    color: isChecked ? C.muted : C.text,
-                  }}>
-                    {item.name}
-                  </span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <span style={{
+                      ...s.itemName,
+                      textDecoration: isChecked ? "line-through" : "none",
+                      color: isChecked ? C.muted : C.text,
+                    }}>
+                      {item.name}
+                    </span>
+                    {item.modifiers && item.modifiers.length > 0 && (
+                      <div style={s.modifiersList}>
+                        {item.modifiers.map((m, mi) => (
+                          <span key={mi} style={s.modifierTag}>
+                            +{m.name}{m.price > 0 ? ` ${m.price}฿` : ""}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <span style={{
                     ...s.itemQty,
                     color: isChecked ? C.muted : C.textSoft,
@@ -374,18 +454,46 @@ export default function OrderCard({
             <span style={s.totalValue}>{order.total.toLocaleString()} ฿</span>
           </div>
 
-          {/* Action buttons */}
+          {/* Comment field for NEW orders */}
+          {order.status === "NEW" && (
+            <div style={s.commentBox}>
+              <div style={s.commentLabel}>
+                <MessageSquare size={12} />
+                Комментарий клиенту
+              </div>
+              <textarea
+                style={s.commentInput}
+                placeholder="Например: Время доставки ~20 мин..."
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                rows={2}
+              />
+            </div>
+          )}
+
+          {/* Show existing comment from restaurant */}
+          {order.comment && order.status !== "NEW" && (
+            <div style={s.commentDisplay}>
+              <MessageSquare size={14} style={{ color: C.accent, flexShrink: 0 }} />
+              <div>
+                <div style={s.commentDisplayLabel}>Комментарий клиенту:</div>
+                <div style={s.commentDisplayText}>{order.comment}</div>
+              </div>
+            </div>
+          )}
+
+          {/* Action buttons — main row */}
           {!isTerminal && (
             <div style={s.actions}>
               {order.status === "NEW" && (
                 <>
                   <button
                     style={s.btnConfirm}
-                    onClick={() => onConfirm?.(order.order_id)}
+                    onClick={() => onConfirm?.(order.order_id, commentText)}
                     disabled={loading}
                   >
                     <CheckCircle2 size={16} />
-                    Confirm
+                    Подтвердить
                   </button>
                   <button
                     style={s.btnReject}
@@ -393,7 +501,7 @@ export default function OrderCard({
                     disabled={loading}
                   >
                     <XCircle size={16} />
-                    Reject
+                    Отклонить
                   </button>
                 </>
               )}
@@ -427,6 +535,22 @@ export default function OrderCard({
                   Order Complete
                 </button>
               )}
+            </div>
+          )}
+
+          {/* Message customer — separate row, always visible for active orders */}
+          {!isTerminal && (
+            <div style={s.messageRow}>
+              <a
+                style={s.btnMessage}
+                href={order.user_id ? `tg://user?id=${order.user_id}` : "https://t.me/mars_rent"}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={order.user_id ? `Открыть чат с клиентом (ID: ${order.user_id})` : "Открыть чат бота"}
+              >
+                <MessageSquare size={16} />
+                Написать клиенту
+              </a>
             </div>
           )}
 
@@ -646,6 +770,22 @@ function buildOrderCardStyles(C: ThemeColors): Record<string, CSSProperties> {
       textAlign: "right" as const,
       transition: "color 0.15s",
     },
+    modifiersList: {
+      display: "flex",
+      flexWrap: "wrap" as const,
+      gap: 4,
+      marginTop: 2,
+    },
+    modifierTag: {
+      display: "inline-block",
+      fontSize: 10,
+      fontWeight: 700,
+      color: C.accent,
+      backgroundColor: C.accentSoft,
+      padding: "1px 6px",
+      borderRadius: 4,
+      lineHeight: "16px",
+    },
     infoGrid: {
       display: "flex",
       gap: 8,
@@ -688,6 +828,46 @@ function buildOrderCardStyles(C: ThemeColors): Record<string, CSSProperties> {
       fontSize: 11,
       color: C.muted,
       padding: "2px 8px",
+    },
+
+    /* Delivery address info */
+    deliveryInfoRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      padding: "6px 8px",
+      borderRadius: 8,
+      background: C.soft,
+    },
+    deliveryInfoLabel: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: C.muted,
+      textTransform: "uppercase" as const,
+      letterSpacing: 0.5,
+    },
+    deliveryInfoValue: {
+      fontSize: 13,
+      fontWeight: 700,
+      color: C.text,
+    },
+    addressRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      padding: "8px 10px",
+      borderRadius: 10,
+      background: C.accentSoft || "#FFF3CD",
+      border: `1px dashed ${C.accent || "#F59E0B"}`,
+      cursor: "pointer",
+      transition: "background-color 0.15s",
+    },
+    addressText: {
+      flex: 1,
+      fontSize: 13,
+      fontWeight: 700,
+      color: C.accentDeep || C.text,
+      wordBreak: "break-word" as const,
     },
 
     /* Payment sent box */
@@ -820,6 +1000,88 @@ function buildOrderCardStyles(C: ThemeColors): Record<string, CSSProperties> {
       fontSize: 13,
       cursor: "pointer",
       fontFamily: "inherit",
+    },
+
+    /* Comment input for NEW orders */
+    commentBox: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 4,
+    },
+    commentLabel: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      fontSize: 10,
+      fontWeight: 900,
+      letterSpacing: 1.2,
+      textTransform: "uppercase" as const,
+      color: C.muted,
+    },
+    commentInput: {
+      width: "100%",
+      padding: "8px 12px",
+      borderRadius: 10,
+      border: `1px solid ${C.borderLight}`,
+      background: C.soft,
+      color: C.text,
+      fontSize: 13,
+      fontFamily: "inherit",
+      resize: "vertical" as const,
+      minHeight: 36,
+      outline: "none",
+    },
+
+    /* Comment display (existing comment) */
+    commentDisplay: {
+      display: "flex",
+      alignItems: "flex-start",
+      gap: 8,
+      padding: "10px 12px",
+      borderRadius: 10,
+      background: C.accentSoft,
+      border: `1px solid ${C.borderLight}`,
+    },
+    commentDisplayLabel: {
+      fontSize: 10,
+      fontWeight: 800,
+      color: C.accent,
+      textTransform: "uppercase" as const,
+      letterSpacing: 0.5,
+      marginBottom: 2,
+    },
+    commentDisplayText: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: C.text,
+      lineHeight: 1.4,
+    },
+
+    /* Message customer row */
+    messageRow: {
+      display: "flex",
+      gap: 8,
+      marginTop: 4,
+    },
+
+    /* Message customer button */
+    btnMessage: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      flex: 1,
+      background: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)",
+      color: C.white,
+      border: "none",
+      padding: "10px 16px",
+      borderRadius: 12,
+      fontWeight: 700,
+      fontSize: 13,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      textDecoration: "none",
+      boxShadow: "0 2px 8px rgba(124,58,237,0.25)",
     },
   };
 }

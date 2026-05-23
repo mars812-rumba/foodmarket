@@ -25,10 +25,15 @@ logger = logging.getLogger(__name__)
 
 # ── Pydantic models ────────────────────────────────────────────────────
 
+class OrderItemModifier(BaseModel):
+    name: str
+    price: float = 0
+
 class OrderItem(BaseModel):
     name: str
     price: float
     qnt: int
+    modifiers: List[OrderItemModifier] = []
 
 class CreateOrderRequest(BaseModel):
     user_id: str = ""
@@ -37,9 +42,17 @@ class CreateOrderRequest(BaseModel):
     items: List[OrderItem]
     delivery_type: str = "pickup"      # "pickup" | "delivery"
     payment_method: str = "qr_prompt_pay"  # "qr_prompt_pay" | "cash"
+    # Район и адрес доставки
+    district: Optional[str] = None
+    address: Optional[str] = None
+    # Опциональные данные о зоне доставки
+    delivery_zone_id: Optional[str] = None
+    delivery_zone_name: Optional[str] = None
+    delivery_price: Optional[float] = None
 
 class UpdateStatusRequest(BaseModel):
     status: str
+    comment: str = ""  # Optional manager comment to customer
 
 class PaymentSentRequest(BaseModel):
     payment_sent: bool = True
@@ -75,6 +88,10 @@ async def notify_order_via_bot_api(order: Dict[str, Any]) -> None:
             "customer_name": order.get("customer_name", ""),
             "contacts": order.get("contacts", ""),
             "user_id": order.get("user_id", ""),
+            "district": order.get("district", ""),
+            "address": order.get("address", ""),
+            "delivery_zone_name": order.get("delivery_zone_name", ""),
+            "delivery_price": order.get("delivery_price", 0),
         }
 
         async with httpx.AsyncClient(timeout=10.0) as client:
@@ -101,6 +118,10 @@ async def notify_order_via_bot_api(order: Dict[str, Any]) -> None:
                 "customer_name": order.get("customer_name", ""),
                 "contacts": order.get("contacts", ""),
                 "user_id": order.get("user_id", ""),
+                "district": order.get("district", ""),
+                "address": order.get("address", ""),
+                "delivery_zone_name": order.get("delivery_zone_name", ""),
+                "delivery_price": order.get("delivery_price", 0),
             }
             resp = requests.post(
                 f"{BOT_API_BASE}/botapi/notify_order",
@@ -116,6 +137,65 @@ async def notify_order_via_bot_api(order: Dict[str, Any]) -> None:
 
     except Exception as e:
         logger.warning(f"⚠️ Failed to send Telegram notification: {e}")
+
+
+async def notify_customer_order_status(order: Dict[str, Any]) -> None:
+    """
+    Send order status notification to the customer via the bot API.
+    The bot will send a Telegram message to the customer with the new status
+    and optional manager comment.
+    Failures are logged, not raised.
+    """
+    try:
+        import httpx
+
+        payload = {
+            "order_id": order.get("order_id", ""),
+            "restaurant_id": order.get("restaurant_id", ""),
+            "user_id": order.get("user_id", ""),
+            "status": order.get("status", ""),
+            "comment": order.get("comment", ""),
+            "total": order.get("total", 0),
+            "items": order.get("items", []),
+        }
+
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.post(
+                f"{BOT_API_BASE}/botapi/notify_order_status",
+                json=payload,
+            )
+            if resp.status_code == 200:
+                logger.info(f"✅ Customer status notification sent: {order.get('order_id')} → {order.get('status')}")
+            else:
+                logger.warning(f"⚠️ Customer status notification failed ({resp.status_code}): {resp.text}")
+
+    except ImportError:
+        # Fallback to requests
+        try:
+            import requests
+            payload = {
+                "order_id": order.get("order_id", ""),
+                "restaurant_id": order.get("restaurant_id", ""),
+                "user_id": order.get("user_id", ""),
+                "status": order.get("status", ""),
+                "comment": order.get("comment", ""),
+                "total": order.get("total", 0),
+                "items": order.get("items", []),
+            }
+            resp = requests.post(
+                f"{BOT_API_BASE}/botapi/notify_order_status",
+                json=payload,
+                timeout=10,
+            )
+            if resp.status_code == 200:
+                logger.info(f"✅ Customer status notification sent (requests): {order.get('order_id')}")
+            else:
+                logger.warning(f"⚠️ Customer status notification failed ({resp.status_code})")
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to send customer status notification: {e}")
+
+    except Exception as e:
+        logger.warning(f"⚠️ Failed to send customer status notification: {e}")
 
 
 # ── Router factory ─────────────────────────────────────────────────────
@@ -148,6 +228,11 @@ def create_order_router(data_path: str = "./data/ar") -> APIRouter:
                 items=items_dicts,
                 delivery_type=body.delivery_type,
                 payment_method=body.payment_method,
+                district=body.district,
+                address=body.address,
+                delivery_price=body.delivery_price or 0,
+                delivery_zone_id=body.delivery_zone_id,
+                delivery_zone_name=body.delivery_zone_name,
                 data_path=data_path,
             )
 
@@ -167,12 +252,14 @@ def create_order_router(data_path: str = "./data/ar") -> APIRouter:
 
     @router.post("/{restaurant_id}/orders/{order_id}/status")
     async def api_update_status(restaurant_id: str, order_id: str, body: UpdateStatusRequest):
-        """Update order status (NEW -> PAID -> DONE | CANCELLED) and sync to CRM."""
+        """Update order status (NEW -> CONFIRMED -> PAID -> DONE | CANCELLED) and sync to CRM.
+        Optionally includes a comment from the manager to the customer."""
         try:
             order = update_status(
                 restaurant_id=restaurant_id,
                 order_id=order_id,
                 new_status=body.status,
+                comment=body.comment,
                 data_path=data_path,
             )
 
@@ -182,6 +269,10 @@ def create_order_router(data_path: str = "./data/ar") -> APIRouter:
                 logger.info(f"✅ Order status update synced to CRM: {order_id} → {body.status}")
             except Exception as crm_err:
                 logger.warning(f"⚠️ CRM sync failed for order {order_id}: {crm_err}")
+
+            # Notify customer via bot about status change
+            if order.get("user_id"):
+                asyncio.create_task(notify_customer_order_status(order))
 
             return {"status": "ok", "order": order}
         except ValueError as e:
@@ -251,11 +342,11 @@ def create_order_router(data_path: str = "./data/ar") -> APIRouter:
     @router.get("/dashboard/auth")
     async def api_dashboard_auth(token: str = ""):
         """
-        Authenticate restaurant dashboard by dashboard_token.
+        Authenticate restaurant dashboard by token.
         Returns restaurant_id and restaurant config if token is valid.
         """
         if not token:
-            raise HTTPException(status_code=400, detail="Token is required")
+            raise HTTPException(status_code=400, detail="token is required")
 
         restaurants_dir = Path(data_path) / "restaurants"
         if not restaurants_dir.exists():
@@ -280,7 +371,7 @@ def create_order_router(data_path: str = "./data/ar") -> APIRouter:
             except Exception:
                 continue
 
-        raise HTTPException(status_code=401, detail="Invalid dashboard token")
+        raise HTTPException(status_code=401, detail="Invalid token")
 
     # ── Dashboard: all orders for a restaurant (with config) ───────────
 
